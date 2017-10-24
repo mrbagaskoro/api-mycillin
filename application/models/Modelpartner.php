@@ -114,7 +114,7 @@ class ModelPartner extends CI_Model{
     $update['gender'] = strtoupper($data['gender']);
     $update['address'] = strtoupper($data['address']);
     $update['dob'] = date("Y-m-d", strtotime($data['dob']));
-    $update['no_SIPP'] = $data['no_SIPP'];
+    $update['no_SIP'] = $data['no_SIP'];
     $update['partner_type_id'] = $data['partner_type_id'];
     $update['spesialisasi_id'] = $data['spesialisasi_id'];
     $update['wilayah_kerja'] = $data['wilayah_kerja'];
