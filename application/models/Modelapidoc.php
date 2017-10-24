@@ -10,8 +10,8 @@ class Modelapidoc extends CI_Model{
 
   public function is_valid_user($email) {
     $this->db->select('*');
-    $this->db->from('mst_medical_host');
-    $this->db->where('user_email_address',$email);
+    $this->db->from('partner_account');
+    $this->db->where('email',$email);
     $query = $this->db->get();
     return $query->row();
   }
