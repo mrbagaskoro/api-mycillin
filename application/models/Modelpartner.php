@@ -92,15 +92,72 @@ class ModelPartner extends CI_Model{
   public function toggle_status_account($data) {
     $where['user_id'] = $data['user_id'];
 
-    $update['available_id'] = $data['available_id'];
-    $update['reservasi_id'] = $data['reservasi_id'];
-    $update['visit_id'] = $data['visit_id'];
-    $update['consul_id'] = $data['consul_id'];
 
-    $update['updated_by'] = $data['user_id'];
-
+    $update[$data['status']] = $data['value'];
     $query = $this->db->update('partner_account', $update, $where);
+
     return $query?TRUE:FALSE;
+
+    // if (!empty($data['available_id'])) {
+    //   $update['available_id'] = $data['value'];
+    //   $query = $this->db->update('partner_account', $update, $where);
+    //   return $query?TRUE:FALSE;
+    // }elseif (!empty($data['reservasi_id'])) {
+    //   $update['reservasi_id'] = $data['value'];
+    //   $query = $this->db->update('partner_account', $update, $where);
+    //   return $query?TRUE:FALSE;
+    // }elseif (!empty($data['visit_id'])) {
+    //   $update['visit_id'] = $data['value'];
+    //   $query = $this->db->update('partner_account', $update, $where);
+    //   return $query?TRUE:FALSE;
+    // }elseif (!empty($data['consul_id'])) {
+    //   $update['consul_id'] = $data['value'];
+    //   $query = $this->db->update('partner_account', $update, $where);
+    //   return $query?TRUE:FALSE;
+    // }elseif (!empty($data['BPJS_RCV_status'])) {
+    //   $update['BPJS_RCV_status'] = $data['value'];
+    //   $query = $this->db->update('partner_account', $update, $where);
+    //   return $query?TRUE:FALSE;
+    // }
+    // else {
+    //   return FALSE;
+    // }
+
+    // switch ($data) {
+    //   case $data['reservasi_id']:
+    //   $update['reservasi_id'] = $data['value'];
+    //   $query = $this->db->update('partner_account', $update, $where);
+    //     break;
+    //
+    //     case $data['visit_id']:
+    //     $update['visit_id'] = $data['value'];
+    //     $query = $this->db->update('partner_account', $update, $where);
+    //       break;
+    //
+    //       case $data['consul_id']:
+    //       $update['consul_id'] = $data['value'];
+    //       $query = $this->db->update('partner_account', $update, $where);
+    //         break;
+    //
+    //         case $data['available_id']:
+    //         $update['available_id'] = $data['value'];
+    //         $query = $this->db->update('partner_account', $update, $where);
+    //           break;
+    //
+    //   default:
+    //     # code...
+    //     break;
+    // }
+    //
+    // $update['available_id'] = $data['value'];
+    // // $update['reservasi_id'] = $data['reservasi_id'];
+    // // $update['visit_id'] = $data['visit_id'];
+    // // $update['consul_id'] = $data['consul_id'];
+    // //
+    // // $update['updated_by'] = $data['user_id'];
+    //
+    // $query = $this->db->update('partner_account', $update, $where);
+    // return $query?TRUE:FALSE;
   }
 
   public function detail_user($user_id,$relation_id) {
@@ -115,6 +172,9 @@ class ModelPartner extends CI_Model{
     $update['address'] = strtoupper($data['address']);
     $update['dob'] = date("Y-m-d", strtotime($data['dob']));
     $update['no_SIP'] = $data['no_SIP'];
+    $update['SIP_berakhir'] = date("Y-m-d", strtotime($data['SIP_berakhir']));
+    $update['no_STR'] = $data['no_STR'];
+    $update['STR_berakhir'] = date("Y-m-d", strtotime($data['STR_berakhir']));
     $update['partner_type_id'] = $data['partner_type_id'];
     $update['spesialisasi_id'] = $data['spesialisasi_id'];
     $update['wilayah_kerja'] = $data['wilayah_kerja'];
