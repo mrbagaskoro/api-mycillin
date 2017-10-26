@@ -30,6 +30,30 @@ class UserPartner extends Controlapidoc{
     $this->ok($data);
   }
 
+  public function change_password_partner_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $old_pass = $data['old_password'];
+    $new_pass = $data['new_password'];
+    if ($new_pass == $old_pass) {
+      $this->bad_req('New password can not same');
+    } else {
+      $user_full = $this->ma->is_valid_user_id($data['user_id']);
+      if ($old_pass == $this->encrypt->decode($user_full->password)) {
+        $update_pass = $this->encrypt->encode($new_pass);
+        $change = $this->ma->change_password($data['user_id'], $update_pass);
+        if ($change) {
+          $this->success('Password changed successfully');
+        } else {
+          $this->bad_req('Change password failed');
+        }
+      } else{
+        $this->bad_req('Current password does not match');
+      }
+    }
+  }
+
   public function toggle_status_partner_post(){
     $this->validate_jwt();
     $data = json_decode(file_get_contents('php://input'), true);

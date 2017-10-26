@@ -98,66 +98,16 @@ class ModelPartner extends CI_Model{
 
     return $query?TRUE:FALSE;
 
-    // if (!empty($data['available_id'])) {
-    //   $update['available_id'] = $data['value'];
-    //   $query = $this->db->update('partner_account', $update, $where);
-    //   return $query?TRUE:FALSE;
-    // }elseif (!empty($data['reservasi_id'])) {
-    //   $update['reservasi_id'] = $data['value'];
-    //   $query = $this->db->update('partner_account', $update, $where);
-    //   return $query?TRUE:FALSE;
-    // }elseif (!empty($data['visit_id'])) {
-    //   $update['visit_id'] = $data['value'];
-    //   $query = $this->db->update('partner_account', $update, $where);
-    //   return $query?TRUE:FALSE;
-    // }elseif (!empty($data['consul_id'])) {
-    //   $update['consul_id'] = $data['value'];
-    //   $query = $this->db->update('partner_account', $update, $where);
-    //   return $query?TRUE:FALSE;
-    // }elseif (!empty($data['BPJS_RCV_status'])) {
-    //   $update['BPJS_RCV_status'] = $data['value'];
-    //   $query = $this->db->update('partner_account', $update, $where);
-    //   return $query?TRUE:FALSE;
-    // }
-    // else {
-    //   return FALSE;
-    // }
+  }
 
-    // switch ($data) {
-    //   case $data['reservasi_id']:
-    //   $update['reservasi_id'] = $data['value'];
-    //   $query = $this->db->update('partner_account', $update, $where);
-    //     break;
-    //
-    //     case $data['visit_id']:
-    //     $update['visit_id'] = $data['value'];
-    //     $query = $this->db->update('partner_account', $update, $where);
-    //       break;
-    //
-    //       case $data['consul_id']:
-    //       $update['consul_id'] = $data['value'];
-    //       $query = $this->db->update('partner_account', $update, $where);
-    //         break;
-    //
-    //         case $data['available_id']:
-    //         $update['available_id'] = $data['value'];
-    //         $query = $this->db->update('partner_account', $update, $where);
-    //           break;
-    //
-    //   default:
-    //     # code...
-    //     break;
-    // }
-    //
-    // $update['available_id'] = $data['value'];
-    // // $update['reservasi_id'] = $data['reservasi_id'];
-    // // $update['visit_id'] = $data['visit_id'];
-    // // $update['consul_id'] = $data['consul_id'];
-    // //
-    // // $update['updated_by'] = $data['user_id'];
-    //
-    // $query = $this->db->update('partner_account', $update, $where);
-    // return $query?TRUE:FALSE;
+  public function change_password($uid, $password) {
+    $where['user_id'] = $uid;
+
+    $update['password'] = $password;
+    $update['updated_by'] = $uid;
+
+    $query = $this->db->update('partner_account', $update, $where);
+    return $query?TRUE:FALSE;
   }
 
   public function detail_user($user_id,$relation_id) {
