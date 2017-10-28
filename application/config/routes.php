@@ -70,7 +70,7 @@ $route['api/delete_family']['POST']          = 'userpatient/delete_member';
 
 $route['web/registration/(:any)']['GET']          = 'userpatient/register/rfid/$1';
 
-$route['api/register_fb']['POST']                     = 'controlapi/register_fb';
+$route['api/login_fb']['POST']                     = 'controlapi/register_fb';
 $route['api/login']['POST']                     = 'controlapi/generate_jwt';
 
 /*---------------------- List Parameter ------------------*/
