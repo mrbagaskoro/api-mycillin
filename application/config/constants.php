@@ -85,9 +85,9 @@ defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automat
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 define('FULL_UPLOAD_PATH', "http://$_SERVER[HTTP_HOST]/services/uploads/");
-define('FULL_UPLOAD_PATH_PROFILE', "http://$_SERVER[HTTP_HOST]/services/uploads/profile/");
+define('FULL_UPLOAD_PATH_PROFILE', "http://$_SERVER[HTTP_HOST]/services/uploads/avatar/");
 
-define('UPLOAD_PATH', "../uploads/");
-define('UPLOAD_PATH_PROFILE', "../uploads/profile/");
+define('UPLOAD_PATH', "uploads/");
+define('UPLOAD_PATH_PROFILE', "uploads/avatar/");
 
 define('EMAIL_ADDR', 'lucy@mycillin.com');
