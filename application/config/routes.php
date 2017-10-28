@@ -54,10 +54,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 /*--------------------------- my route -----------------------------*/
-
-$route['api/tes']['GET']                        = 'guesshost/test';
-$route['api/tes_email']['GET']                  = 'guesshost/test_mail';
-
 $route['api/register']['POST']                  = 'userpatient/register_user';
 $route['api/activation']['GET']                 = 'userpatient/confirm_account';
 
@@ -66,7 +62,7 @@ $route['api/login']['POST']                     = 'controlapi/generate_jwt';
 $route['api/forgot_password']['POST']           = 'userpatient/forgot_password';
 $route['api/change_password']['POST']           = 'userpatient/change_password';
 $route['api/complete_account']['POST']          = 'userpatient/complete_account';
-$route['api/change_profile_photo']['POST']          = 'userpatient/change_photo';
+$route['api/change_avatar']['POST']          = 'userpatient/change_avatar';
 
 $route['api/add_family']['POST']          = 'userpatient/add_member';
 $route['api/update_family']['POST']          = 'userpatient/update_member';

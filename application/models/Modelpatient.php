@@ -76,7 +76,7 @@ class ModelPatient extends CI_Model{
     return FALSE;
   }
 
-  public function change_user_state($user_id) {
+  public function confirm_account($user_id) {
     $query = $this->db->query("update user_account set status_id='01', updated_by='$user_id' where user_id='$user_id'");
     return $query?TRUE:FALSE;
   }
@@ -156,12 +156,42 @@ class ModelPatient extends CI_Model{
     return $query->result();
   }
 
-  public function update_location($data) {
-    $where['email'] = $data['email'];
+  public function delete_member($data) {
+    $where['relation_id'] = $data['relation_id'];
+    $user_id = $data['user_id'];
 
-    $update['user_location'] = $data['location'];
-    $query = $this->db->update('mst_guess_host', $update, $where);
+    $query = $this->db->delete('account_relation', $where);
+    if ($query) {
+      $query = $this->db->query("select * from account_relation where user_id='$user_id'");
+      return $query->result();
+    }
+    return FALSE;
+  }
+
+  public function change_password($uid, $password) {
+    $where['user_id'] = $uid;
+
+    $update['password'] = $password;
+    $update['updated_by'] = $uid;
+
+    $query = $this->db->update('user_account', $update, $where);
     return $query?TRUE:FALSE;
+  }
+
+  public function change_avatar($data) {
+    $uid = $data['uid'];
+    $where['user_id'] = $data['uid'];
+
+    $update['profile_photo'] = $data['file_name'];
+
+    $update['updated_by'] = $data['uid'];
+
+    $query = $this->db->update('user_account', $update, $where);
+    if ($query) {
+      $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) image_profile from user_account where user_id='$uid'");
+      return $query->result();
+    }
+    return FALSE;
   }
 
 }

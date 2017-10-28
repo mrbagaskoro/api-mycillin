@@ -23,30 +23,38 @@ class UserPatient extends Controlapi{
     echo $ini;
   }
 
-  public function test_mail_get(){
-    $email = $this->input->get('email', TRUE);
-    
-    $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
-    $this->email->to($email);
-    $this->email->subject('[noreply] MyCillin Account Activated');
-    $this->email->set_mailtype("html");
-
-    $this->email->message('');
-    
-    $this->email->send();
-  }
-
-  public function update_loc_post(){
+  public function change_avatar_post(){
     $this->validate_jwt();
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    $user_data = $this->ma->is_valid_user($data['email']);
+    $data = file_get_contents('php://input');
+    $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
   
     if ($user_data) {
-      if ($this->ma->update_location($data)){
-        $this->success('Location successfully updated');
+      $config['upload_path'] = UPLOAD_PATH_PROFILE;
+      $config['allowed_types'] = 'jpeg|jpg|png';
+      $config['max_size'] = 4096;
+      $config['overwrite'] = true;
+
+      $this->load->library('upload', $config);
+      if (!empty($_FILES['profile_img']['name'])) {
+        $config['file_name'] = 'img_'.$this->post('user_id');
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload('profile_img')) {
+          $err = array("result" => $this->upload->display_errors());
+          $this->bad_req($err);
+        }
+
+        $up = $this->upload->data();
+        $upd['uid'] = $this->post('user_id');
+        $upd['file_name'] = $up['file_name'];
+
+        $update = $this->ma->change_avatar($upd);
+        if ($update) {
+          $this->success($update);
+        } else {
+          $this->bad_req('Changet photo failed');
+        }
       } else {
-        $this->bad_req('An error was occured');
+        $this->bad_req('File can not empty');
       }
     } else {
       $this->bad_req('Account does not exist');
@@ -67,6 +75,30 @@ class UserPatient extends Controlapi{
       }
     } else {
       $this->bad_req('Account does not exist');
+    }
+  }
+
+  public function change_password_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $old_pass = $data['old_password'];
+    $new_pass = $data['new_password'];
+    if ($new_pass == $old_pass) {
+      $this->bad_req('New password can not same');
+    } else {
+      $user_full = $this->ma->is_valid_user_id($data['user_id']);
+      if ($old_pass == $this->encrypt->decode($user_full->password)) {
+        $update_pass = $this->encrypt->encode($new_pass);
+        $change = $this->ma->change_password($data['user_id'], $update_pass);
+        if ($change) {
+          $this->success('Password changed successfully');
+        } else {
+          $this->bad_req('Change password failed');
+        }
+      } else{
+        $this->bad_req('Current password does not match');
+      }
     }
   }
 
@@ -111,6 +143,17 @@ class UserPatient extends Controlapi{
     $this->ok($data);
   }
 
+  public function delete_member_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $delete = $this->ma->delete_member($data);
+    if ($delete) {
+      $this->ok($delete);
+    } else {
+      $this->bad_req('An error was occured');
+    }
+  }
+
   public function confirm_account_get(){
     $user_id = $this->input->get('myid', TRUE);
     $token = $this->input->get('activation_code', TRUE);
@@ -119,7 +162,7 @@ class UserPatient extends Controlapi{
 
     if ($user_data->status_id == '03') {
       if ($this->ma->is_valid_token($user_data->user_id,$token) != NULL) {
-        if ($this->ma->change_user_state($user_data->user_id)) {
+        if ($this->ma->confirm_account($user_data->user_id)) {
           $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
           $this->email->to($user_data->email);
           $this->email->subject('[noreply] MyCillin Account Activated');
