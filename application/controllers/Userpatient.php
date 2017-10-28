@@ -51,10 +51,28 @@ class UserPatient extends Controlapi{
         if ($update) {
           $this->success($update);
         } else {
-          $this->bad_req('Changet photo failed');
+          $this->bad_req('Changet photo fail, please try again');
         }
       } else {
         $this->bad_req('File can not empty');
+      }
+    } else {
+      $this->bad_req('Account does not exist');
+    }
+  }
+
+  public function get_avatar_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+    if ($user_data) {
+      $q = $this->ma->get_avatar($data['user_id']);
+      if ($q) {
+        $this->success($q);
+      } else {
+        $this->bad_req('Changet photo fail, please try again');
       }
     } else {
       $this->bad_req('Account does not exist');
@@ -94,7 +112,7 @@ class UserPatient extends Controlapi{
         if ($change) {
           $this->success('Password changed successfully');
         } else {
-          $this->bad_req('Change password failed');
+          $this->bad_req('Change password fail, please try again');
         }
       } else{
         $this->bad_req('Current password does not match');
@@ -248,7 +266,7 @@ class UserPatient extends Controlapi{
           
           $this->success('activation success');
         } else {
-          $this->not_auth('activation failed');
+          $this->not_auth('activation fail, please try again');
         }
       } else {
         $this->not_auth('activation expired');
@@ -506,7 +524,7 @@ class UserPatient extends Controlapi{
 			  $this->email->send();
 			  $this->success('Reset password success, please check your email');
 			} else {
-				$this->bad_req('Reset password failed');
+				$this->bad_req('Reset password fail, please try again');
 			}
 		} else if ($user_data->user_status == '02') {
 		  $this->not_auth('user inactive');

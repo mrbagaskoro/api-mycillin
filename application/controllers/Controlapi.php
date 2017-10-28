@@ -184,7 +184,6 @@ class Controlapi extends REST_Controller{
                             ];
       $this->response($output,REST_Controller::HTTP_UNAUTHORIZED);
     }
-
   }
 
 //method untuk mengecek token setiap melakukan post, put, etc
@@ -220,7 +219,6 @@ class Controlapi extends REST_Controller{
 
       $this->failed_token('invalid token');
     }
-
   }
 
   //method untuk jika view token diatas fail
@@ -237,4 +235,168 @@ class Controlapi extends REST_Controller{
     exit();
   }
 
+  public function register_fb_post(){
+    $this->load->model('modelpatient','mod');
+
+    $date = new DateTime();
+
+    $now = new DateTime();
+    $now->add(new DateInterval('PT60S'));
+    $date_time = $now->format('Y-m-d H:i:s');
+
+    $data['user_id'] = $this->post('fb_id');
+    //$data['profile_photo'] = $this->post('avatar_img');
+    $data['full_name'] = $this->post('fb_name');
+    $data['email'] = $this->post('fb_email');
+    $data['password'] = $this->encrypt->encode('Mycillin_2017');
+    $data['created_by'] = $this->post('fb_id');
+    $data['created_date'] = date("Y-m-d H:i:s");
+    $data['status_id'] = '01';
+
+    $user_data = $this->mod->is_valid_user_id($data['user_id']);
+
+    $payload = [
+                'iat'  => $date->getTimestamp(),         // Issued at: time when the token was generated
+                'jti'  => $data['email'],                 // Json Token Id: an unique identifier for the token
+                'iss'  => $_SERVER['HTTP_HOST'],       // Issuer
+                'aud'  => $this->input->ip_address(),       // Audience
+                'sub'  => 'generate_token',       // Subject
+                'nbf'  => $date->getTimestamp() + 5,        // Not before
+                'exp'  => $date->getTimestamp() + 2592000,           // Expire
+                'data' => [                  // Data related to the signer user
+                        'email'   => $data['email'], // userid from the users table
+                        'full_name' => $data['full_name'], // User name
+                        'user_id' => $data['user_id']
+                    ]
+                ];
+
+    /*$config['upload_path'] = UPLOAD_PATH_PROFILE;
+    $config['allowed_types'] = 'jpeg|jpg|png';
+    $config['max_size'] = 4096;
+    $config['overwrite'] = true;
+
+    $this->load->library('upload', $config);
+    if (!empty($_FILES['fb_img']['name'])) {
+      $config['file_name'] = 'img_'.$this->post('user_id');
+      $this->upload->initialize($config);
+      if (!$this->upload->do_upload('fb_img')) {
+        $err = array("result" => $this->upload->display_errors());
+        $this->bad_req($err);
+      }
+
+      $up = $this->upload->data();
+      $upd['uid'] = $this->post('user_id');
+      $upd['file_name'] = $up['file_name'];
+
+      $update = $this->ma->change_avatar($upd);
+      if ($update) {
+        $this->success($update);
+      } else {
+        $this->bad_req('Changet photo fail, please try again');
+      }
+    } else {
+      $this->bad_req('File can not empty');
+    }*/
+
+    if ($user_data != NULL) {
+      if ($user_data->status_id == '01') {
+        $output = ['result' => [
+                                'status' => TRUE,
+                                'message' =>'login success',
+                                'data' => [
+                                          'email'   => $data['email'], // userid from the users table
+                                          'full_name' => $data['full_name'], // User name
+                                          'user_id' => $data['user_id']
+                                ],
+                                'token' => 'Bearer '.JWT::encode($payload,$this->secret_key)
+                              ]
+                            ];
+
+        $this->response($output,REST_Controller::HTTP_OK);
+
+      } else if ($user_data->status_id == '02') {
+        $output = ['result' => [
+                                'status' => FALSE,
+                                'message' =>'user inactive',
+                                'data' => [
+                                          'email' => '',
+                                          'full_name' => '', // User name
+                                          'user_id' => ''
+                                ],
+                                'token' => ''
+                              ]
+                            ];
+        $this->response($output,REST_Controller::HTTP_UNAUTHORIZED);
+      } else if ($user_data->status_id == '03') {
+        $output = ['result' => [
+                                'status' => FALSE,
+                                'message' =>'user incomplete',
+                                'data' => [
+                                          'email' => '',
+                                          'full_name' => '', // User name
+                                          'user_id' => ''
+                                ],
+                                'token' => ''
+                              ]
+                            ];
+        $this->response($output,REST_Controller::HTTP_UNAUTHORIZED);
+      } else if ($user_data->status_id == '00') {
+        $output = ['result' => [
+                                'status' => FALSE,
+                                'message' =>'user deleted',
+                                'data' => [
+                                          'email' => '',
+                                          'full_name' => '', // User name
+                                          'user_id' => ''
+                                ],
+                                'token' => ''
+                              ]
+                            ];
+        $this->response($output,REST_Controller::HTTP_UNAUTHORIZED);
+      } else {
+        $output = ['result' => [
+                                'status' => FALSE,
+                                'message' =>'invalid login',
+                                'data' => [
+                                          'email' => '',
+                                          'full_name' => '', // User name
+                                          'user_id' => ''
+                                ],
+                                'token' => ''
+                              ]
+                            ];
+        $this->response($output,REST_Controller::HTTP_UNAUTHORIZED);
+      }
+    } else {
+      $user_data = $this->mod->register_fb($data);
+      if ($user_data) {
+        $output = ['result' => [
+                                'status' => TRUE,
+                                'message' =>'login success',
+                                'data' => [
+                                          'email'   => $data['email'], // userid from the users table
+                                          'full_name' => $data['full_name'], // User name
+                                          'user_id' => $data['user_id']
+                                ],
+                                'token' => 'Bearer '.JWT::encode($payload,$this->secret_key)
+                              ]
+                            ];
+
+        $this->response($output,REST_Controller::HTTP_OK);
+      } else {
+        $output = ['result' => [
+                                'status' => FALSE,
+                                'message' =>'login fail, please try again',
+                                'data' => [
+                                          'email' => '',
+                                          'full_name' => '', // User name
+                                          'user_id' => ''
+                                ],
+                                'token' => ''
+                              ]
+                            ];
+        $this->response($output,REST_Controller::HTTP_UNAUTHORIZED);
+      }
+    }
+  }
 }

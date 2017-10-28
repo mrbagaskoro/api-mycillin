@@ -81,6 +81,26 @@ class ModelPatient extends CI_Model{
     return $query?TRUE:FALSE;
   }
 
+  public function register_fb($data) {
+    $date = date('Y-m-d H:i:s');
+
+    $data_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'status_id'=>$data['status_id']);
+
+    $data_relation = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_type'=>'01', 'full_name'=>strtoupper($data['full_name']));
+
+    $this->db->trans_begin();
+
+    $q1 = $this->db->insert('user_account',$data_user);    
+    $q2 = $this->db->insert('account_relation',$data_relation);
+
+    if ($q1 && $q2) {
+      $this->db->trans_commit();
+      return TRUE;
+    }
+    $this->db->trans_rollback();
+    return FALSE;
+  }
+
   public function forgot_password($user_id) {
     $password = random_string('alnum', 6);
     $update['password'] = $this->encrypt->encode($password);
@@ -192,6 +212,12 @@ class ModelPatient extends CI_Model{
       return $query->result();
     }
     return FALSE;
+  }
+
+  public function get_avatar($data) {
+    $uid = $data;
+    $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) image_profile from user_account where user_id='$uid'");
+    return $query->result();
   }
 
 }
