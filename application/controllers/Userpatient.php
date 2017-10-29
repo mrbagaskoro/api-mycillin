@@ -536,4 +536,114 @@ class UserPatient extends Controlapi{
       $this->not_auth('invalid email');
     }
   }
+
+
+public function add_member_insurance_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+    if ($user_data) {
+      if ($this->ma->add_member_insurance($data)){
+        $this->success('Insurance added successfully');
+      } else {
+        $this->bad_req('An error was occured');
+      }
+    } else {
+      $this->bad_req('Account does not exist');
+    }
+  }
+
+  public function update_member_insurance_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+    if ($user_data) {
+      if ($this->ma->update_member_insurance($data)){
+        $this->success('Insurance updated successfully');
+      } else {
+        $this->bad_req('An error was occured');
+      }
+    } else {
+      $this->bad_req('Account does not exist');
+    }
+  }
+
+  public function list_member_insurance_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $this->ma->list_member_insurance($data['user_id']);
+    $this->ok($data);
+  }
+
+  public function delete_member_insurance_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $delete = $this->ma->delete_member_insurance($data);
+    if ($delete) {
+      $this->ok($delete);
+    } else {
+      $this->bad_req('An error was occured');
+    }
+  }
+
+public function change_insurance_photocard_post(){
+    $this->validate_jwt();
+    $data = file_get_contents('php://input');
+    $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
+  
+    if ($user_data) {
+      $config['upload_path'] = UPLOAD_PATH_PROFILE;
+      $config['allowed_types'] = 'jpeg|jpg|png';
+      $config['max_size'] = 4096;
+      $config['overwrite'] = true;
+
+      $this->load->library('upload', $config);
+      if (!empty($_FILES['profile_img']['name'])) {
+        $config['file_name'] = 'img_'.$this->post('user_id');
+        $this->upload->initialize($config);
+        if (!$this->upload->do_upload('profile_img')) {
+          $err = array("result" => $this->upload->display_errors());
+          $this->bad_req($err);
+        }
+
+        $up = $this->upload->data();
+        $upd['uid'] = $this->post('user_id');
+        $upd['file_name'] = $up['file_name'];
+
+        $update = $this->ma->change_insurance_photocard($upd);
+        if ($update) {
+          $this->success($update);
+        } else {
+          $this->bad_req('Change insurance photocard fail, please try again');
+        }
+      } else {
+        $this->bad_req('File can not empty');
+      }
+    } else {
+      $this->bad_req('Account does not exist');
+    }
+  }
+
+  public function get_insurance_photocard_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+    if ($user_data) {
+      $q = $this->ma->get_avatar($data['user_id']);
+      if ($q) {
+        $this->success($q);
+      } else {
+        $this->bad_req('Change insurance photocard fail, please try again');
+      }
+    } else {
+      $this->bad_req('Account does not exist');
+    }
+  }
+
 }

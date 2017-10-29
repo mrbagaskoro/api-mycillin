@@ -220,4 +220,73 @@ class ModelPatient extends CI_Model{
     return $query->result();
   }
 
+  public function add_member_insurance($data) {
+    $insert['user_id'] = $data['user_id'];
+    $insert['relation_id'] = $data['relation_id'];
+    $insert['no_polis_insr'] = $data['no_polis_insr'];
+    $insert['insr_provider_id'] = $data['insr_provider_id'];
+    $insert['nama_asuransi'] = $data['nama_asuransi'];
+    $insert['nama_tertanggung'] = $data['nama_tertanggung'];
+    $insert['nama_pemilik_insr'] = $data['nama_pemilik_insr'];
+    $insert['created_by'] = $data['user_id'];
+
+    $query = $this->db->insert('member_insurance', $insert);
+    return $query?TRUE:FALSE;
+  }
+
+  public function update_member_insurance($data) {
+    $where['relation_id'] = $data['relation_id'];
+
+    $update['no_polis_insr'] = $data['no_polis_insr'];
+    $update['insr_provider_id'] = $data['insr_provider_id'];
+    $update['nama_asuransi'] = $data['nama_asuransi'];
+    $update['nama_tertanggung'] = $data['nama_tertanggung'];
+    $update['nama_pemilik_insr'] = $data['nama_pemilik_insr'];
+    
+    $update['updated_by'] = $data['user_id'];
+
+    $query = $this->db->update('member_insurance', $update, $where);
+    return $query?TRUE:FALSE;
+  }
+
+  public function list_member_insurance($user_id) {
+    $query = $this->db->query("select * from member_insurance where user_id='$user_id'");
+    return $query->result();
+  }
+
+  public function delete_member_insurance($data) {
+    $where['relation_id'] = $data['relation_id'];
+    $user_id = $data['user_id'];
+
+    $query = $this->db->delete('member_insurance', $where);
+    if ($query) {
+      $query = $this->db->query("select * from member_insurance where user_id='$user_id'");
+      return $query->result();
+    }
+    return FALSE;
+  }
+
+public function change_insurance_photocard($data) {
+    $uid = $data['uid'];
+    $where['user_id'] = $data['uid'];
+    $where['relation_id'] = $data['relation_id'];
+
+    $update['photo_kartu_insr'] = $data['file_name'];
+
+    $update['updated_by'] = $data['uid'];
+
+    $query = $this->db->update('member_insurance', $update, $where);
+    if ($query) {
+      $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_kartu_insr) image_profile from member_insurance where user_id='$uid'");
+      return $query->result();
+    }
+    return FALSE;
+  }
+
+  public function get_insurance_photocard($data) {
+    $uid = $data;
+    $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_kartu_insr) image_profile from member_insurance where user_id='$uid'");
+    return $query->result();
+  }
+
 }

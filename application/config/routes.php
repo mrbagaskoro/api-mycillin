@@ -60,17 +60,17 @@ $route['api/activation']['GET']                 = 'userpatient/confirm_account';
 $route['api/forgot_password']['POST']           = 'userpatient/forgot_password';
 $route['api/change_password']['POST']           = 'userpatient/change_password';
 $route['api/complete_account']['POST']          = 'userpatient/complete_account';
-$route['api/change_avatar']['POST']          = 'userpatient/change_avatar';
-$route['api/get_avatar']['POST']          = 'userpatient/get_avatar';
+$route['api/change_avatar']['POST']          	= 'userpatient/change_avatar';
+$route['api/get_avatar']['POST']         	 	= 'userpatient/get_avatar';
 
-$route['api/add_family']['POST']          = 'userpatient/add_member';
-$route['api/update_family']['POST']          = 'userpatient/update_member';
-$route['api/list_family']['POST']          = 'userpatient/list_member';
-$route['api/delete_family']['POST']          = 'userpatient/delete_member';
+$route['api/add_family']['POST']          		= 'userpatient/add_member';
+$route['api/update_family']['POST']          	= 'userpatient/update_member';
+$route['api/list_family']['POST']          		= 'userpatient/list_member';
+$route['api/delete_family']['POST']          	= 'userpatient/delete_member';
 
-$route['web/registration/(:any)']['GET']          = 'userpatient/register/rfid/$1';
+$route['web/registration/(:any)']['GET']        = 'userpatient/register/rfid/$1';
 
-$route['api/login_fb']['POST']                     = 'controlapi/register_fb';
+$route['api/login_fb']['POST']                  = 'controlapi/register_fb';
 $route['api/login']['POST']                     = 'controlapi/generate_jwt';
 
 /*---------------------- List Parameter ------------------*/
@@ -99,6 +99,18 @@ $route['api/detail_user_partner']['POST']       = 'userpartner/detail_user';
 $route['api/change_password_partner']['POST']   = 'userpartner/change_password_partner';
 
 /*---------------------- List Articles ------------------*/
-$route['articles/syarat_ketentuan']['GET']				= 'general/syarat_ketentuan';
-$route['articles/ketentuan_penggunaan']['GET']				= 'general/ketentuan_penggunaan';
-$route['articles/kebijakan_privasi']['GET']				= 'general/kebijakan_privasi';
+$route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';
+$route['articles/ketentuan_penggunaan']['GET']	= 'general/ketentuan_penggunaan';
+$route['articles/kebijakan_privasi']['GET']		= 'general/kebijakan_privasi';
+
+/*---------------------- Route by Tommi ------------------*/
+/*$route['api/list_medical_record']['POST']       = 'userpatient/list_medical_record';
+$route['api/detail_medical_record']['POST']       = 'userpatient/detail_medical_record';*/
+
+$route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insurance';
+$route['api/update_member_insurance']['POST']     = 'userpatient/update_member_insurance';
+$route['api/list_member_insurance']['POST']       = 'userpatient/list_member_insurance';
+$route['api/delete_member_insurance']['POST']     = 'userpatient/delete_member_insurance';
+
+$route['api/change_insurance_photocard']['POST']  = 'userpatient/change_insurance_photocard';
+$route['api/get_insurance_photocard']['POST']     = 'userpatient/get_insurance_photocard';
