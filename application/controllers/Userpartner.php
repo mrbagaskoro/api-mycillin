@@ -26,6 +26,14 @@ class UserPartner extends Controlapidoc
         echo $ini;
     }
 
+    public function list_partner_booking_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_partner_booking($data);
+        $this->ok($data);
+    }
+
     public function change_partner_avatar_post()
     {
         $this->validate_jwt();

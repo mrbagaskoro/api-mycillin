@@ -101,8 +101,11 @@ $route['api/change_password_partner']['POST']   = 'userpartner/change_password_p
 $route['api/change_partner_avatar']['POST']     = 'userpartner/change_partner_avatar';
 $route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avatar';
 
-$route['api/change_partner_doc']['POST']     = 'userpartner/change_partner_doc';
-$route['api/get_partner_doc']['POST']        = 'userpartner/get_partner_doc';
+$route['api/change_partner_doc']['POST']        = 'userpartner/change_partner_doc';
+$route['api/get_partner_doc']['POST']           = 'userpartner/get_partner_doc';
+
+$route['api/list_partner_booking']['POST']      = 'userpartner/list_partner_booking';
+
 
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';

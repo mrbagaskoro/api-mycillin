@@ -177,6 +177,12 @@ class ModelPartner extends CI_Model
         return $query->result();
     }
 
+    public function list_partner_booking($data)
+    {
+        $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."' ".$data['status']."");
+        return $query->result();
+    }
+
     public function complete_account($data)
     {
         $where['user_id'] = $data['user_id'];
