@@ -98,6 +98,12 @@ $route['api/toggle_status_partner']['POST']     = 'userpartner/toggle_status_par
 $route['api/detail_user_partner']['POST']       = 'userpartner/detail_user';
 $route['api/change_password_partner']['POST']   = 'userpartner/change_password_partner';
 
+$route['api/change_partner_avatar']['POST']     = 'userpartner/change_partner_avatar';
+$route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avatar';
+
+$route['api/change_partner_doc']['POST']     = 'userpartner/change_partner_doc';
+$route['api/get_partner_doc']['POST']        = 'userpartner/get_partner_doc';
+
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';
 $route['articles/ketentuan_penggunaan']['GET']	= 'general/ketentuan_penggunaan';
