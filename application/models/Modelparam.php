@@ -96,4 +96,46 @@ public function mst_insr_provider() {
     return $query->result();
   }
 
+  public function dash_kunjungan() {
+    $this->db->select('booking_id, created_by, created_date, booking_id, request_location, pymt_methode_id');
+    $this->db->from('booking_trx');
+    $this->db->where('booking_status_id','01');
+    $this->db->where('service_type_id','00');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function dash_reservasi() {
+    $this->db->select('booking_id, created_by, created_date, booking_id, pymt_methode_id');
+    $this->db->from('booking_trx');
+    $this->db->where('booking_status_id','01');
+    $this->db->where('service_type_id','01');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function dash_konsultasi() {
+    $this->db->select('booking_id, created_by, created_date, booking_id, pymt_methode_id');
+    $this->db->from('booking_trx');
+    $this->db->where('booking_status_id','01');
+    $this->db->where('service_type_id','02');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function todo_inprogress() {
+    $this->db->select('booking_id, created_by, created_date, booking_id, service_type_id, pymt_methode_id');
+    $this->db->from('booking_trx');
+    $this->db->where('booking_status_id','03');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function todo_completed() {
+    $this->db->select('booking_id, created_by, created_date, booking_id, service_type_id, pymt_methode_id');
+    $this->db->from('booking_trx');
+    $this->db->where('booking_status_id','04');
+    $query = $this->db->get();
+    return $query->result();
+  }
 }

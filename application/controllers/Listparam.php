@@ -64,4 +64,30 @@ class ListParam extends Controlapi{
     $data = $this->mp->mst_satuan_obat();
     $this->ok($data);
   }
+
+  public function list_dash_kunjungan_get(){
+    $data = $this->mp->dash_kunjungan();
+    $this->ok($data);
+  }
+
+  public function list_dash_reservasi_get(){
+    $data = $this->mp->dash_reservasi();
+    $this->ok($data);
+  }
+
+  public function list_dash_konsultasi_get(){
+    $data = $this->mp->dash_konsultasi();
+    $this->ok($data);
+  }
+
+  public function list_todo_inprogress_get(){
+    $data = $this->mp->todo_inprogress();
+    $this->ok($data);
+  }
+
+  public function list_todo_completed_get(){
+    $data = $this->mp->todo_completed();
+    $this->ok($data);
+  }
+
 }

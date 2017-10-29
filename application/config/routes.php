@@ -116,3 +116,9 @@ $route['api/change_insurance_photocard']['POST']  = 'userpatient/change_insuranc
 $route['api/get_insurance_photocard']['POST']     = 'userpatient/get_insurance_photocard';
 
 $route['api/partner_loc_autoupdate']['POST']      = 'userpartner/partner_loc_autoupdate';
+
+$route['api/list_dash_kunjungan']['GET']       	  = 'listparam/list_dash_kunjungan';
+$route['api/list_dash_reservasi']['GET']       	  = 'listparam/list_dash_reservasi';
+$route['api/list_dash_konsultasi']['GET']      	  = 'listparam/list_dash_konsultasi';
+$route['api/list_todo_inprogress']['GET']      	  = 'listparam/list_todo_inprogress';
+$route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_completed';
