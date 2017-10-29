@@ -140,12 +140,12 @@ class ModelPartner extends CI_Model{
     return $query?TRUE:FALSE;
   }
 
+  public function partner_loc_autoupdate($data) {
+    $where['user_id'] = $data['user_id'];
 
-  public function update_location($data) {
-    $where['email'] = $data['email'];
+    $update['location_autoupdate'] = $data['location_autoupdate'];
 
-    $update['user_location'] = $data['location'];
-    $query = $this->db->update('mst_guess_host', $update, $where);
+    $query = $this->db->update('partner_account', $update, $where);
     return $query?TRUE:FALSE;
   }
 

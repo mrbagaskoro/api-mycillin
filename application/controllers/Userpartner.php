@@ -454,4 +454,21 @@ class UserPartner extends Controlapidoc{
       $this->not_auth('invalid email');
     }
   }
+
+  public function partner_loc_autoupdate_post(){
+    $this->validate_jwt();
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+    if ($user_data) {
+      if ($this->ma->partner_loc_autoupdate($data)){
+        $this->success('Location updated successfully');
+      } else {
+        $this->bad_req('An error was occured');
+      }
+    } else {
+      $this->bad_req('Account does not exist');
+    }
+  }
 }

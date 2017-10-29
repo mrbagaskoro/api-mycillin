@@ -114,3 +114,5 @@ $route['api/delete_member_insurance']['POST']     = 'userpatient/delete_member_i
 
 $route['api/change_insurance_photocard']['POST']  = 'userpatient/change_insurance_photocard';
 $route['api/get_insurance_photocard']['POST']     = 'userpatient/get_insurance_photocard';
+
+$route['api/partner_loc_autoupdate']['POST']      = 'userpartner/partner_loc_autoupdate';
