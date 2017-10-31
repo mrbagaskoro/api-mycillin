@@ -132,3 +132,10 @@ $route['api/list_dash_reservasi']['GET']       	  = 'listparam/list_dash_reserva
 $route['api/list_dash_konsultasi']['GET']      	  = 'listparam/list_dash_konsultasi';
 $route['api/list_todo_inprogress']['GET']      	  = 'listparam/list_todo_inprogress';
 $route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_completed';
+
+/*---------------------- Route Process ------------------*/
+$route['api/service_price']['POST']				  = 'userpatient/service_price';
+$route['api/add_request']['POST']          		  = 'userpatient/add_request';
+$route['api/partner_confirmation']['POST']        = 'userpartner/partner_confirmation'; /*dilanjutkan FCM ut enabble button conf. user*/
+$route['api/user_booking_confirmation']['POST']   = 'userpatient/user_booking_confirmation';
+/*$route['api/partner_task_completed']['POST']      = 'userpartner/partner_task_completed';*/

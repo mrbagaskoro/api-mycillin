@@ -632,5 +632,22 @@ class UserPartner extends Controlapidoc
         $this->ok($data);
     }
 
+    public function partner_confirmation_post()
+    {
+          $this->validate_jwt();
+          $data = json_decode(file_get_contents('php://input'), true);
+
+          $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->partner_confirmation($data)) {
+                $this->success('Partner Confirmation successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
 
 }

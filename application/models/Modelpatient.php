@@ -249,8 +249,9 @@ class ModelPatient extends CI_Model{
     return $query?TRUE:FALSE;
   }
 
-  public function list_member_insurance($user_id) {
-    $query = $this->db->query("select * from member_insurance where user_id='$user_id'");
+  public function list_member_insurance($user_id, $relation_id) 
+  {
+    $query = $this->db->query("select * from member_insurance where user_id='$user_id' and relation_id='$relation_id'");
     return $query->result();
   }
 
@@ -289,4 +290,36 @@ public function change_insurance_photocard($data) {
     return $query->result();
   }
 
+  public function add_request($data) {
+    $insert['user_id'] = $data['user_id'];
+    $insert['relation_id'] = $data['relation_id'];
+    $insert['partner_selected'] = $data['partner_selected'];
+    $insert['service_type_id'] = $data['service_type_id'];
+    $insert['promo_code'] = $data['promo_code'];
+    $insert['price_amount'] = $data['price_amount'];
+    $insert['pymt_methode_id'] = $data['pymt_methode_id'];
+    $insert['booking_status_id'] = "01";
+    $insert['cancel_status'] = "N";
+
+    $insert['created_by'] = $data['user_id'];
+
+    $query = $this->db->insert('booking_trx', $insert);
+    return $query?TRUE:FALSE;
+  }
+
+  public function user_booking_confirmation($data) 
+    {
+        $where['booking_id'] = $data['booking_id'];
+
+        $update['booking_status_id'] = "03";
+        $update['updated_by'] = $data['user_id'];
+        $query = $this->db->update('booking_trx', $update, $where);
+        return $query?TRUE:FALSE;
+    }
+
+    public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id, $promo_code)
+    {
+        $query = $this->db->query("select * from mst_price where service_type_id='$service_type_id' and pymt_methode_id='$pymt_methode_id' and partner_type_id='$partner_type_id' and spesialisasi_id='$spesialisasi_id'  and promo_code='$promo_code'");
+        return $query->result();
+    }
 }

@@ -208,6 +208,7 @@ class ModelPartner extends CI_Model
         $query = $this->db->update('partner_profile', $update, $where);
         return $query?true:false;
     }
+
     public function partner_loc_autoupdate($data)
     {
         $where['user_id'] = $data['user_id'];
@@ -217,6 +218,7 @@ class ModelPartner extends CI_Model
         $query = $this->db->update('partner_account', $update, $where);
         return $query?true:false;
     }
+
     public function update_location($data)
     {
         $where['email'] = $data['email'];
@@ -243,4 +245,15 @@ class ModelPartner extends CI_Model
         $query = $this->db->query("select * from prescription_detail where prescription_no='$prescription_no'");
         return $query->result();
     }
+
+    public function partner_confirmation($data) 
+    {
+        $where['booking_id'] = $data['booking_id'];
+
+        $update['booking_status_id'] = "02";
+        $update['updated_by'] = $data['user_id'];
+        $query = $this->db->update('booking_trx', $update, $where);
+        return $query?TRUE:FALSE;
+    }
+
 }
