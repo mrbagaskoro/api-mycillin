@@ -250,7 +250,21 @@ class ModelPartner extends CI_Model
     {
         $where['booking_id'] = $data['booking_id'];
 
+        $update['actual_partner_loc'] = $data['actual_partner_loc']; 
         $update['booking_status_id'] = "02";
+        $update['updated_by'] = $data['user_id'];
+
+        $query = $this->db->update('booking_trx', $update, $where);
+        return $query?TRUE:FALSE;
+    }
+
+    public function partner_cancel_transaction($data) 
+    {
+        $where['booking_id'] = $data['booking_id'];
+
+        $update['cancel_status'] = "Y";
+        $update['cancel_by'] = $data['user_id'];
+        $update['cancel_reason_id'] = $data['cancel_reason_id'];
         $update['updated_by'] = $data['user_id'];
         $query = $this->db->update('booking_trx', $update, $where);
         return $query?TRUE:FALSE;

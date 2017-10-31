@@ -650,4 +650,21 @@ class UserPartner extends Controlapidoc
         }
     }
 
+    public function partner_cancel_transaction_post(){
+      $this->validate_jwt();
+      $data = json_decode(file_get_contents('php://input'), true);
+
+      $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+      if ($user_data) {
+        if ($this->ma->partner_cancel_transaction($data)) {
+          $this->success('Transaction Cancelation successfully');
+        } else {
+          $this->bad_req('An error was occured');
+        }
+      } else {
+        $this->bad_req('Account does not exist');
+      }
+  }  
+
 }

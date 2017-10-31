@@ -298,6 +298,7 @@ public function change_insurance_photocard($data) {
     $insert['promo_code'] = $data['promo_code'];
     $insert['price_amount'] = $data['price_amount'];
     $insert['pymt_methode_id'] = $data['pymt_methode_id'];
+    $insert['request_location'] = $data['request_location'];
     $insert['booking_status_id'] = "01";
     $insert['cancel_status'] = "N";
 
@@ -317,9 +318,33 @@ public function change_insurance_photocard($data) {
         return $query?TRUE:FALSE;
     }
 
-    public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id, $promo_code)
+  public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id, $promo_code)
     {
         $query = $this->db->query("select * from mst_price where service_type_id='$service_type_id' and pymt_methode_id='$pymt_methode_id' and partner_type_id='$partner_type_id' and spesialisasi_id='$spesialisasi_id'  and promo_code='$promo_code'");
         return $query->result();
+    }
+
+  public function user_cancel_transaction($data) 
+    {
+        $where['booking_id'] = $data['booking_id'];
+
+        $update['cancel_status'] = "Y";
+        $update['cancel_by'] = $data['user_id'];
+        $update['cancel_reason_id'] = $data['cancel_reason_id'];
+        $update['updated_by'] = $data['user_id'];
+        $query = $this->db->update('booking_trx', $update, $where);
+        return $query?TRUE:FALSE;
+    }
+
+    public function user_rating_feedback($data) 
+    {
+        $where['booking_id'] = $data['booking_id'];
+
+        $update['service_rating'] = $data['service_rating'];
+        $update['user_comment'] = $data['user_comment'];
+        
+        $update['updated_by'] = $data['user_id'];
+        $query = $this->db->update('booking_trx', $update, $where);
+        return $query?TRUE:FALSE;
     }
 }
