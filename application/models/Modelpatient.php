@@ -214,6 +214,24 @@ class ModelPatient extends CI_Model{
     return FALSE;
   }
 
+  public function detail_medical_record($user_id, $record_id)
+  {
+      $query = $this->db->query("select * from medical_record where user_id='$user_id' and record_id='$record_id'");
+      return $query->result();
+  }
+
+  public function list_medical_record($user_id, $relation_id)
+  {
+      $query = $this->db->query("select * from medical_record where user_id='$user_id' and relation_id='$relation_id'");
+      return $query->result();
+  }
+
+  public function detail_prescription($prescription_no)
+  {
+      $query = $this->db->query("select * from prescription_detail where prescription_no='$prescription_no'");
+      return $query->result();
+  }
+
   public function get_avatar($data) {
     $uid = $data;
     $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) image_profile from user_account where user_id='$uid'");

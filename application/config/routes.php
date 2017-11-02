@@ -113,9 +113,9 @@ $route['articles/ketentuan_penggunaan']['GET']	= 'general/ketentuan_penggunaan';
 $route['articles/kebijakan_privasi']['GET']		= 'general/kebijakan_privasi';
 
 /*---------------------- Route by Tommi ------------------*/
-$route['api/list_medical_record']['POST']         = 'userpartner/list_medical_record';
-$route['api/detail_medical_record']['POST']       = 'userpartner/detail_medical_record';
-$route['api/detail_prescription']['POST']         = 'userpartner/detail_prescription';
+$route['api/list_medical_record']['POST']         = 'userpatient/list_medical_record';
+$route['api/detail_medical_record']['POST']       = 'userpatient/detail_medical_record';
+$route['api/detail_prescription']['POST']         = 'userpatient/detail_prescription';
 
 $route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insurance';
 $route['api/update_member_insurance']['POST']     = 'userpatient/update_member_insurance';

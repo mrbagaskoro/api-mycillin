@@ -608,29 +608,7 @@ class UserPartner extends Controlapidoc
         }
     }
 
-    public function detail_medical_record_post()
-    {
-        $this->validate_jwt();
-        $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->detail_medical_record($data['user_id'], $data['record_id']);
-        $this->ok($data);
-    }   
-
-    public function list_medical_record_post()
-    {
-        $this->validate_jwt();
-        $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_medical_record($data['user_id'], $data['relation_id']);
-        $this->ok($data);
-    }
-
-    public function detail_prescription_post()
-    {
-        $this->validate_jwt();
-        $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->detail_prescription($data['prescription_no']);
-        $this->ok($data);
-    }
+   
 
     public function partner_confirmation_post()
     {
