@@ -365,4 +365,10 @@ public function change_insurance_photocard($data) {
         $query = $this->db->update('booking_trx', $update, $where);
         return $query?TRUE:FALSE;
     }
+
+    public function rating_fill_checking($booking_status_id, $cancel_status, $service_rating)
+    {
+        $query = $this->db->query("select * from booking_trx where booking_status_id='04' and cancel_status='N' and service_rating is null ");
+        return $query->result();
+    }
 }

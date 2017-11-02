@@ -688,4 +688,12 @@ class UserPatient extends Controlapi
             $this->bad_req('Account does not exist');
         }
     }
+
+    public function rating_fill_checking_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->rating_fill_checking($data['booking_status_id'], $data['cancel_status'],$data['service_rating']);
+        $this->ok($data);
+    }
 }
