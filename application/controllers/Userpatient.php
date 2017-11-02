@@ -696,4 +696,12 @@ class UserPatient extends Controlapi
         $data = $this->ma->rating_fill_checking($data['booking_status_id'], $data['cancel_status'],$data['service_rating']);
         $this->ok($data);
     }
+
+    public function detail_partner_information_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->detail_partner_information($data['user_id']);
+        $this->ok($data);
+    }
 }

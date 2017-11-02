@@ -371,4 +371,11 @@ public function change_insurance_photocard($data) {
         $query = $this->db->query("select * from booking_trx where booking_status_id='04' and cancel_status='N' and service_rating is null ");
         return $query->result();
     }
+
+    public function detail_partner_information($user_id)
+    {
+        $query = $this->db->query("select * from partner_profile where user_id='$user_id'");
+        return $query->result();
+    }
+
 }

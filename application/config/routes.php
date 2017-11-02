@@ -143,3 +143,5 @@ $route['api/user_cancel_transaction']['POST']     = 'userpatient/user_cancel_tra
 $route['api/partner_cancel_transaction']['POST']  = 'userpartner/partner_cancel_transaction';
 $route['api/user_rating_feedback']['POST']     	  = 'userpatient/user_rating_feedback';
 $route['api/rating_fill_checking']['POST']        = 'userpatient/rating_fill_checking';
+
+$route['api/detail_partner_information']['POST']  = 'userpatient/detail_partner_information';
