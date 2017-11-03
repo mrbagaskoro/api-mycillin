@@ -643,9 +643,9 @@ class UserPartner extends Controlapidoc
       } else {
         $this->bad_req('Account does not exist');
       }
-  }
+    }
 
-  public function partner_task_completed_post() /*(--kurang utk memasukan ke prescription--)*/
+    public function partner_task_completed_post() /*(--kurang utk memasukan ke prescription--)*/
     {
           $this->validate_jwt();
           $data = json_decode(file_get_contents('php://input'), true);
@@ -655,6 +655,24 @@ class UserPartner extends Controlapidoc
         if ($user_data) {
             if ($this->ma->partner_task_completed($data)) {
                 $this->success('Partner Task Copleted successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+    public function add_prescription_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+        if ($user_data) {
+            if ($this->ma->add_prescription($data)) {
+                $this->success('Medicine added successfully');
             } else {
                 $this->bad_req('An error was occured');
             }

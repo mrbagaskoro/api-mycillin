@@ -256,13 +256,13 @@ class ModelPartner extends CI_Model
 
     public function partner_task_completed($data) 
     {
-        $date = date('Y-m-d H:i:s');
+        $date = date('Y-m-d H:i:s');    
+        $test = md5($date.$data['user_id']); /*crate random nomor resep obat- test sementara*/
         $where['booking_id'] = $data['booking_id'];
-
 
         $data_transaction = array('action_type_id'=>$data['action_type_id'], 'booking_status_id'=>"04", 'updated_by'=>$data['user_id']);
 
-        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['requestor_id'], 'relation_id'=>$data['relation_id'], 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'service_type_id'=>$data['service_type_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_type_id'=>$data['prescription_type_id']);
+        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['requestor_id'], 'relation_id'=>$data['relation_id'], 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'service_type_id'=>$data['service_type_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
 
         $this->db->trans_begin();
 
@@ -277,5 +277,18 @@ class ModelPartner extends CI_Model
         $this->db->trans_rollback();
         return FALSE;
     }
+
+    public function add_prescription($data) {
+    $insert['prescription_no'] = $data['prescription_id'];
+    $insert['nama_obat'] = $data['nama_obat'];
+    $insert['jumlah_obat'] = $data['jumlah_obat'];
+    $insert['satuan_id'] = $data['satuan_id'];
+    $insert['dosage_id'] = $data['dosage_id'];
+    $insert['use_instruction_id'] = $data['use_instruction_id'];
+    $insert['created_by'] = $data['user_id'];
+
+    $query = $this->db->insert('prescription_detail', $insert);
+    return $query?TRUE:FALSE;
+  }
 
 }
