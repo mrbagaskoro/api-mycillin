@@ -279,33 +279,43 @@ class ModelPartner extends CI_Model
     }
 
     public function add_prescription($data) {
-    $insert['prescription_no'] = $data['prescription_id'];
-    $insert['nama_obat'] = $data['nama_obat'];
-    $insert['jumlah_obat'] = $data['jumlah_obat'];
-    $insert['satuan_id'] = $data['satuan_id'];
-    $insert['dosage_id'] = $data['dosage_id'];
-    $insert['use_instruction_id'] = $data['use_instruction_id'];
-    $insert['created_by'] = $data['user_id'];
+        $insert['prescription_no'] = $data['prescription_id'];
+        $insert['nama_obat'] = $data['nama_obat'];
+        $insert['jumlah_obat'] = $data['jumlah_obat'];
+        $insert['satuan_id'] = $data['satuan_id'];
+        $insert['dosage_id'] = $data['dosage_id'];
+        $insert['use_instruction_id'] = $data['use_instruction_id'];
+        $insert['created_by'] = $data['user_id'];
 
-    $query = $this->db->insert('prescription_detail', $insert);
-    return $query?TRUE:FALSE;
-  }
+        $query = $this->db->insert('prescription_detail', $insert);
+        return $query?TRUE:FALSE;
+    }
 
-public function detail_medical_record1($user_id, $record_id)
-  {
-      $query = $this->db->query("select * from medical_record where user_id='$user_id' and record_id='$record_id'");
-      return $query->result();
-  }
+    public function detail_medical_record1($user_id, $record_id)
+    {
+        $query = $this->db->query("select * from medical_record where user_id='$user_id' and record_id='$record_id'");
+        return $query->result();
+    }
 
   public function list_medical_record1($user_id, $relation_id)
   {
-      $query = $this->db->query("select * from medical_record where user_id='$user_id' and relation_id='$relation_id'");
-      return $query->result();
+        $query = $this->db->query("select * from medical_record where user_id='$user_id' and relation_id='$relation_id'");
+        return $query->result();
   }
 
   public function detail_prescription1($prescription_no)
   {
-      $query = $this->db->query("select * from prescription_detail where prescription_no='$prescription_no'");
-      return $query->result();
+        $query = $this->db->query("select * from prescription_detail where prescription_no='$prescription_no'");
+        return $query->result();
   }
+
+  public function partner_top_up($data) {
+        $insert['transaction_type_id'] = $data['transaction_type_id'];
+        $insert['amount'] = $data['amount'];
+        $insert['user_id'] = $data['user_id'];
+        $insert['created_by'] = $data['user_id'];
+
+        $query = $this->db->insert('va_balance', $insert);
+        return $query?TRUE:FALSE;
+    }
 }

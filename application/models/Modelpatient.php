@@ -336,9 +336,9 @@ public function change_insurance_photocard($data) {
         return $query?TRUE:FALSE;
     }
 
-  public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id, $promo_code)
+  public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id)
     {
-        $query = $this->db->query("select * from mst_price where service_type_id='$service_type_id' and pymt_methode_id='$pymt_methode_id' and partner_type_id='$partner_type_id' and spesialisasi_id='$spesialisasi_id'  and promo_code='$promo_code'");
+        $query = $this->db->query("select * from mst_price where service_type_id='$service_type_id' and pymt_methode_id='$pymt_methode_id' and partner_type_id='$partner_type_id' and spesialisasi_id='$spesialisasi_id' ");
         return $query->result();
     }
 

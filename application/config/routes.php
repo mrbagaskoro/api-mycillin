@@ -105,12 +105,14 @@ $route['api/change_partner_doc']['POST']        = 'userpartner/change_partner_do
 $route['api/get_partner_doc']['POST']           = 'userpartner/get_partner_doc';
 
 $route['api/list_partner_booking']['POST']      = 'userpartner/list_partner_booking';
+$route['api/partner_top_up']['POST']      		= 'userpartner/partner_top_up';
 
 
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';
 $route['articles/ketentuan_penggunaan']['GET']	= 'general/ketentuan_penggunaan';
 $route['articles/kebijakan_privasi']['GET']		= 'general/kebijakan_privasi';
+
 
 /*---------------------- Route by Tommi ------------------*/
 $route['api/list_medical_record']['POST']         = 'userpatient/list_medical_record';

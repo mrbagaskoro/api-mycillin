@@ -747,7 +747,7 @@ class UserPatient extends Controlapi
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->service_price($data['service_type_id'], $data['pymt_methode_id'], $data['partner_type_id'], $data['spesialisasi_id'],$data['promo_code']);
+        $data = $this->ma->service_price($data['service_type_id'], $data['pymt_methode_id'], $data['partner_type_id'], $data['spesialisasi_id']);
         $this->ok($data);
     }
 
