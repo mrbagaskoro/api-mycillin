@@ -117,6 +117,10 @@ $route['api/list_medical_record']['POST']         = 'userpatient/list_medical_re
 $route['api/detail_medical_record']['POST']       = 'userpatient/detail_medical_record';
 $route['api/detail_prescription']['POST']         = 'userpatient/detail_prescription';
 
+$route['api/list_medical_record1']['POST']         = 'userpartner/list_medical_record1';
+$route['api/detail_medical_record1']['POST']       = 'userpartner/detail_medical_record1';
+$route['api/detail_prescription1']['POST']         = 'userpartner/detail_prescription1';
+
 $route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insurance';
 $route['api/update_member_insurance']['POST']     = 'userpatient/update_member_insurance';
 $route['api/list_member_insurance']['POST']       = 'userpatient/list_member_insurance';
