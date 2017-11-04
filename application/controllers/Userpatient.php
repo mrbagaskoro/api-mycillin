@@ -704,4 +704,86 @@ class UserPatient extends Controlapi
         $data = $this->ma->detail_partner_information($data['user_id']);
         $this->ok($data);
     }
+    /*------------recovery-------------------*/
+
+    public function add_request_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->add_request($data)) {
+                $this->success('Transaction added successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+    public function user_booking_confirmation_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->user_booking_confirmation($data)) {
+                $this->success('User Booking Confirmation successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+
+      public function service_price_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->service_price($data['service_type_id'], $data['pymt_methode_id'], $data['partner_type_id'], $data['spesialisasi_id'],$data['promo_code']);
+        $this->ok($data);
+    }
+
+    public function user_cancel_transaction_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->user_cancel_transaction($data)) {
+                $this->success('Transaction Cancelation successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+    public function user_rating_feedback_post(){
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->user_rating_feedback($data)) {
+                $this->success('Rating/Feedback Submited successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
 }
