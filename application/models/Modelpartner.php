@@ -149,7 +149,7 @@ class ModelPartner extends CI_Model
         $where['user_id'] = $user_id;
         $update['updated_by'] = $user_id;
 
-        $result = $this->db->update('user_account', $update, $where);
+        $result = $this->db->update('partner_account', $update, $where);
 
         return $password;
     }
