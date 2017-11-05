@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-require_once APPPATH . 'controllers/Controlapidoc.php';
+require_once APPPATH . 'controllers/Controlpartner.php';
 
-class UserPartner extends Controlapidoc
+class UserPartner extends Controlpartner
 {
 
     public function __construct()
