@@ -450,11 +450,10 @@ class UserPartner extends Controlapidoc
 
         $user_data = $this->ma->is_valid_user($data['email']);
 
-        $user_full = $this->ma->is_valid_user_id($user_data->user_id);
-
         if ($user_data) {
             if ($user_data->status_id == '1') {
                 if ($new_pass = $this->ma->forgot_password($user_full->user_id)) {
+                    $user_full = $this->ma->is_valid_user_id($user_data->user_id);
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($user_data->email);
                     $this->email->subject('[noreply] MyCillin Password Reset');

@@ -90,11 +90,11 @@ $route['api/list_use_instruction']['GET']		= 'listparam/list_mst_use_instruction
 $route['api/list_satuan_obat']['GET']			= 'listparam/list_mst_satuan_obat';
 
 /*---------------------- doctor --------------------------*/
-$route['api/update_loc_doctor']['POST']         = 'medicalhost/update_loc_doc';
-$route['api/get_loc_doctor']['GET']             = 'medicalhost/get_loc_doc';
+//$route['api/update_loc_doctor']['POST']         = 'medicalhost/update_loc_doc';
+//$route['api/get_loc_doctor']['GET']             = 'medicalhost/get_loc_doc';
 $route['api/forgot_password_doctor']['POST']    = 'userpartner/forgot_password';
 $route['api/register_partner']['POST']          = 'userpartner/register_partner';
-$route['api/login_doctor']['POST']              = 'controlapidoc/generate_jwt';
+$route['api/login_doctor']['POST']              = 'controlpartner/generate_jwt';
 $route['api/activation_partner']['GET']         = 'userpartner/confirm_account';
 $route['api/complete_account_partner']['POST']  = 'userpartner/complete_account_partner';
 $route['api/toggle_status_partner']['POST']     = 'userpartner/toggle_status_partner';
