@@ -19,6 +19,19 @@
         echo $ini;
     }
 
+    public function register_get() {
+      $data['rfid']=$this->get('rfid', true);
+      $this->load->view('registration',$data);
+    }
+
+    public function get_banner_apps_get()
+    {
+        //$this->validate_jwt();
+        //$data = json_decode(file_get_contents('php://input'), true);
+      $data = $this->ma->get_banner_apps();
+      $this->ok($data);
+    }
+
     public function change_avatar_post()
     {
         $this->validate_jwt();

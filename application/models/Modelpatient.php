@@ -17,10 +17,6 @@ class ModelPatient extends CI_Model {
   }
 
   public function is_valid_user_id($user_id) {
-    /*$this->db->select('*');
-    $this->db->from('user_account');
-    $this->db->where('user_id',$user_id);
-    $query = $this->db->get();*/
     $query = $this->db->query("select * from user_account ua left join account_relation ar on ua.user_id=ar.user_id where ua.user_id='$user_id' and ar.relation_type='01'");
     return $query->row();
   }
@@ -40,6 +36,19 @@ class ModelPatient extends CI_Model {
     $query = $this->db->get();
     return $query->num_rows();
   }
+
+  function get_banner_apps(){
+      $cur_date = date('Y-m-d');
+      $query = $this->db->query("SELECT 
+        image_id,
+        concat('".FULL_UPLOAD_PATH_BANNER."', image_name) image_name,
+        start_date,
+        end_date
+        FROM
+        banner_apps
+        WHERE  '$cur_date' BETWEEN start_date AND end_date");
+      return $query->result();
+    }
 
   public function is_valid_token($user_id,$token) {
     $datetime = date('Y-m-d H:i:s');
