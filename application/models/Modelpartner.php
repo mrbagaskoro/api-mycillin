@@ -132,9 +132,12 @@ class ModelPartner extends CI_Model
         return false;
     }
 
-    public function change_user_state($user_id)
+    public function change_user_state($data)
     {
-        $query = $this->db->query("update partner_account set status_id='1', updated_by='$user_id' where user_id='$user_id'");
+        $where['email'] = $data['email'];
+
+        $update['status_id'] = '1';
+        $query = $this->db->update('partner_account', $update, $where);
         return $query?true:false;
     }
 

@@ -238,7 +238,7 @@ class UserPartner extends Controlapidoc
             'created_by'=>$this->post('email', true),
             'created_date'=>date("Y-m-d H:i:s"),
             'user_id'=>$user_id,
-            'status_id'=>'1'
+            'status_id'=>'3' /*-------------> harusnya status tetap 3, aktivasi dilakukan oleh admin*/
             ];
             //jika berhasil di masukan maka akan di respon kembali sesuai dengan data yang di masukan
             $user_exist = $this->ma->is_valid_num_user($data['email']);
@@ -286,41 +286,14 @@ class UserPartner extends Controlapidoc
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Hi '.$data['full_name'].',</b><br>
-                                                        Thanks for registering on MyCillin (www.mycillin.com). You are just one step more to becoming an active member on the world\'s leading penpal site!
+                                                        Terima kasih telah mendaftar sebagai partner MyCillin (www.mycillin.com). Kini tinggal selangkah lagi bagi anda untuk bergabung bersama kami sebagai penyedia platform digital medis no 1 di Indonesia!
                                                       </td>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        To activate your account, click this button below :
+                                                        Dalam tiga hari kedepan, petugas kami akan menghubungi anda untuk melakukan proses verifikasi dan kami berharap anda dapat bekerjasama dengan petugas kami memberikan informasi dan dokumen yang dibutuhkan dalam proses verifikasi tersebut.
                                                       </td>
                                                     </tr>
-                                                    <tr>
-                                                      <td>
-                                                        <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#ffffff">
-                                                          <tr>
-                                                            <td style="width:200px;background:#008000;">
-                                                              <div><!--[if mso]>
-                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:40px;v-text-anchor:middle;width:200px;" stroke="f" fillcolor="#008000">
-                                                                  <w:anchorlock/>
-                                                                  <center>
-                                                                <![endif]-->
-                                                                    <a href="'.base_url().'api/activation_partner?myid='.$user_id.'&activation_code='.$result->token.'"
-                                                              style="background-color:#008000;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:18px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;">Activate Account</a>
-                                                                <!--[if mso]>
-                                                                  </center>
-                                                                </v:rect>
-                                                              <![endif]--></div>
-                                                            </td>
-                                                            <td width="360" style="background-color:#ffffff; font-size:0; line-height:0;">&nbsp;</td>
-                                                          </tr>
-                                                        </table>
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        or copy and paste this link into your browser :
-                                                        <p>'.base_url().'api/activation_partner?myid='.$user_id.'&activation_code='.$result->token.'</p>
-                                                      </td>
-                                                    </tr>
+                                                    <tr>                                                    
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <br><b>Questions?</b><br>
@@ -346,7 +319,7 @@ class UserPartner extends Controlapidoc
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  MyCillin.com<br>
+                                                  mycillin.com<br>
                                                   © 2017 All Rights Reserved
                                                 </td>
                                               </tr>
@@ -370,19 +343,16 @@ class UserPartner extends Controlapidoc
         }
     }
 
-    public function confirm_account_get()
+    public function partner_activation_post()
     {
-        $user_id = $this->input->get('myid', true);
-        $token = $this->input->get('activation_code', true);
+        /*$this->validate_jwt();*/
+        $data = json_decode(file_get_contents('php://input'), true);
 
-        $user_data = $this->ma->is_valid_user_id($user_id);
-        // var_dump($user_id);
-        // exit();
-
-        if ($user_data->status_id == '3') {
-            if ($this->ma->is_valid_token($user_data->user_id, $token) != null) {
-                if ($this->ma->change_user_state($user_data->user_id)) {
-                    $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
+        $user_data = $this->ma->is_valid_user($data['email']);
+  
+        if ($user_data) {
+            if ($this->ma->change_user_state($data)) {
+                $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($user_data->email);
                     $this->email->subject('[noreply] MyCillin Account Activated');
                     $this->email->set_mailtype("html");
@@ -421,13 +391,13 @@ class UserPartner extends Controlapidoc
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Hi '.$user_data->full_name.',</b><br>
-                                                        Thank you for your confirmation. Your MyCillin account is ready to use. Please login using your email and start growing with us.
+                                                        Selamat bergabung bersama mycillin. Account Anda telah siap digunakan. Silahkan login menggunakan alamat email yang terdaftar dan segera bertumbuh bersama mycillin.
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Your Account Information : </b><br>
-                                                        Account name : '.$user_data->full_name.'<br>
+                                                        <b>Informasi akun anda: </b><br>
+                                                        Nama Akun : '.$user_data->full_name.'<br>
                                                         Email : '.$user_data->email.'<br>
                                                       </td>
                                                     </tr>
@@ -448,7 +418,7 @@ class UserPartner extends Controlapidoc
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  MyCillin<br>
+                                                  mycillin<br>
                                                   © 2017 All Rights Reserved
                                                 </td>
                                               </tr>
@@ -463,28 +433,21 @@ class UserPartner extends Controlapidoc
                             </body>
                             </html>');
 
-                    $this->email->send();
+                $this->email->send();
 
-                    $this->success('activation success');
-                } else {
-                    $this->not_auth('activation failed');
-                }
+                $this->success('activation success');
             } else {
-                $this->not_auth('activation expired');
+                $this->bad_req('An error was occured');
             }
-        } elseif ($user_data->status_id == '1') {
-            $this->not_auth('user already activated');
-        } elseif ($user_data->status_id == '2') {
-            $this->not_auth('user inactive');
         } else {
-            $this->not_auth('user deleted');
+            $this->bad_req('Account does not exist');
         }
     }
 
     public function forgot_password_post()
     {
-
         $data = json_decode(file_get_contents('php://input'), true);
+
         $user_data = $this->ma->is_valid_user($data['email']);
 
         $user_full = $this->ma->is_valid_user_id($user_data->user_id);

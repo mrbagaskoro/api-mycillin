@@ -138,6 +138,7 @@ $route['api/list_dash_reservasi']['GET']       	  = 'listparam/list_dash_reserva
 $route['api/list_dash_konsultasi']['GET']      	  = 'listparam/list_dash_konsultasi';
 $route['api/list_todo_inprogress']['GET']      	  = 'listparam/list_todo_inprogress';
 $route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_completed';
+$route['api/partner_activation']['POST']          = 'userpartner/partner_activation';
 
 /*---------------------- Route Process ------------------*/
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
