@@ -10,13 +10,7 @@ class UserPartner extends Controlpartner
     {
         parent::__construct();
         $this->load->model('modelpartner', 'ma');
-
         $segment = $this->uri->segment(2);
-        //echo $segment;
-        /*if ($segment != 'tes') {
-        # code...
-        $this->validate_jwt();
-        }*/
     }
 
     public function test_get()
@@ -238,7 +232,7 @@ class UserPartner extends Controlpartner
             'created_by'=>$this->post('email', true),
             'created_date'=>date("Y-m-d H:i:s"),
             'user_id'=>$user_id,
-            'status_id'=>'3' /*-------------> harusnya status tetap 3, aktivasi dilakukan oleh admin*/
+            'status_id'=>'03' /*-------------> harusnya status tetap 3, aktivasi dilakukan oleh admin*/
             ];
             //jika berhasil di masukan maka akan di respon kembali sesuai dengan data yang di masukan
             $user_exist = $this->ma->is_valid_num_user($data['email']);
@@ -451,7 +445,7 @@ class UserPartner extends Controlpartner
         $user_data = $this->ma->is_valid_user($data['email']);
 
         if ($user_data) {
-            if ($user_data->status_id == '1') {
+            if ($user_data->status_id == '01') {
                 if ($new_pass = $this->ma->forgot_password($user_full->user_id)) {
                     $user_full = $this->ma->is_valid_user_id($user_data->user_id);
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
@@ -541,7 +535,7 @@ class UserPartner extends Controlpartner
                 } else {
                     $this->bad_req('Reset password failed');
                 }
-            } elseif ($user_data->user_status == '2') {
+            } elseif ($user_data->status_id == '02') {
                 $this->not_auth('user inactive');
             } else {
                 $this->not_auth('user deleted');
