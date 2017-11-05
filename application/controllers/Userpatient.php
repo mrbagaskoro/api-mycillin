@@ -1,9 +1,9 @@
 <?php
   defined('BASEPATH') or exit('No direct script access allowed');
 
-  require_once APPPATH . 'controllers/Controlapi.php';
+  require_once APPPATH . 'controllers/Controlpatient.php';
 
-  class UserPatient extends Controlapi {
+  class UserPatient extends Controlpatient {
 
     public function __construct()
     {

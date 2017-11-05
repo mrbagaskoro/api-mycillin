@@ -14,8 +14,7 @@ use Restserver\Libraries\REST_Controller;
 
 use \Firebase\JWT\JWT;
 
-class Controlapi extends REST_Controller{
-
+class Controlpatient extends REST_Controller {
   private $secret_key = 'traksindo_maju_jaya_selalu';
 
   public function __construct(){
