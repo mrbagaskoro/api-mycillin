@@ -213,10 +213,8 @@ class Controlapi extends REST_Controller{
   		}
 
     } catch (\Exception $e) {
-
       //catch (\Firebase\JWT\SignatureInvalidException $e) {
       //print "Error!: " . $e->getMessage();
-
       $this->failed_token('invalid token');
     }
   }

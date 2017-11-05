@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class ModelPatient extends CI_Model{
+class ModelPatient extends CI_Model {
 
   public function __construct() {
     parent::__construct();
@@ -285,7 +285,7 @@ class ModelPatient extends CI_Model{
     return FALSE;
   }
 
-public function change_insurance_photocard($data) {
+  public function change_insurance_photocard($data) {
     $uid = $data['uid'];
     $where['user_id'] = $data['uid'];
     $where['relation_id'] = $data['relation_id'];
@@ -326,56 +326,50 @@ public function change_insurance_photocard($data) {
     return $query?TRUE:FALSE;
   }
 
-  public function user_booking_confirmation($data) 
-    {
-        $where['booking_id'] = $data['booking_id'];
+  public function user_booking_confirmation($data) {
+      $where['booking_id'] = $data['booking_id'];
 
-        $update['booking_status_id'] = "03";
-        $update['updated_by'] = $data['user_id'];
-        $query = $this->db->update('booking_trx', $update, $where);
-        return $query?TRUE:FALSE;
-    }
+      $update['booking_status_id'] = "03";
+      $update['updated_by'] = $data['user_id'];
+      $query = $this->db->update('booking_trx', $update, $where);
+      return $query?TRUE:FALSE;
+  }
 
-  public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id)
-    {
-        $query = $this->db->query("select * from mst_price where service_type_id='$service_type_id' and pymt_methode_id='$pymt_methode_id' and partner_type_id='$partner_type_id' and spesialisasi_id='$spesialisasi_id' ");
-        return $query->result();
-    }
+  public function service_price($service_type_id, $pymt_methode_id, $partner_type_id, $spesialisasi_id) {
+      $query = $this->db->query("select * from mst_price where service_type_id='$service_type_id' and pymt_methode_id='$pymt_methode_id' and partner_type_id='$partner_type_id' and spesialisasi_id='$spesialisasi_id' ");
+      return $query->result();
+  }
 
-  public function user_cancel_transaction($data) 
-    {
-        $where['booking_id'] = $data['booking_id'];
+  public function user_cancel_transaction($data) {
+      $where['booking_id'] = $data['booking_id'];
 
-        $update['cancel_status'] = "Y";
-        $update['cancel_by'] = $data['user_id'];
-        $update['cancel_reason_id'] = $data['cancel_reason_id'];
-        $update['updated_by'] = $data['user_id'];
-        $query = $this->db->update('booking_trx', $update, $where);
-        return $query?TRUE:FALSE;
-    }
+      $update['cancel_status'] = "Y";
+      $update['cancel_by'] = $data['user_id'];
+      $update['cancel_reason_id'] = $data['cancel_reason_id'];
+      $update['updated_by'] = $data['user_id'];
+      $query = $this->db->update('booking_trx', $update, $where);
+      return $query?TRUE:FALSE;
+  }
 
-    public function user_rating_feedback($data) 
-    {
-        $where['booking_id'] = $data['booking_id'];
+  public function user_rating_feedback($data) {
+      $where['booking_id'] = $data['booking_id'];
 
-        $update['service_rating'] = $data['service_rating'];
-        $update['user_comment'] = $data['user_comment'];
-        
-        $update['updated_by'] = $data['user_id'];
-        $query = $this->db->update('booking_trx', $update, $where);
-        return $query?TRUE:FALSE;
-    }
+      $update['service_rating'] = $data['service_rating'];
+      $update['user_comment'] = $data['user_comment'];
+      
+      $update['updated_by'] = $data['user_id'];
+      $query = $this->db->update('booking_trx', $update, $where);
+      return $query?TRUE:FALSE;
+  }
 
-    public function rating_fill_checking($booking_status_id, $cancel_status, $service_rating)
-    {
-        $query = $this->db->query("select * from booking_trx where booking_status_id='04' and cancel_status='N' and service_rating is null ");
-        return $query->result();
-    }
+  public function rating_fill_checking($booking_status_id, $cancel_status, $service_rating) {
+      $query = $this->db->query("select * from booking_trx where booking_status_id='04' and cancel_status='N' and service_rating is null ");
+      return $query->result();
+  }
 
-    public function detail_partner_information($user_id)
-    {
-        $query = $this->db->query("select * from partner_profile where user_id='$user_id'");
-        return $query->result();
-    }
+  public function detail_partner_information($user_id) {
+      $query = $this->db->query("select * from partner_profile where user_id='$user_id'");
+      return $query->result();
+  }
 
 }
