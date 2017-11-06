@@ -82,7 +82,7 @@ class Controlpartner extends REST_Controller{
     if ($user_data) {
       $partner_full = $this->ma->is_valid_user_id($user_data->user_id);
 
-      if ($data['password'] == $this->encrypt->decode($user_data->password) && $user_data->status_id == '1') {
+      if ($data['password'] == $this->encrypt->decode($user_data->password) && $user_data->status_id == '01') {
         // var_dump($partner_full);
         // exit();
         $payload = [
@@ -114,9 +114,9 @@ class Controlpartner extends REST_Controller{
 
         $this->response($output,REST_Controller::HTTP_OK);
 
-      } else if ($user_data->status_id == '2') {
+      } else if ($user_data->status_id == '02') {
         $this->not_auth('user inactive');
-      } else if ($user_data->status_id == '0') {
+      } else if ($user_data->status_id == '00') {
         $this->not_auth('user deleted');
       } else {
         //$this->failed_token($email, $password);
@@ -132,24 +132,22 @@ class Controlpartner extends REST_Controller{
 
 //method untuk mengecek token setiap melakukan post, put, etc
   public function validate_jwt(){
-    $this->load->model('modelapidoc','ma');
+    $this->load->model('modelpartner','ma');
 
     $jwt = $this->input->get_request_header('Authorization');
 
     $token = str_replace('Bearer ', '', $jwt);
-
-
 
     try {
 
       $decode = JWT::decode($token,$this->secret_key,array('HS256'));
 
       //melakukan pengecekan database, jika email tersedia di database maka return true
-		if ($user_data = $this->ma->is_valid_user($decode->data->email)) {
+		if ($user_data = $this->ma->is_valid_user_id($decode->data->user_id)) {
 
-			if ($user_data->status_id == '1') {
+			if ($user_data->status_id == '01') {
 				return true;
-			} else if ($user_data->status_id == '2') {
+			} else if ($user_data->status_id == '02') {
 			  $this->not_auth('user inactive');
 			} else {
 			  $this->not_auth('user deleted');

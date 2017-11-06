@@ -10,6 +10,49 @@ class ModelPartner extends CI_Model
         $this->load->database();
     }
 
+    public function detail_token_fcm($user_id)
+    {
+        $query = $this->db->query("select * from mst_token_partner where user_id='$user_id'");
+        return $query->result();
+    }
+
+    public function update_valid_token_fcm($data,$token)
+    {
+        $date = date('Y-m-d H:i:s');
+        
+        $where['user_id'] = $data;
+        
+        $update['token'] = $token;
+        $update['updated_by'] = $data;
+        $update['updated_date'] = $date;
+        
+        $query = $this->db->update('mst_token_partner', $update, $where);
+        return $query?TRUE:FALSE;
+    }
+
+    public function insert_valid_token_fcm($data,$token)
+    {
+
+        $date = date('Y-m-d H:i:s');
+
+        $insert['created_by'] = $data;
+        $insert['created_date'] = $date;
+        $insert['user_id'] = $data;
+        $insert['token'] = $token;
+    
+        $query = $this->db->insert('mst_token_partner', $insert);
+        return $query?TRUE:FALSE;
+    }
+
+    public function is_valid_token_fcm($user_id)
+    {
+        $this->db->select('*');
+        $this->db->from('mst_token_partner');
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
     public function is_valid_user($email)
     {
         $this->db->select('*');
@@ -182,8 +225,23 @@ class ModelPartner extends CI_Model
 
     public function list_partner_booking($data)
     {
-        $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."' ".$data['status']."");
-        return $query->result();
+
+        if ($data['booking_id']!='') {
+            $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."' and booking_id=".$data['booking_id']."");
+            return $query->result();
+        } elseif ($data['booking_status_id']!='' && $data['service_type_id']==''&& $data['booking_id']=='') {
+            $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."' and booking_status_id=".$data['booking_status_id']."");
+            return $query->result();
+        } elseif ($data['booking_status_id']!='' && $data['service_type_id']!='') {
+            $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."' and booking_status_id=".$data['booking_status_id']." and service_type_id=".$data['service_type_id']."");
+            return $query->result();
+        } elseif ($data['booking_status_id']==''&& $data['service_type_id']!='') {
+            $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."' and service_type_id=".$data['service_type_id']."");
+            return $query->result();
+        } else {
+            $query = $this->db->query("select * from booking_trx where partner_selected='".$data['user_id']."'");
+            return $query->result();
+        }
     }
 
     public function complete_account($data)

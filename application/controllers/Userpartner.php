@@ -25,7 +25,52 @@ class UserPartner extends Controlpartner
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_partner_booking($data);
-        $this->ok($data);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
+
+    public function detail_token_fcm_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->detail_token_fcm($data['user_id']);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+        
+    }
+
+    public function token_fcm_post()
+    {
+
+        
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        // $data = $this->ma->token_fcm($data);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+    // var_dump($user_data);
+    // exit();
+        if($user_data){
+            $isToken = $this->ma->is_valid_token_fcm($data['user_id']);
+            if(!$isToken){
+                $this->ma->insert_valid_token_fcm($data['user_id'],$data['token']);
+                $this->success('Insert token success');
+            }else{
+                $this->ma->update_valid_token_fcm($data['user_id'],$data['token']);
+                $this->success('Update token success');
+            }
+            
+        }else{
+            $this->bad_req('User does not exist');
+            
+        }
+        
     }
 
     public function change_partner_avatar_post()
@@ -446,7 +491,9 @@ class UserPartner extends Controlpartner
 
         if ($user_data) {
             if ($user_data->status_id == '01') {
-                if ($new_pass = $this->ma->forgot_password($user_full->user_id)) {
+                if ($new_pass = $this->ma->forgot_password($user_data->user_id)) {
+                    // var_dump($new_pass);
+                    // exit();
                     $user_full = $this->ma->is_valid_user_id($user_data->user_id);
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($user_data->email);

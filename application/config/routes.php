@@ -91,7 +91,7 @@ $route['api/list_satuan_obat']['GET']			= 'listparam/list_mst_satuan_obat';
 /*---------------------- doctor --------------------------*/
 //$route['api/update_loc_doctor']['POST']         = 'medicalhost/update_loc_doc';
 //$route['api/get_loc_doctor']['GET']             = 'medicalhost/get_loc_doc';
-$route['api/forgot_password_doctor']['POST']    = 'userpartner/forgot_password';
+$route['api/forgot_password_partner']['POST']   = 'userpartner/forgot_password';
 $route['api/register_partner']['POST']          = 'userpartner/register_partner';
 $route['api/login_doctor']['POST']              = 'controlpartner/generate_jwt';
 $route['api/activation_partner']['GET']         = 'userpartner/confirm_account';
@@ -99,6 +99,10 @@ $route['api/complete_account_partner']['POST']  = 'userpartner/complete_account_
 $route['api/toggle_status_partner']['POST']     = 'userpartner/toggle_status_partner';
 $route['api/detail_user_partner']['POST']       = 'userpartner/detail_user';
 $route['api/change_password_partner']['POST']   = 'userpartner/change_password_partner';
+
+$route['api/token_fcm']['POST']                 = 'userpartner/token_fcm';
+$route['api/detail_token_fcm']['POST']          = 'userpartner/detail_token_fcm';
+
 
 $route['api/change_partner_avatar']['POST']     = 'userpartner/change_partner_avatar';
 $route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avatar';
