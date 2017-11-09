@@ -41,6 +41,7 @@ class ModelPatient extends CI_Model {
       $cur_date = date('Y-m-d');
       $query = $this->db->query("SELECT 
         image_id,
+        url_link,
         concat('".FULL_UPLOAD_PATH_BANNER."', image_name) image_name,
         start_date,
         end_date
