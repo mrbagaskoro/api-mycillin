@@ -226,19 +226,19 @@ class ModelPatient extends CI_Model {
 
   public function detail_medical_record($user_id, $record_id)
   {
-      $query = $this->db->query("select * from medical_record where user_id='$user_id' and record_id='$record_id'");
+      $query = $this->db->query("select mr.partner_id, pr.full_name as partner_name, mr.record_id, mr.user_id, mst.service_type_desc, mr.body_temperature, mr.blood_sugar_level, mr.cholesterol_level, mr.blood_press_upper, mr.blood_press_lower, mr.patient_condition, mr.diagnosa, mr.prescription_status, mr.prescription_id, mpt.prescription_type_desc from medical_record mr inner join partner_profile pr on mr.partner_id=pr.user_id left join mst_service_type mst on mr.service_type_id=mst.service_type_id left join mst_prescription_type mpt on mr.prescription_type_id=mpt.prescription_type_id where mr.user_id='$user_id' and mr.record_id='$record_id'");
       return $query->result();
   }
 
   public function list_medical_record($user_id, $relation_id)
   {
-      $query = $this->db->query("select * from medical_record where user_id='$user_id' and relation_id='$relation_id'");
+      $query = $this->db->query("select mr.partner_id, pr.full_name as partner_name, mr.record_id, mr.user_id, mst.service_type_desc, mr.body_temperature, mr.blood_sugar_level, mr.cholesterol_level, mr.blood_press_upper, mr.blood_press_lower, mr.patient_condition, mr.diagnosa, mr.prescription_status, mr.prescription_id, mpt.prescription_type_desc from medical_record mr inner join partner_profile pr on mr.partner_id=pr.user_id left join mst_service_type mst on mr.service_type_id=mst.service_type_id left join mst_prescription_type mpt on mr.prescription_type_id=mpt.prescription_type_id  where mr.user_id='$user_id' and mr.relation_id='$relation_id'");
       return $query->result();
   }
 
   public function detail_prescription($prescription_no)
   {
-      $query = $this->db->query("select * from prescription_detail where prescription_no='$prescription_no'");
+      $query = $this->db->query("select pd.created_date, pd.prescription_no, pd.nama_obat, pd.jumlah_obat, so.satuan_obat_desc, do.dosis_obat_desc as dosis_pemakaian from prescription_detail pd inner join mst_satuan_obat so on pd.satuan_id=so.satuan_obat_id left join mst_dosis_obat do on pd.dosage_id=do.dosis_obat_id where pd.prescription_no='$prescription_no'");
       return $query->result();
   }
 
@@ -375,4 +375,8 @@ class ModelPatient extends CI_Model {
       return $query->result();
   }
 
+  public function mst_spesialisasi($partner_type_id) {
+    $query = $this->db->query("select * from mst_spesialisasi where partner_type_id='$partner_type_id' and is_active='Y'");
+    return $query->result();
+  }
 }
