@@ -252,45 +252,38 @@ class ModelPatient extends CI_Model {
     $insert['user_id'] = $data['user_id'];
     $insert['relation_id'] = $data['relation_id'];
     $insert['no_polis_insr'] = $data['no_polis_insr'];
-    $insert['insr_provider_id'] = $data['insr_provider_id'];
-    $insert['nama_asuransi'] = $data['nama_asuransi'];
+    $insert['insr_provider_id'] = $insr_id = $data['insr_provider_id'];
     $insert['nama_tertanggung'] = $data['nama_tertanggung'];
     $insert['nama_pemilik_insr'] = $data['nama_pemilik_insr'];
     $insert['created_by'] = $data['user_id'];
+    $insert['photo_kartu_insr'] = $data['photo_kartu_insr'];
+
+    $insr = $this->db->query("select insr_provider_id, insr_provider_desc from mst_insr_provider where insr_provider_id='$insr_id' and is_active='Y'")->row();
+    $insert['nama_asuransi'] = $insr->insr_provider_desc;
 
     $query = $this->db->insert('member_insurance', $insert);
     return $query?TRUE:FALSE;
   }
-
-  public function update_member_insurance($data) {
-    $where['relation_id'] = $data['relation_id'];
-
-    $update['no_polis_insr'] = $data['no_polis_insr'];
-    $update['insr_provider_id'] = $data['insr_provider_id'];
-    $update['nama_asuransi'] = $data['nama_asuransi'];
-    $update['nama_tertanggung'] = $data['nama_tertanggung'];
-    $update['nama_pemilik_insr'] = $data['nama_pemilik_insr'];
-    
-    $update['updated_by'] = $data['user_id'];
-
-    $query = $this->db->update('member_insurance', $update, $where);
-    return $query?TRUE:FALSE;
-  }
-
+  
   public function list_member_insurance($user_id, $relation_id) 
   {
-    $query = $this->db->query("select * from member_insurance where user_id='$user_id' and relation_id='$relation_id'");
+    $query = $this->db->query("select mi.member_insr_id, mi.user_id, mi.relation_id, mi.no_polis_insr, mi.insr_provider_id, mi.nama_asuransi, mi.nama_tertanggung, mi.nama_pemilik_insr, concat('".FULL_UPLOAD_PATH_INSR."', mi.photo_kartu_insr) img_insr_card from member_insurance mi where user_id='$user_id' and relation_id='$relation_id'");
     return $query->result();
   }
 
   public function delete_member_insurance($data) {
+    $where['member_insr_id'] = $member_insr_id = $data['member_insr_id'];
+    $where['user_id'] = $data['user_id'];
     $where['relation_id'] = $data['relation_id'];
-    $user_id = $data['user_id'];
+
+    $photo = $this->db->query("select photo_kartu_insr from member_insurance where member_insr_id=$member_insr_id")->row();
 
     $query = $this->db->delete('member_insurance', $where);
     if ($query) {
-      $query = $this->db->query("select * from member_insurance where user_id='$user_id'");
-      return $query->result();
+      if ($photo->photo_kartu_insr != null) {
+        unlink(UPLOAD_PATH_INSR.$photo->photo_kartu_insr);
+      }
+      return TRUE;
     }
     return FALSE;
   }

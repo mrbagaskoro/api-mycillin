@@ -582,22 +582,49 @@
     public function add_member_insurance_post()
     {
         $this->validate_jwt();
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = file_get_contents('php://input');
 
-        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+        $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
   
         if ($user_data) {
-            if ($this->ma->add_member_insurance($data)) {
-                $this->success('Insurance added successfully');
+            $config['upload_path'] = UPLOAD_PATH_INSR;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $config['max_size'] = 4096;
+            $config['overwrite'] = true;
+
+            $this->load->library('upload', $config);
+            if (!empty($_FILES['img_insr_card']['name'])) {
+                $config['file_name'] = 'img_card_'.$this->post('no_polis_insr');
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('img_insr_card')) {
+                    $err = array("result" => $this->upload->display_errors());
+                    $this->bad_req($err);
+                }
+
+                $up = $this->upload->data();
+                $data['user_id'] = $this->post('user_id');
+                $data['relation_id'] = $this->post('relation_id');
+                $data['no_polis_insr'] = $this->post('no_polis_insr');
+                $data['insr_provider_id'] = $this->post('insr_provider_id');
+                $data['nama_tertanggung'] = $this->post('nama_tertanggung');
+                $data['nama_pemilik_insr'] = $this->post('nama_pemilik_insr');
+
+                $data['photo_kartu_insr'] = $up['file_name'];
+
+                if ($this->ma->add_member_insurance($data)) {
+                    $this->success('Insurance added successfully');
+                } else {
+                    $this->bad_req('An error was occured');
+                }
             } else {
-                $this->bad_req('An error was occured');
+                $this->bad_req('File can not empty');
             }
         } else {
             $this->bad_req('Account does not exist');
         }
     }
 
-    public function update_member_insurance_post()
+    public function delete_member_insurance_post()
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
@@ -605,8 +632,8 @@
         $user_data = $this->ma->is_valid_user_id($data['user_id']);
   
         if ($user_data) {
-            if ($this->ma->update_member_insurance($data)) {
-                $this->success('Insurance updated successfully');
+            if ($this->ma->delete_member_insurance($data)) {
+                $this->success('Insurance deleted successfully');
             } else {
                 $this->bad_req('An error was occured');
             }
@@ -619,20 +646,8 @@
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_member_insurance($data['user_id']);
+        $data = $this->ma->list_member_insurance($data['user_id'], $data['relation_id']);
         $this->ok($data);
-    }
-
-    public function delete_member_insurance_post()
-    {
-        $this->validate_jwt();
-        $data = json_decode(file_get_contents('php://input'), true);
-        $delete = $this->ma->delete_member_insurance($data);
-        if ($delete) {
-            $this->ok($delete);
-        } else {
-            $this->bad_req('An error was occured');
-        }
     }
 
     public function change_insurance_photocard_post()
