@@ -94,7 +94,7 @@ class ModelPatient extends CI_Model {
   public function register_fb($data) {
     $date = date('Y-m-d H:i:s');
 
-    $data_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'status_id'=>$data['status_id']);
+    $data_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'profile_photo'=>$data['profile_photo'], 'status_id'=>$data['status_id']);
 
     $data_relation = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_type'=>'01', 'full_name'=>strtoupper($data['full_name']));
 

@@ -267,14 +267,15 @@ class Controlpatient extends REST_Controller {
                     ]
                 ];
 
-    /*$config['upload_path'] = UPLOAD_PATH_PROFILE;
+    $config['upload_path'] = UPLOAD_PATH_PROFILE;
     $config['allowed_types'] = 'jpeg|jpg|png';
     $config['max_size'] = 4096;
     $config['overwrite'] = true;
 
     $this->load->library('upload', $config);
+
     if (!empty($_FILES['fb_img']['name'])) {
-      $config['file_name'] = 'img_'.$this->post('user_id');
+      $config['file_name'] = 'img_'.$data['user_id'];
       $this->upload->initialize($config);
       if (!$this->upload->do_upload('fb_img')) {
         $err = array("result" => $this->upload->display_errors());
@@ -282,18 +283,10 @@ class Controlpatient extends REST_Controller {
       }
 
       $up = $this->upload->data();
-      $upd['uid'] = $this->post('user_id');
-      $upd['file_name'] = $up['file_name'];
-
-      $update = $this->ma->change_avatar($upd);
-      if ($update) {
-        $this->success($update);
-      } else {
-        $this->bad_req('Changet photo fail, please try again');
-      }
+      $data['profile_photo'] = $up['file_name'];
     } else {
-      $this->bad_req('File can not empty');
-    }*/
+      $data['profile_photo'] = '';
+    }
 
     if ($user_data != NULL) {
       if ($user_data->status_id == '01') {
