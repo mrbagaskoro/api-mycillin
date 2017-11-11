@@ -315,15 +315,28 @@ class ModelPatient extends CI_Model {
     $insert['user_id'] = $data['user_id'];
     $insert['relation_id'] = $data['relation_id'];
     $insert['partner_selected'] = $data['partner_selected'];
-    $insert['service_type_id'] = $data['service_type_id'];
-    $insert['promo_code'] = $data['promo_code'];
-    $insert['price_amount'] = $data['price_amount'];
-    $insert['pymt_methode_id'] = $data['pymt_methode_id'];
+    $insert['service_type_id'] = $service_type = $data['service_type_id'];
+    $promo_code = $data['promo_code'];
+    $insert['pymt_methode_id'] = $pymt_methode = $data['pymt_methode_id'];
     $insert['request_location'] = $data['request_location'];
     $insert['booking_status_id'] = "01";
     $insert['cancel_status'] = "N";
 
+    $partner_type = $data['partner_type_id'];
+    $spesialisasi_id = $data['spesialisasi_id'];
+
     $insert['created_by'] = $data['user_id'];
+
+    $price = $this->db->query("select price_amount from mst_price where service_type_id='$service_type' and pymt_methode_id='$pymt_methode' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id' ")->row();
+
+    if ($promo_code != null || $promo_code !='') {
+      $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code'")->row();
+      $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+    } else {
+      $total_price = $price->price_amount;
+    }
+
+    $insert['price_amount'] = $total_price;
 
     $query = $this->db->insert('booking_trx', $insert);
     return $query?TRUE:FALSE;
