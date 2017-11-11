@@ -330,8 +330,13 @@ class ModelPatient extends CI_Model {
     $price = $this->db->query("select price_amount from mst_price where service_type_id='$service_type' and pymt_methode_id='$pymt_methode' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id' ")->row();
 
     if ($promo_code != null || $promo_code !='') {
-      $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code'")->row();
-      $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+      $cur_date = date('Y-m-d');
+      $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
+      if ($promo != null) {
+        $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+      } else {
+        $total_price = $price->price_amount;
+      }
     } else {
       $total_price = $price->price_amount;
     }
