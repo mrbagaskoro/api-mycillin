@@ -319,19 +319,28 @@ class ModelPartner extends CI_Model
     {
         $date = date('Y-m-d H:i:s');    
         $test = md5($date.$data['user_id']); /*crate random nomor resep obat- test sementara*/
-        $where['booking_id'] = $data['booking_id'];
+        $booking = $data['booking_id'];
 
         $data_transaction = array('action_type_id'=>$data['action_type_id'], 'booking_status_id'=>"04", 'updated_by'=>$data['user_id']);
 
-        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['requestor_id'], 'relation_id'=>$data['relation_id'], 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'service_type_id'=>$data['service_type_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
+        $trx_data = $this->db->query("select user_id, relation_id from booking_trx where booking_id='$booking' ")->row();
+        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data->user_id, 'relation_id'=>$trx_data->relation_id, 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'service_type_id'=>$data['service_type_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
+
+        $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
+        $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'TRX','amount'=>$profit_share->partner_profit_share);
+
+
+
+        $where['booking_id'] = $data['booking_id'];
 
         $this->db->trans_begin();
 
         $q1 = $this->db->update('booking_trx', $data_transaction, $where);
         $q2 = $this->db->insert('medical_record', $data_record);
+        $q3 = $this->db->insert('va_balance', $wallet);
         /*$x3 = $this->db->insert('prescription_detail', $data_prescription); */
 
-        if ($q1 && $q2) {
+        if ($q1 && $q2 && $q3) {
             $this->db->trans_commit();
             return TRUE;
         }
