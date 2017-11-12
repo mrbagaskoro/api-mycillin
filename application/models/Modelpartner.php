@@ -329,8 +329,6 @@ class ModelPartner extends CI_Model
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
         $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'TRX','amount'=>$profit_share->partner_profit_share);
 
-
-
         $where['booking_id'] = $data['booking_id'];
 
         $this->db->trans_begin();
@@ -338,7 +336,7 @@ class ModelPartner extends CI_Model
         $q1 = $this->db->update('booking_trx', $data_transaction, $where);
         $q2 = $this->db->insert('medical_record', $data_record);
         $q3 = $this->db->insert('va_balance', $wallet);
-        /*$x3 = $this->db->insert('prescription_detail', $data_prescription); */
+        /*$q4 = $this->db->insert('prescription_detail', $data_prescription); */
 
         if ($q1 && $q2 && $q3) {
             $this->db->trans_commit();
