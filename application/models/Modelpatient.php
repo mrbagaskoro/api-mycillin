@@ -348,7 +348,7 @@ class ModelPatient extends CI_Model {
 
     $cur_date = date('Y-m-d');
     $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row();
-    /*if ($partner_selected != null || $partner_selected !='' and $pymt_methode='03') {*/
+    
     if ($pymt_methode !='03') {
       $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
     } else {   
@@ -410,5 +410,30 @@ class ModelPatient extends CI_Model {
   public function mst_spesialisasi($partner_type_id) {
     $query = $this->db->query("select * from mst_spesialisasi where partner_type_id='$partner_type_id' and is_active='Y'");
     return $query->result();
+  }
+
+  Public function find_partner($user_id, $partner_type_id, $spesialisasi_id, $gender, $request_location)
+  {
+
+      /*----------ambil koordinate masing-masing partner--------*/
+      
+      $partner_loc = $this->db->query("select pa.location_autoupdate from partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id where pr.partner_type_id='$partner_type_id' and pr.spesialisasi_id='$spesialisasi_id' and pr.gender='$gender' and pa.status_id='01' and pa.available_id='1' and pa.visit_id='1' ")->row();
+
+      
+      $coord_a = explode(",",$request_location); /*-------pemecahan koordinate requestor--*/
+      $coord_b = explode(",",$partner_loc->location_autoupdate); /*-------pemecahan koordinate partner--*/
+
+      /*--------------perhitungan jarak antar 2 koordinate---------------*/
+      $theta = $coord_a[0] - $coord_b[0]; 
+      $distance = (sin(deg2rad($coord_a[1])) * sin(deg2rad($coord_b[1])))  + (cos(deg2rad($coord_a[1])) * cos(deg2rad($coord_b[1])) * cos(deg2rad($theta))); 
+      $distance = acos($distance); 
+      $distance = rad2deg($distance); 
+      $distance = $distance * 60 * 1.1515; 
+      $distance = round($distance * 1.609344,2);
+
+      /*----------pemilihan parner berdasarkan kriteria dan status dan distance--------*/
+      $query = $this->db->query("select pa.user_id as partner_id, pr.full_name as nama_partner, pr.wilayah_kerja, pa.location_autoupdate as partner_loc, $distance from partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id where pr.partner_type_id='$partner_type_id' and pr.spesialisasi_id='$spesialisasi_id' and pr.gender='$gender' and pa.status_id='01' and pa.available_id='1' and pa.visit_id='1' and $distance < '10' ");
+
+      return $query->result();
   }
 }

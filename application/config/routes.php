@@ -147,16 +147,15 @@ $route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_complete
 $route['api/partner_activation']['POST']          = 'userpartner/partner_activation';
 
 /*---------------------- Route Process ------------------*/
+$route['api/find_partner']['POST']				  = 'userpatient/find_partner';
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
 $route['api/add_request']['POST']          		  = 'userpatient/add_request';
 $route['api/partner_confirmation']['POST']        = 'userpartner/partner_confirmation'; /*dilanjutkan FCM ut enabble button conf. user*/
 $route['api/user_booking_confirmation']['POST']   = 'userpatient/user_booking_confirmation';
 $route['api/partner_task_completed']['POST']      = 'userpartner/partner_task_completed';
-$route['api/add_prescription']['POST']     		  = 'userpartner/add_prescription';
-
 $route['api/user_cancel_transaction']['POST']     = 'userpatient/user_cancel_transaction';
 $route['api/partner_cancel_transaction']['POST']  = 'userpartner/partner_cancel_transaction';
 $route['api/user_rating_feedback']['POST']     	  = 'userpatient/user_rating_feedback';
 $route['api/rating_fill_checking']['POST']        = 'userpatient/rating_fill_checking';
-
 $route['api/detail_partner_information']['POST']  = 'userpatient/detail_partner_information';
+$route['api/add_prescription']['POST']     		  = 'userpartner/add_prescription';

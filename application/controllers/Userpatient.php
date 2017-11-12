@@ -804,4 +804,12 @@
         }
     }
 
+    public function find_partner_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->find_partner($data['user_id'], $data['partner_type_id'], $data['spesialisasi_id'], $data['gender'], $data['request_location']);
+        $this->ok($data);
+    }
+
   }
