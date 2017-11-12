@@ -314,7 +314,8 @@ class ModelPatient extends CI_Model {
   public function add_request($data) {
     $insert['user_id'] = $data['user_id'];
     $insert['relation_id'] = $data['relation_id'];
-    $insert['partner_selected'] = $data['partner_selected'];
+    /*$insert['partner_selected'] = $data['partner_selected'];*/
+    $partner_selected = $data['partner_selected'];
     $insert['service_type_id'] = $service_type = $data['service_type_id'];
     $promo_code = $data['promo_code'];
     $insert['pymt_methode_id'] = $pymt_methode = $data['pymt_methode_id'];
@@ -334,6 +335,7 @@ class ModelPatient extends CI_Model {
       $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
       if ($promo != null) {
         $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+        $insert["promo_code"]=$data['promo_code'];
       } else {
         $total_price = $price->price_amount;
       }
@@ -342,6 +344,18 @@ class ModelPatient extends CI_Model {
     }
 
     $insert['price_amount'] = $total_price;
+
+
+    $cur_date = date('Y-m-d');
+    $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row();
+    /*if ($partner_selected != null || $partner_selected !='' and $pymt_methode='03') {*/
+    if ($pymt_methode !='03') {
+      $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
+    } else {   
+      $partner_fee = $total_price*($profit_sharing->profit_sharing);
+    }
+
+    $insert['partner_profit_share'] = $partner_fee;
 
     $query = $this->db->insert('booking_trx', $insert);
     return $query?TRUE:FALSE;
