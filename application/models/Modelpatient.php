@@ -417,7 +417,7 @@ class ModelPatient extends CI_Model {
 
       /*----------ambil koordinate masing-masing partner--------*/
       
-      $partner_loc = $this->db->query("select pa.location_autoupdate from partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id where pr.partner_type_id='$partner_type_id' and pr.spesialisasi_id='$spesialisasi_id' and pr.gender='$gender' and pa.status_id='01' and pa.available_id='1' and pa.visit_id='1' ")->row();
+      $partner_loc = $this->db->query("select pa.latitude from partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id where pr.partner_type_id='$partner_type_id' and pr.spesialisasi_id='$spesialisasi_id' and pr.gender='$gender' and pa.status_id='01' and pa.available_id='1' and pa.visit_id='1' ")->row();
 
       
       // $coord_a = explode(",",$request_location); /*-------pemecahan koordinate requestor--*/
