@@ -274,7 +274,8 @@ class ModelPartner extends CI_Model
     {
         $where['user_id'] = $data['user_id'];
 
-        $update['location_autoupdate'] = $data['location_autoupdate'];
+        $update['latitude'] = $data['latitude'];
+        $update['longitude'] = $data['longitude'];
 
         $query = $this->db->update('partner_account', $update, $where);
         return $query?true:false;
