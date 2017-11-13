@@ -412,56 +412,99 @@ class ModelPatient extends CI_Model {
     return $query->result();
   }
 
-  Public function find_partner($user_id, $partner_type_id, $spesialisasi_id, $gender, $latitude, $longitude)
+  Public function find_partner($user_id, $partner_type_id, $spesialisasi_id, $gender, $BPJS_RCV_status, $latitude, $longitude)
   {
+   
+    $query = $this->db->query("
+    SELECT pa.user_id,
+    latitude,
+    longitude,
+    (6371 * ACOS(SIN(RADIANS(latitude)) 
+    * SIN(RADIANS($latitude)) 
+    + COS(RADIANS(longitude 
+    - $longitude)) 
+    * COS(RADIANS(latitude)) 
+    * COS(RADIANS($latitude))))
+      AS distance,
+      pr.full_name,
+      pr.wilayah_kerja
+      FROM partner_account pa 
+      INNER JOIN partner_profile pr 
+      ON pa.user_id=pr.user_id 
+      WHERE pr.partner_type_id='$partner_type_id' 
+      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND pr.gender='$gender' 
+      AND pa.BPJS_RCV_status='$BPJS_RCV_status'
+      AND pa.status_id='01'
+      AND pa.available_id='1'
+      AND pa.visit_id='1' 
+      HAVING distance < 20 
+      ");
 
-      /*----------ambil koordinate masing-masing partner--------*/
-      
-      $partner_loc = $this->db->query("select pa.latitude from partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id where pr.partner_type_id='$partner_type_id' and pr.spesialisasi_id='$spesialisasi_id' and pr.gender='$gender' and pa.status_id='01' and pa.available_id='1' and pa.visit_id='1' ")->row();
+    return $query->result();
+  }
 
-      
-      // $coord_a = explode(",",$request_location); /*-------pemecahan koordinate requestor--*/
-      // $coord_b = explode(",",$partner_loc->location_autoupdate); /*-------pemecahan koordinate partner--*/
+  Public function find_healthcare($user_id, $partner_type_id, $spesialisasi_id, $gender, $BPJS_RCV_status, $latitude, $longitude)
+  {
+   
+    $query = $this->db->query("
+    SELECT pa.user_id,
+    latitude,
+    longitude,
+    (6371 * ACOS(SIN(RADIANS(latitude)) 
+    * SIN(RADIANS($latitude)) 
+    + COS(RADIANS(longitude 
+    - $longitude)) 
+    * COS(RADIANS(latitude)) 
+    * COS(RADIANS($latitude))))
+      AS distance,
+      pr.full_name,
+      pr.wilayah_kerja
+      FROM partner_account pa 
+      INNER JOIN partner_profile pr 
+      ON pa.user_id=pr.user_id 
+      WHERE pr.partner_type_id='$partner_type_id' 
+      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND pr.gender='$gender' 
+      AND pa.BPJS_RCV_status='$BPJS_RCV_status'
+      AND pa.status_id='01'
+      AND pa.available_id='1'
+      AND pa.visit_id='1' 
+      HAVING distance < 20 
+      ");
 
-      /*--------------perhitungan jarak antar 2 koordinate---------------*/
-      // var_dump($coord_a[0]);
-      // var_dump($coord_b[0]);
-      // exit();
+    return $query->result();
+  }
 
-      $query = $this->db->query("
-      SELECT pa.user_id,
-      latitude,
-      longitude,
-      (6371 * ACOS(SIN(RADIANS(latitude)) 
-      * SIN(RADIANS($latitude)) 
-      + COS(RADIANS(longitude 
-      - $longitude)) 
-      * COS(RADIANS(latitude)) 
-      * COS(RADIANS($latitude))))
-        AS distance,
-        pr.full_name,
-        pr.wilayah_kerja
-        FROM partner_account pa 
-        INNER JOIN partner_profile pr 
-        ON pa.user_id=pr.user_id 
-        WHERE pr.partner_type_id='$partner_type_id' 
-        AND pr.spesialisasi_id='$spesialisasi_id' 
-        AND pr.gender='$gender' 
-        HAVING distance < 25 
-        ");
+  Public function find_clinic($user_id, $partner_type_id, $spesialisasi_id, $gender, $BPJS_RCV_status, $latitude, $longitude)
+  {
+   
+    $query = $this->db->query("
+    SELECT pr.user_id,
+    latitude_praktik,
+    longitude_praktik,
+    (6371 * ACOS(SIN(RADIANS(latitude_praktik)) 
+    * SIN(RADIANS($latitude)) 
+    + COS(RADIANS(longitude_praktik 
+    - $longitude)) 
+    * COS(RADIANS(latitude_praktik)) 
+    * COS(RADIANS($latitude))))
+      AS distance,
+      pr.full_name,
+      pr.wilayah_kerja
+      FROM partner_account pa 
+      INNER JOIN partner_profile pr 
+      ON pa.user_id=pr.user_id 
+      WHERE pr.partner_type_id='$partner_type_id' 
+      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND pr.gender='$gender' 
+      AND pa.BPJS_RCV_status='$BPJS_RCV_status'
+      AND pa.status_id='01'
+      AND pa.available_id='1'
+      AND pa.reservasi_id='1' 
+      HAVING distance < 20 
+      ");
 
-      // $theta = $coord_a[0] - $coord_b[0]; 
-      // $distance = (sin(deg2rad($coord_a[1])) * sin(deg2rad($coord_b[1])))  + (cos(deg2rad($coord_a[1])) * cos(deg2rad($coord_b[1])) * cos(deg2rad($theta))); 
-      // $distance = acos($distance); 
-      // $distance = rad2deg($distance); 
-      // $distance = $distance * 60 * 1.1515; 
-      // $distance = round($distance * 1.609344,2);
-      // // var_dump($distance);
-      // // exit();
-
-      // /*----------pemilihan parner berdasarkan kriteria dan status dan distance--------*/
-      // $query = $this->db->query("select pa.user_id as partner_id, pr.full_name as nama_partner, pr.wilayah_kerja, pa.location_autoupdate as partner_loc, $distance from partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id where pr.partner_type_id='$partner_type_id' and pr.spesialisasi_id='$spesialisasi_id' and pr.gender='$gender' and pa.status_id='01' and pa.available_id='1' and pa.visit_id='1' and $distance < '10' ");
-
-      return $query->result();
+    return $query->result();
   }
 }

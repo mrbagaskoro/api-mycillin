@@ -147,7 +147,9 @@ $route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_complete
 $route['api/partner_activation']['POST']          = 'userpartner/partner_activation';
 
 /*---------------------- Route Process ------------------*/
-$route['api/find_partner']['POST']				  = 'userpatient/find_partner';
+$route['api/find_partner']['POST']		  		  = 'userpatient/find_partner';
+$route['api/find_healthcare']['POST']		  	  = 'userpatient/find_healthcare';
+$route['api/find_clinic']['POST']		  	  	  = 'userpatient/find_clinic';
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
 $route['api/add_request']['POST']          		  = 'userpatient/add_request';
 $route['api/partner_confirmation']['POST']        = 'userpartner/partner_confirmation'; /*dilanjutkan FCM ut enabble button conf. user*/
