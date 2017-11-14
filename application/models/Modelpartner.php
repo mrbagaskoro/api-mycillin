@@ -16,6 +16,12 @@ class ModelPartner extends CI_Model
         return $query->result();
     }
 
+    public function detail_partner($user_id)
+    {
+        $query = $this->db->query("select * from partner_account pa left join partner_profile pp on pa.user_id=pp.user_id where pa.user_id='$user_id' and pp.user_id='$user_id'");
+        return $query->result();
+    }
+
     public function update_valid_token_fcm($data,$token)
     {
         $date = date('Y-m-d H:i:s');

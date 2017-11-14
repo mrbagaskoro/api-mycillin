@@ -44,7 +44,19 @@ class UserPartner extends Controlpartner
         }
         
     }
-
+    
+    public function detail_partner_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->detail_partner($data['user_id']);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+        
+    }
     public function token_fcm_post()
     {
 

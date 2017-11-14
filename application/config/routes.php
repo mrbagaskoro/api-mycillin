@@ -99,20 +99,15 @@ $route['api/complete_account_partner']['POST']  = 'userpartner/complete_account_
 $route['api/toggle_status_partner']['POST']     = 'userpartner/toggle_status_partner';
 $route['api/detail_user_partner']['POST']       = 'userpartner/detail_user';
 $route['api/change_password_partner']['POST']   = 'userpartner/change_password_partner';
-
 $route['api/token_fcm']['POST']                 = 'userpartner/token_fcm';
 $route['api/detail_token_fcm']['POST']          = 'userpartner/detail_token_fcm';
-
-
+$route['api/detail_partner']['POST']            = 'userpartner/detail_partner';
 $route['api/change_partner_avatar']['POST']     = 'userpartner/change_partner_avatar';
 $route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avatar';
-
 $route['api/change_partner_doc']['POST']        = 'userpartner/change_partner_doc';
 $route['api/get_partner_doc']['POST']           = 'userpartner/get_partner_doc';
-
 $route['api/list_partner_booking']['POST']      = 'userpartner/list_partner_booking';
 $route['api/partner_top_up']['POST']      		= 'userpartner/partner_top_up';
-
 
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';
@@ -124,32 +119,25 @@ $route['articles/kebijakan_privasi']['GET']		= 'general/kebijakan_privasi';
 $route['api/list_medical_record']['POST']         = 'userpatient/list_medical_record';
 $route['api/detail_medical_record']['POST']       = 'userpatient/detail_medical_record';
 $route['api/detail_prescription']['POST']         = 'userpatient/detail_prescription';
-
 $route['api/list_medical_record1']['POST']         = 'userpartner/list_medical_record1';
 $route['api/detail_medical_record1']['POST']       = 'userpartner/detail_medical_record1';
 $route['api/detail_prescription1']['POST']         = 'userpartner/detail_prescription1';
-
 $route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insurance';
 $route['api/update_member_insurance']['POST']     = 'userpatient/update_member_insurance';
 $route['api/list_member_insurance']['POST']       = 'userpatient/list_member_insurance';
 $route['api/delete_member_insurance']['POST']     = 'userpatient/delete_member_insurance';
-
 $route['api/change_insurance_photocard']['POST']  = 'userpatient/change_insurance_photocard';
 $route['api/get_insurance_photocard']['POST']     = 'userpatient/get_insurance_photocard';
-
 $route['api/partner_loc_autoupdate']['POST']      = 'userpartner/partner_loc_autoupdate';
-
 $route['api/list_dash_kunjungan']['GET']       	  = 'listparam/list_dash_kunjungan';
 $route['api/list_dash_reservasi']['GET']       	  = 'listparam/list_dash_reservasi';
 $route['api/list_dash_konsultasi']['GET']      	  = 'listparam/list_dash_konsultasi';
 $route['api/list_todo_inprogress']['GET']      	  = 'listparam/list_todo_inprogress';
 $route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_completed';
 $route['api/partner_activation']['POST']          = 'userpartner/partner_activation';
-
+    
 /*---------------------- Route Process ------------------*/
-$route['api/find_partner']['POST']		  		  = 'userpatient/find_partner';
-$route['api/find_healthcare']['POST']		  	  = 'userpatient/find_healthcare';
-$route['api/find_clinic']['POST']		  	  	  = 'userpatient/find_clinic';
+$route['api/find_partner']['POST']				  = 'userpatient/find_partner';
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
 $route['api/add_request']['POST']          		  = 'userpatient/add_request';
 $route['api/partner_confirmation']['POST']        = 'userpartner/partner_confirmation'; /*dilanjutkan FCM ut enabble button conf. user*/
