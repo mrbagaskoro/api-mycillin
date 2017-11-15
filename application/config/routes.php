@@ -140,6 +140,7 @@ $route['api/partner_activation']['POST']          = 'userpartner/partner_activat
 $route['api/find_partner']['POST']		  		  = 'userpatient/find_partner';
 $route['api/find_healthcare']['POST']		  	  = 'userpatient/find_healthcare';
 $route['api/find_clinic']['POST']		  	  	  = 'userpatient/find_clinic';
+$route['api/find_consultation']['POST']		  	  = 'userpatient/find_consultation';
 
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
 $route['api/add_request']['POST']          		  = 'userpatient/add_request';

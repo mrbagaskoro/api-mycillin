@@ -828,4 +828,12 @@
         $this->ok($data);
     }
 
+    public function find_consultation_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->find_consultation($data['user_id'], $data['partner_type_id'], $data['spesialisasi_id'], $data['gender']);
+        $this->ok($data);
+    }
+
   }

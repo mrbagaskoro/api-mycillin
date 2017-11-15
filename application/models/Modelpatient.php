@@ -440,7 +440,6 @@ class ModelPatient extends CI_Model {
       AND pa.visit_id='1' 
       HAVING distance < 20 
       ");
-
     return $query->result();
   }
 
@@ -472,7 +471,6 @@ class ModelPatient extends CI_Model {
       AND pa.visit_id='1' 
       HAVING distance < 20 
       ");
-
     return $query->result();
   }
 
@@ -504,7 +502,31 @@ class ModelPatient extends CI_Model {
       AND pa.reservasi_id='1' 
       HAVING distance < 20 
       ");
-
     return $query->result();
+  }
+
+  public function find_consultation($user_id, $partner_type_id, $spesialisasi_id, $gender) 
+  {
+    $query = $this->db->query("
+    SELECT pr.user_id,
+      pr.full_name,
+      pt.partner_type_desc,
+      ss.spesialisasi_desc,
+      pr.wilayah_kerja
+      FROM partner_account pa 
+      INNER JOIN partner_profile pr 
+      ON pa.user_id=pr.user_id 
+      LEFT JOIN mst_partner_type pt 
+      ON pr.partner_type_id=pt.partner_type_id 
+      LEFT JOIN mst_spesialisasi ss 
+      ON pr.spesialisasi_id=ss.spesialisasi_id
+      WHERE pr.partner_type_id='$partner_type_id' 
+      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND pr.gender='$gender' 
+      AND pa.status_id='01'
+      AND pa.available_id='1'
+      AND pa.consul_id='1' 
+      ");
+    return $query->result();       
   }
 }
