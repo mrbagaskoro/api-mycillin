@@ -78,7 +78,7 @@ $route['api/login']['POST']                     = 'controlpatient/generate_jwt';
 /*---------------------- List Parameter ------------------*/
 $route['api/list_relation']['GET']				= 'listparam/list_mst_relation';
 $route['api/list_cancel_reason']['GET']			= 'listparam/list_mst_cancel_reason';
-$route['api/list_cancel_reason_partner']['GET']	= 'listparam/list_cancel_reason_partner';
+$route['api/list_cancel_reason_partner']['GET']	= 'listparam/list_mst_cancel_reason_partner';
 $route['api/list_insr_provider']['GET']			= 'listparam/list_mst_insr_provider';
 $route['api/list_payment_methode']['GET']		= 'listparam/list_mst_payment_methode';
 $route['api/list_service_type']['GET']			= 'listparam/list_mst_service_type';

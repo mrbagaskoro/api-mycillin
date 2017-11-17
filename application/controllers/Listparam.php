@@ -21,7 +21,7 @@ class ListParam extends Controlapi{
   }
 
   public function list_mst_cancel_reason_partner_get(){
-    $data = $this->mp->list_mst_cancel_reason_partner();
+    $data = $this->mp->mst_cancel_reason_partner();
     $this->ok($data);
   }
 
