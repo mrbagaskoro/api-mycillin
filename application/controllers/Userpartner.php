@@ -700,7 +700,7 @@ class UserPartner extends Controlpartner
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_medical_record1($data['user_id'], $data['record_id']);
+        $data = $this->ma->detail_medical_record1($data['user_id'], $data['record_id']);
         $this->ok($data);
     }   
 
