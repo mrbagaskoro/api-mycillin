@@ -26,7 +26,7 @@ class ModelParam extends CI_Model{
 
   public function mst_cancel_reason_partner() {
     $this->db->select('cancel_reason_id, cancel_reason_desc');
-    $this->db->from('mst_cancel_reason');
+    $this->db->from('mst_cancel_reason_partner');
     $this->db->where('is_active','Y');
     $query = $this->db->get();
     return $query->result();
