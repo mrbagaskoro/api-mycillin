@@ -24,7 +24,15 @@ class ModelParam extends CI_Model{
     return $query->result();
   }
 
-public function mst_insr_provider() {
+  public function list_mst_cancel_reason_partner() {
+    $this->db->select('cancel_reason_id, cancel_reason_desc');
+    $this->db->from('mst_cancel_reason_partner');
+    $this->db->where('is_active','Y');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function mst_insr_provider() {
     $this->db->select('insr_provider_id, insr_provider_desc');
     $this->db->from('mst_insr_provider');
     $this->db->where('is_active','Y');

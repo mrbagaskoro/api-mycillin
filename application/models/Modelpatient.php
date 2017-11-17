@@ -529,4 +529,53 @@ class ModelPatient extends CI_Model {
       ");
     return $query->result();       
   }
+
+  public function user_booking_consultation($data) 
+  {
+    $partner_selected = $data['partner_selected'];
+    $service_type = '02';
+    $pymt_methode = '03'; 
+    $partner_type = $data['partner_type_id'];
+    $spesialisasi_id = $data['spesialisasi_id'];
+
+    $price = $this->db->query("select price_amount from mst_price where service_type_id='02' and pymt_methode_id='03' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id' ")->row();
+
+    $promo_code = $data['promo_code'];
+    if ($promo_code != null || $promo_code !='') {
+      $cur_date = date('Y-m-d');
+      $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
+      if ($promo != null) {
+        $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+      } else {
+        $total_price = $price->price_amount;
+      }
+    } else {
+      $total_price = $price->price_amount;
+    }
+
+    $cur_date = date('Y-m-d');
+    $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row();  
+    if ($pymt_methode !='03') {
+      $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
+    } else {   
+      $partner_fee = $total_price*($profit_sharing->profit_sharing);
+    }
+
+    $date = date('Y-m-d H:i:s'); 
+    $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>$service_type, 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N');
+
+    $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'TRX','amount'=>$partner_fee);
+
+    $this->db->trans_begin();
+
+        $q1 = $this->db->insert('booking_trx', $transaksi);
+        $q2 = $this->db->insert('va_balance', $wallet);
+
+        if ($q1 && $q2) {
+            $this->db->trans_commit();
+            return TRUE;
+        }
+        $this->db->trans_rollback();
+        return FALSE;
+  }
 }
