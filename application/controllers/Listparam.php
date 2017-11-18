@@ -47,7 +47,7 @@ class ListParam extends Controlpatient {
 
   public function list_mst_spesialisasi_post(){
     $data = json_decode(file_get_contents('php://input'), true);
-    $data = $this->mp->mst_spesialisasi($data);
+    $data = $this->mp->mst_spesialisasi($data['partner_type_id']);
     $this->ok($data);
   }
 
@@ -93,6 +93,12 @@ class ListParam extends Controlpatient {
 
   public function list_todo_completed_get(){
     $data = $this->mp->todo_completed();
+    $this->ok($data);
+  }
+
+  public function valid_promo_code_post(){
+    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $this->mp->promo_code($data['promo_code']);
     $this->ok($data);
   }
 

@@ -64,8 +64,8 @@ class ModelParam extends CI_Model{
     return $query->result();
   }
 
-  public function mst_spesialisasi($data) {
-    $where = array('is_active' => 'Y', 'partner_type_id' => $data['partner_type_id']);
+  public function mst_spesialisasi($partner_type_id) {
+    $where = array('is_active' => 'Y', 'partner_type_id' => $partner_type_id);
     $this->db->select('spesialisasi_id, spesialisasi_desc');
     $this->db->from('mst_spesialisasi');
     $this->db->where($where);
@@ -144,6 +144,17 @@ class ModelParam extends CI_Model{
     $this->db->select('booking_id, created_by, created_date, booking_id, service_type_id, pymt_methode_id');
     $this->db->from('booking_trx');
     $this->db->where('booking_status_id','04');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function promo_code($promo_code) {
+    $curr_date = date('Y-m-d');
+    $this->db->select('promo_id, promo_code, discount, start_date, end_date');
+    $this->db->from('mst_promo_code');
+    $this->db->where('promo_code', $promo_code);
+    $this->db->where('start_date <=', $curr_date);
+    $this->db->where('end_date >=', $curr_date);
     $query = $this->db->get();
     return $query->result();
   }
