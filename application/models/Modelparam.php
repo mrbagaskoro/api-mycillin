@@ -64,10 +64,11 @@ class ModelParam extends CI_Model{
     return $query->result();
   }
 
-  public function mst_spesialisasi() {
+  public function mst_spesialisasi($data) {
+    $where = array('is_active' => 'Y', 'partner_type_id' => $data['partner_type_id']);
     $this->db->select('spesialisasi_id, spesialisasi_desc');
     $this->db->from('mst_spesialisasi');
-    $this->db->where('is_active','Y');
+    $this->db->where($where);
     $query = $this->db->get();
     return $query->result();
   }

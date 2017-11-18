@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH . 'controllers/Controlapi.php';
+require_once APPPATH . 'controllers/Controlpatient.php';
 
-class ListParam extends Controlapi{
+class ListParam extends Controlpatient {
 
   public function __construct() {
     parent::__construct();
@@ -45,8 +45,9 @@ class ListParam extends Controlapi{
     $this->ok($data);
   }
 
-  public function list_mst_spesialisasi_get(){
-    $data = $this->mp->mst_spesialisasi();
+  public function list_mst_spesialisasi_post(){
+    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $this->mp->mst_spesialisasi($data);
     $this->ok($data);
   }
 
