@@ -277,6 +277,7 @@ class UserPartner extends Controlpartner
         $this->form_validation->set_rules('email', 'EMAIL', 'trim|max_length[50]|required');
         $this->form_validation->set_rules('name', 'NAME', 'trim|max_length[30]|required');
         $this->form_validation->set_rules('password', 'PASSWORD', 'trim|required');
+        $this->form_validation->set_rules('mobile_no', 'MOBILE_NO', 'trim|required');
 
         if ($this->form_validation->run()==false) {
             $this->bad_req($this->validation_errors());
@@ -287,6 +288,7 @@ class UserPartner extends Controlpartner
             'full_name'=>$this->post('name', true),
             'password'=>$this->encrypt->encode($this->post('password')),
             'created_by'=>$this->post('email', true),
+            'mobile_no'=>$this->post('mobile_no',true),
             'created_date'=>date("Y-m-d H:i:s"),
             'user_id'=>$user_id,
             'status_id'=>'03' /*-------------> harusnya status tetap 3, aktivasi dilakukan oleh admin*/
