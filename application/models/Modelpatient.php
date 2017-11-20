@@ -403,6 +403,9 @@ class ModelPatient extends CI_Model {
   }
 
   public function detail_partner_information($user_id) {
+
+      //harus tambahkan prosedur untuk mendaptkan nilai rata-rata akumulasi rating dokter!!!
+
       $query = $this->db->query("select pr.user_id, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id where pr.user_id='$user_id'");
       return $query->result();
   }
@@ -569,7 +572,7 @@ class ModelPatient extends CI_Model {
     $this->db->trans_begin();
 
         $q1 = $this->db->insert('booking_trx', $transaksi);
-        $q2 = $this->db->insert('va_balance', $wallet);
+        $q2 = $this->db->insert('va_balance', $wallet); // perlu di check lagi apakah biaya charging akan dikenakan didepan, atau setelah task completed oleh dokter
 
         if ($q1 && $q2) {
             $this->db->trans_commit();
