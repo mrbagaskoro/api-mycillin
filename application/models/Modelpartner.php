@@ -161,7 +161,7 @@ class ModelPartner extends CI_Model
 
         $token = md5($datetime.$data['email']);
 
-        $data_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'status_id'=>$data['status_id']);
+        $data_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'mobile_no'=>$data['mobile-no'], 'status_id'=>$data['status_id']);
 
         $data_token = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'token'=>$token, 'expired'=>$datetime);
 
