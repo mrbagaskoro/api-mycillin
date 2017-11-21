@@ -404,9 +404,7 @@ class ModelPatient extends CI_Model {
 
   public function detail_partner_information($user_id) {
 
-      //harus tambahkan prosedur untuk mendaptkan nilai rata-rata akumulasi rating dokter!!!
-
-      $query = $this->db->query("select pr.user_id, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id where pr.user_id='$user_id'");
+      $query = $this->db->query("select pr.user_id, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi, avg(bt.service_rating) as rating from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id left join booking_trx bt on pr.user_id=bt.partner_selected where pr.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N'");
       return $query->result();
   }
 
