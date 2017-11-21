@@ -12,7 +12,7 @@ class ModelPartner extends CI_Model
 
     public function detail_token_fcm($user_id)
     {
-        $query = $this->db->query("select * from mst_token_partner where user_id='$user_id'");
+        $query = $this->db->query("select * from mst_token_fcm where user_id='$user_id'");
         return $query->result();
     }
 
@@ -32,7 +32,7 @@ class ModelPartner extends CI_Model
         $update['updated_by'] = $data;
         $update['updated_date'] = $date;
         
-        $query = $this->db->update('mst_token_partner', $update, $where);
+        $query = $this->db->update('mst_token_fcm', $update, $where);
         return $query?TRUE:FALSE;
     }
 
@@ -46,14 +46,14 @@ class ModelPartner extends CI_Model
         $insert['user_id'] = $data;
         $insert['token'] = $token;
     
-        $query = $this->db->insert('mst_token_partner', $insert);
+        $query = $this->db->insert('mst_token_fcm', $insert);
         return $query?TRUE:FALSE;
     }
 
     public function is_valid_token_fcm($user_id)
     {
         $this->db->select('*');
-        $this->db->from('mst_token_partner');
+        $this->db->from('mst_token_fcm');
         $this->db->where('user_id', $user_id);
         $query = $this->db->get();
         return $query->row();

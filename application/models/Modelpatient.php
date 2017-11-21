@@ -580,4 +580,44 @@ class ModelPatient extends CI_Model {
         $this->db->trans_rollback();
         return FALSE;
   }
+
+  public function insert_valid_token_fcm($data,$token)
+  {
+      $date = date('Y-m-d H:i:s');
+      $insert['created_by'] = $data;
+      $insert['created_date'] = $date;
+      $insert['user_id'] = $data;
+      $insert['token'] = $token;
+      $query = $this->db->insert('mst_token_fcm', $insert);
+      return $query?TRUE:FALSE;
+  }
+
+  public function is_valid_token_fcm($user_id)
+  {
+      $this->db->select('*');
+      $this->db->from('mst_token_fcm');
+      $this->db->where('user_id', $user_id);
+      $query = $this->db->get();
+      return $query->row();
+  }
+
+  public function update_valid_token_fcm($data,$token)
+  {
+      $date = date('Y-m-d H:i:s');
+      
+      $where['user_id'] = $data;
+      
+      $update['token'] = $token;
+      $update['updated_by'] = $data;
+      $update['updated_date'] = $date;
+      
+      $query = $this->db->update('mst_token_fcm', $update, $where);
+      return $query?TRUE:FALSE;
+  }
+
+  public function detail_token_fcm($user_id)
+  {
+      $query = $this->db->query("select * from mst_token_fcm where user_id='$user_id'");
+      return $query->result();
+  }
 }

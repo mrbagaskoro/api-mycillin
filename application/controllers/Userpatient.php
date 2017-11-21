@@ -853,5 +853,46 @@
             $this->bad_req('Account does not exist');
         }
     }
+    
+    public function token_fcm_patient_post()
+    {
+
+        
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+ 
+        if($user_data){
+            $isToken = $this->ma->is_valid_token_fcm($data['user_id']);
+            if(!$isToken){
+                $this->ma->insert_valid_token_fcm($data['user_id'],$data['token']);
+                $this->success('Insert token success');
+            }else{
+                $this->ma->update_valid_token_fcm($data['user_id'],$data['token']);
+                $this->success('Update token success');
+            }
+            
+        }else{
+            $this->bad_req('User does not exist');
+            
+        }
+        
+    }
+
+    public function detail_token_fcm_patient_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->detail_token_fcm($data['user_id']);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+        
+    }
+
+
 
   }
