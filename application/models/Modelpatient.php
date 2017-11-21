@@ -319,7 +319,8 @@ class ModelPatient extends CI_Model {
     $insert['service_type_id'] = $service_type = $data['service_type_id'];
     $promo_code = $data['promo_code'];
     $insert['pymt_methode_id'] = $pymt_methode = $data['pymt_methode_id'];
-    $insert['request_location'] = $data['request_location'];
+    $insert['latitude_request'] = $data['latitude_request'];
+    $insert['longitude_request'] = $data['longitude_request'];
     $insert['booking_status_id'] = "01";
     $insert['cancel_status'] = "N";
 
