@@ -712,7 +712,7 @@
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->rating_fill_checking($data['booking_status_id'], $data['cancel_status'],$data['service_rating']);
+        $data = $this->ma->rating_fill_checking($data['user_id']);
         $this->ok($data);
     }
 
