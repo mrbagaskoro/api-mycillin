@@ -398,7 +398,7 @@ class ModelPatient extends CI_Model {
   }
 
   public function rating_fill_checking($booking_status_id, $cancel_status, $service_rating) {
-      $query = $this->db->query("select * from booking_trx where booking_status_id='04' and cancel_status='N' and service_rating is null ");
+      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id where bt.booking_status_id='04' and bt.cancel_status='N' and bt.service_rating is null ");
       return $query->result();
   }
 
