@@ -325,7 +325,7 @@ class ModelPartner extends CI_Model
     public function partner_task_completed($data) 
     {
         $date = date('Y-m-d H:i:s');    
-        $test = md5($date.$data['user_id']); /*crate random nomor resep obat- test sementara*/
+        $test = md5($date.$data['user_id']); //crate random nomor resep obat- test sementara
         $booking = $data['booking_id'];
 
         $data_transaction = array('action_type_id'=>$data['action_type_id'], 'booking_status_id'=>"04", 'updated_by'=>$data['user_id']);
@@ -333,8 +333,16 @@ class ModelPartner extends CI_Model
         $trx_data = $this->db->query("select user_id, relation_id from booking_trx where booking_id='$booking' ")->row();
         $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data->user_id, 'relation_id'=>$trx_data->relation_id, 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'service_type_id'=>$data['service_type_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
 
+        $cur_date = date ("Y-m-d");
+        $pymt_methode = $this->db->query("select pymt_methode_id from booking_trx where booking_id='$booking'")->row();      
+        if ($pymt_methode !='03') {
+            $effective_date = $cur_date;
+        } else {   
+            $effective_date = date($cur_date, strtotime('+5 day')); //masih belum mau tambah tanggalnya
+        }
+
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
-        $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'TRX','amount'=>$profit_share->partner_profit_share);
+        $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'TRX','amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
 
         $where['booking_id'] = $data['booking_id'];
 
@@ -343,7 +351,6 @@ class ModelPartner extends CI_Model
         $q1 = $this->db->update('booking_trx', $data_transaction, $where);
         $q2 = $this->db->insert('medical_record', $data_record);
         $q3 = $this->db->insert('va_balance', $wallet);
-        /*$q4 = $this->db->insert('prescription_detail', $data_prescription); */
 
         if ($q1 && $q2 && $q3) {
             $this->db->trans_commit();
@@ -385,12 +392,28 @@ class ModelPartner extends CI_Model
   }
 
   public function partner_top_up($data) {
+        $cur_date = date ("Y-m-d");
         $insert['transaction_type_id'] = $data['transaction_type_id'];
         $insert['amount'] = $data['amount'];
         $insert['user_id'] = $data['user_id'];
         $insert['created_by'] = $data['user_id'];
+        $insert['effective_date'] = $cur_date;
 
         $query = $this->db->insert('va_balance', $insert);
         return $query?TRUE:FALSE;
+    }
+
+    public function partner_check_transaction($user_id)
+    {
+        $cur_date = date ("Y-m-d");
+        $query = $this->db->query("select created_date as transaction_date, transaction_id, transaction_type_id, notes as ref_no, amount from va_balance where user_id='$user_id'");
+      return $query->result();
+    }
+
+    public function partner_check_balance($user_id)
+    {
+        $cur_date = date ("Y-m-d");
+        $query = $this->db->query("select user_id, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
+      return $query->result();
     }
 }

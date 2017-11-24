@@ -111,13 +111,11 @@ $route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avata
 $route['api/change_partner_doc']['POST']        = 'userpartner/change_partner_doc';
 $route['api/get_partner_doc']['POST']           = 'userpartner/get_partner_doc';
 $route['api/list_partner_booking']['POST']      = 'userpartner/list_partner_booking';
-$route['api/partner_top_up']['POST']      		= 'userpartner/partner_top_up';
 
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';
 $route['articles/ketentuan_penggunaan']['GET']	= 'general/ketentuan_penggunaan';
 $route['articles/kebijakan_privasi']['GET']		= 'general/kebijakan_privasi';
-
 
 /*---------------------- Route by Tommi ------------------*/
 $route['api/list_medical_record']['POST']         = 'userpatient/list_medical_record';
@@ -158,3 +156,10 @@ $route['api/rating_fill_checking']['POST']        = 'userpatient/rating_fill_che
 $route['api/detail_partner_information']['POST']  = 'userpatient/detail_partner_information';
 $route['api/add_prescription']['POST']     		  = 'userpartner/add_prescription';
 $route['api/user_booking_consultation']['POST']   = 'userpatient/user_booking_consultation';
+
+/*---------------------- virtual account ------------------*/
+$route['api/partner_top_up']['POST']      		  = 'userpartner/partner_top_up';
+$route['api/partner_check_transaction']['POST']   = 'userpartner/partner_check_transaction';
+$route['api/partner_check_balance']['POST']       = 'userpartner/partner_check_balance';
+$route['api/user_check_transaction']['POST'] 	  = 'userpartner/user_check_transaction';
+$route['api/user_check_balance']['POST']     	  = 'userpartner/user_check_balance';

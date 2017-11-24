@@ -855,9 +855,7 @@
     }
     
     public function token_fcm_patient_post()
-    {
-
-        
+    {      
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
 
@@ -874,10 +872,8 @@
             }
             
         }else{
-            $this->bad_req('User does not exist');
-            
-        }
-        
+            $this->bad_req('User does not exist');           
+        }  
     }
 
     public function detail_token_fcm_patient_post()
@@ -891,6 +887,30 @@
             $this->bad_req('Data Is Empty');
         }
         
+    }
+
+    public function user_check_transaction_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->partner_check_transaction($data['user_id']);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
+
+    public function user_check_balance_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->user_check_balance($data['user_id']);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
     }
 
 

@@ -620,4 +620,17 @@ class ModelPatient extends CI_Model {
       $query = $this->db->query("select * from mst_token_fcm where user_id='$user_id'");
       return $query->result();
   }
+
+  public function user_check_transaction($user_id)
+  {
+    $query = $this->db->query("select created_date as transaction_date, transaction_id, transaction_type_id, notes as ref_no, amount from va_balance where user_id='$user_id'");
+    return $query->result();
+  }
+
+  public function user_check_balance($user_id)
+  {
+    $cur_date = date ("Y-m-d");
+      $query = $this->db->query("select user_id, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
+    return $query->result();
+  }
 }

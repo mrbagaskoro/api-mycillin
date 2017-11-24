@@ -740,4 +740,20 @@ class UserPartner extends Controlpartner
         }
     }
 
+    public function partner_check_transaction_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->partner_check_transaction($data['user_id']);
+        $this->ok($data);
+    }
+
+    public function partner_check_balance_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->partner_check_balance($data['user_id']);
+        $this->ok($data);
+    }
+
 }
