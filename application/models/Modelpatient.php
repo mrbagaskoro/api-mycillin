@@ -21,6 +21,12 @@ class ModelPatient extends CI_Model {
     return $query->row();
   }
 
+  //kebutuhan khusus
+  public function is_valid_user_id_partner($user_id) {
+    $query = $this->db->query("select * from partner_account up where up.user_id='$user_id'");
+    return $query->row();
+  }
+
   public function is_valid_num_user($email) {
     $this->db->select('*');
     $this->db->from('user_account');
@@ -66,7 +72,7 @@ class ModelPatient extends CI_Model {
 
     $token = md5($datetime.$data['email']);
 
-    $data_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'status_id'=>$data['status_id']);
+    $data_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'email'=>$data['email'], 'password'=>$data['password'], 'status_id'=>$data['status_id'], 'refer_by'=>$data['ref_id']);
 
     $data_token = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'token'=>$token, 'expired'=>$datetime);
 
@@ -286,29 +292,6 @@ class ModelPatient extends CI_Model {
       return TRUE;
     }
     return FALSE;
-  }
-
-  public function change_insurance_photocard($data) {
-    $uid = $data['uid'];
-    $where['user_id'] = $data['uid'];
-    $where['relation_id'] = $data['relation_id'];
-
-    $update['photo_kartu_insr'] = $data['file_name'];
-
-    $update['updated_by'] = $data['uid'];
-
-    $query = $this->db->update('member_insurance', $update, $where);
-    if ($query) {
-      $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_kartu_insr) image_profile from member_insurance where user_id='$uid'");
-      return $query->result();
-    }
-    return FALSE;
-  }
-
-  public function get_insurance_photocard($data) {
-    $uid = $data;
-    $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_kartu_insr) image_profile from member_insurance where user_id='$uid'");
-    return $query->result();
   }
 
   public function add_request($data) {

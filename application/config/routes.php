@@ -70,7 +70,7 @@ $route['api/update_family']['POST']          	= 'userpatient/update_member';
 $route['api/list_family']['POST']          		= 'userpatient/list_member';
 $route['api/delete_family']['POST']          	= 'userpatient/delete_member';
 
-$route['web/registration/(:any)']['GET']        = 'userpatient/register/rfid/$1';
+$route['web/registration/(:any)']['GET']        = 'userpatient/register_web/rfid/$1';
 
 $route['api/login_fb']['POST']                  = 'controlpatient/register_fb';
 $route['api/login']['POST']                     = 'controlpatient/generate_jwt';
@@ -91,8 +91,6 @@ $route['api/list_satuan_obat']['GET']			= 'listparam/list_mst_satuan_obat';
 $route['api/valid_promo_code']['POST']			= 'listparam/valid_promo_code';
 
 /*---------------------- doctor --------------------------*/
-//$route['api/update_loc_doctor']['POST']         = 'medicalhost/update_loc_doc';
-//$route['api/get_loc_doctor']['GET']             = 'medicalhost/get_loc_doc';
 $route['api/forgot_password_partner']['POST']   = 'userpartner/forgot_password';
 $route['api/register_partner']['POST']          = 'userpartner/register_partner';
 $route['api/login_doctor']['POST']              = 'controlpartner/generate_jwt';
@@ -125,11 +123,8 @@ $route['api/list_medical_record1']['POST']         = 'userpartner/list_medical_r
 $route['api/detail_medical_record1']['POST']       = 'userpartner/detail_medical_record1';
 $route['api/detail_prescription1']['POST']         = 'userpartner/detail_prescription1';
 $route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insurance';
-$route['api/update_member_insurance']['POST']     = 'userpatient/update_member_insurance';
 $route['api/list_member_insurance']['POST']       = 'userpatient/list_member_insurance';
 $route['api/delete_member_insurance']['POST']     = 'userpatient/delete_member_insurance';
-$route['api/change_insurance_photocard']['POST']  = 'userpatient/change_insurance_photocard';
-$route['api/get_insurance_photocard']['POST']     = 'userpatient/get_insurance_photocard';
 $route['api/partner_loc_autoupdate']['POST']      = 'userpartner/partner_loc_autoupdate';
 $route['api/list_dash_kunjungan']['GET']       	  = 'listparam/list_dash_kunjungan';
 $route['api/list_dash_reservasi']['GET']       	  = 'listparam/list_dash_reservasi';

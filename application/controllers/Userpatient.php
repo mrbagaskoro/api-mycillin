@@ -19,7 +19,7 @@
         echo $ini;
     }
 
-    public function register_get() {
+    public function register_web_get() {
       $data['rfid']=$this->get('rfid', true);
       $this->load->view('registration',$data);
     }
@@ -333,19 +333,29 @@
         } else {
             $user_id = random_string('alnum', 15);
             $data = [
-            'email'=>$this->post('email', true),
-            'full_name'=>$this->post('name', true),
-            'password'=>$this->encrypt->encode($this->post('password')),
-            'created_by'=>$this->post('email', true),
-            'created_date'=>date("Y-m-d H:i:s"),
-            'user_id'=>$user_id,
-            'status_id'=>'03'
+                'email'=>$this->post('email', true),
+                'full_name'=>$this->post('name', true),
+                'password'=>$this->encrypt->encode($this->post('password')),
+                'created_by'=>$this->post('email', true),
+                'created_date'=>date("Y-m-d H:i:s"),
+                'user_id'=>$user_id,
+                'status_id'=>'03'
             ];
             //jika berhasil di masukan maka akan di respon kembali sesuai dengan data yang di masukan
             $user_exist = $this->ma->is_valid_num_user($data['email']);
             if ($user_exist > 0) {
                 $this->bad_req('email already registered');
             } else {
+                $user_ref = $this->ma->is_valid_user_id($this->post('ref_id', true));
+                $partner_ref = $this->ma->is_valid_user_id_partner($this->post('ref_id', true));
+                if ($user_ref != null || $user_ref != '') {
+                    $data['ref_id'] = $user_ref->user_id;
+                } else if ($partner_ref != null || $partner_ref != '') {
+                    $data['ref_id'] = $partner_ref->user_id;
+                } else {
+                    $data['ref_id'] = '';
+                }
+                
                 if ($result = $this->ma->register_user($data)) {
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($data['email']);
@@ -465,6 +475,8 @@
 
                     $this->email->send();
                     $this->success('register success');
+                } else {
+                    $this->success('register fail');
                 }
             }
         }
@@ -648,64 +660,6 @@
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_member_insurance($data['user_id'], $data['relation_id']);
         $this->ok($data);
-    }
-
-    public function change_insurance_photocard_post()
-    {
-        $this->validate_jwt();
-        $data = file_get_contents('php://input');
-        $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
-  
-        if ($user_data) {
-            $config['upload_path'] = UPLOAD_PATH_PROFILE;
-            $config['allowed_types'] = 'jpeg|jpg|png';
-            $config['max_size'] = 4096;
-            $config['overwrite'] = true;
-
-            $this->load->library('upload', $config);
-            if (!empty($_FILES['profile_img']['name'])) {
-                $config['file_name'] = 'img_'.$this->post('user_id');
-                $this->upload->initialize($config);
-                if (!$this->upload->do_upload('profile_img')) {
-                    $err = array("result" => $this->upload->display_errors());
-                    $this->bad_req($err);
-                }
-
-                $up = $this->upload->data();
-                $upd['uid'] = $this->post('user_id');
-                $upd['file_name'] = $up['file_name'];
-
-                $update = $this->ma->change_insurance_photocard($upd);
-                if ($update) {
-                    $this->success($update);
-                } else {
-                    $this->bad_req('Change insurance photocard fail, please try again');
-                }
-            } else {
-                $this->bad_req('File can not empty');
-            }
-        } else {
-            $this->bad_req('Account does not exist');
-        }
-    }
-
-    public function get_insurance_photocard_post()
-    {
-        $this->validate_jwt();
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        $user_data = $this->ma->is_valid_user_id($data['user_id']);
-  
-        if ($user_data) {
-            $q = $this->ma->get_avatar($data['user_id']);
-            if ($q) {
-                $this->success($q);
-            } else {
-                $this->bad_req('Change insurance photocard fail, please try again');
-            }
-        } else {
-            $this->bad_req('Account does not exist');
-        }
     }
 
     public function rating_fill_checking_post()
