@@ -473,6 +473,12 @@ class ModelPatient extends CI_Model {
 
   Public function find_clinic($user_id, $partner_type_id, $spesialisasi_id, $gender, $BPJS_RCV_status, $latitude, $longitude)
   {
+
+    if ($gender == null || $gender == '') {
+      $q = "1=1";
+    } else {
+      $q = "pr.gender='$gender'";
+    }
    
     $query = $this->db->query("
     SELECT pr.user_id,
@@ -492,7 +498,7 @@ class ModelPatient extends CI_Model {
       ON pa.user_id=pr.user_id 
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
-      AND pr.gender='$gender' 
+      AND $q
       AND pa.BPJS_RCV_status='$BPJS_RCV_status'
       AND pa.status_id='01'
       AND pa.available_id='1'
@@ -504,6 +510,13 @@ class ModelPatient extends CI_Model {
 
   public function find_consultation($user_id, $partner_type_id, $spesialisasi_id, $gender) 
   {
+    
+    if ($gender == null || $gender == '') {
+      $q = "1=1";
+    } else {
+      $q = "pr.gender='$gender'";
+    }
+
     $query = $this->db->query("
     SELECT pr.user_id,
       pr.full_name,
@@ -519,7 +532,7 @@ class ModelPatient extends CI_Model {
       ON pr.spesialisasi_id=ss.spesialisasi_id
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
-      AND pr.gender='$gender' 
+      AND $q
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.consul_id='1' 
