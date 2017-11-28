@@ -267,7 +267,8 @@ class ModelPartner extends CI_Model
         $update['profile_desc'] = $data['profile_desc'];
         $update['lama_professi'] = $data['lama_professi'];
         $update['alamat_praktik'] = $data['alamat_praktik'];
-        $update['map_praktik'] = $data['map_praktik'];
+        $update['latitude_praktik'] = $data['latitude_praktik'];
+        $update['longitude_praktik'] = $data['longitude_praktik'];
         $update['nama_institusi'] = $data['nama_institusi'];
 
         $update['updated_by'] = $data['user_id'];
