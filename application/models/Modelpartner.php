@@ -332,14 +332,16 @@ class ModelPartner extends CI_Model
         $data_transaction = array('action_type_id'=>$data['action_type_id'], 'booking_status_id'=>"04", 'updated_by'=>$data['user_id']);
 
         $trx_data = $this->db->query("select user_id, relation_id from booking_trx where booking_id='$booking' ")->row();
-        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data->user_id, 'relation_id'=>$trx_data->relation_id, 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'service_type_id'=>$data['service_type_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
+        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data->user_id, 'relation_id'=>$trx_data->relation_id, 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
 
         $cur_date = date ("Y-m-d");
         $pymt_methode = $this->db->query("select pymt_methode_id from booking_trx where booking_id='$booking'")->row();      
         if ($pymt_methode !='03') {
             $effective_date = $cur_date;
         } else {   
-            $effective_date = date($cur_date, strtotime('+5 day')); //masih belum mau tambah tanggalnya
+            $now = new DateTime();
+            $now->add(new DateTimeInterval('P5D'));
+            $effective_date = $now->format('Y-m-d')
         }
 
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
