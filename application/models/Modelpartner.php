@@ -341,7 +341,7 @@ class ModelPartner extends CI_Model
         } else {   
             $now = new DateTime();
             $now->add(new DateTimeInterval('P5D'));
-            $effective_date = $now->format('Y-m-d')
+            $effective_date = $now->format('Y-m-d');
         }
 
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
