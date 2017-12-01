@@ -336,26 +336,35 @@ class ModelPartner extends CI_Model
 
         $cur_date = date ("Y-m-d");
         $pymt_methode = $this->db->query("select pymt_methode_id from booking_trx where booking_id='$booking'")->row();      
-        if ($pymt_methode !='03') {
-            $effective_date = $cur_date;
-        } else {   
+        if ($pymt_methode->pymt_methode_id =='01') {
             $now = new DateTime();
-            $now->add(new DateTimeInterval('P5D'));
-            $effective_date = $now->format('Y-m-d');
+            $now->add(new DateInterval('P5D'));
+            $effective_date = $now->format('Y-m-d H:i:s');
+        } else {
+            $effective_date = $cur_date;
         }
+        
 
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
-        $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'TRX','amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
+        $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Transaksi Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
 
+        $cur_date1 = date ("Y-m-d");
+        $trx_data1 = $this->db->query("select user_id, price_amount from booking_trx where booking_id='$booking' ")->row();
+        if ($pymt_methode->pymt_methode_id =='03') {            
+            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Transaksi Biaya Pelayanan', 'amount'=>$trx_data1->price_amount *-1, 'notes'=>$booking);
+        } else {
+            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Transaksi Biaya Pelayanan', 'amount'=>'0', 'notes'=>$booking);
+        }
+        
         $where['booking_id'] = $data['booking_id'];
-
         $this->db->trans_begin();
 
         $q1 = $this->db->update('booking_trx', $data_transaction, $where);
         $q2 = $this->db->insert('medical_record', $data_record);
-        $q3 = $this->db->insert('va_balance', $wallet);
+        $q3 = $this->db->insert('va_balance', $wallet_partner);
+        $q4 = $this->db->insert('va_balance', $wallet_user);
 
-        if ($q1 && $q2 && $q3) {
+        if ($q1 && $q2 && $q3 && $q4) {
             $this->db->trans_commit();
             return TRUE;
         }
@@ -409,14 +418,14 @@ class ModelPartner extends CI_Model
     public function partner_check_transaction($user_id)
     {
         $cur_date = date ("Y-m-d");
-        $query = $this->db->query("select created_date as transaction_date, transaction_id, transaction_type_id, notes as ref_no, amount from va_balance where user_id='$user_id'");
+        $query = $this->db->query("select created_date as transaction_date, transaction_id, transaction_type_id as transaction_desc, notes as referensi_no, amount from va_balance where user_id='$user_id'");
       return $query->result();
     }
 
     public function partner_check_balance($user_id)
     {
         $cur_date = date ("Y-m-d");
-        $query = $this->db->query("select user_id, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
+        $query = $this->db->query("select user_id, user_id as virtual_acount_no, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
       return $query->result();
     }
 }

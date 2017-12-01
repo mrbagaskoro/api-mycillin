@@ -671,7 +671,7 @@ class UserPartner extends Controlpartner
 
         if ($user_data) {
             if ($this->ma->partner_task_completed($data)) {
-                $this->success('Partner Task Copleted successfully');
+                $this->success('Partner Task Completed successfully');
             } else {
                 $this->bad_req('An error was occured');
             }

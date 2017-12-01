@@ -687,10 +687,10 @@
         $user_data = $this->ma->is_valid_user_id($data['user_id']);
 
         if ($user_data) {
-            if ($this->ma->add_request($data)) {
-                $this->success('Transaction added successfully');
+            if ($q = $this->ma->add_request($data)) {
+                $this->success($q);
             } else {
-                $this->bad_req('An error was occured');
+                $this->bad_req($q);
             }
         } else {
             $this->bad_req('Account does not exist');

@@ -295,9 +295,9 @@ class ModelPatient extends CI_Model {
   }
 
   public function add_request($data) {
-    $insert['user_id'] = $data['user_id'];
+
+    $insert['user_id'] = $user_id = $data['user_id'];
     $insert['relation_id'] = $data['relation_id'];
-    /*$insert['partner_selected'] = $data['partner_selected'];*/
     $partner_selected = $data['partner_selected'];
     $insert['service_type_id'] = $service_type = $data['service_type_id'];
     $promo_code = $data['promo_code'];
@@ -306,43 +306,67 @@ class ModelPatient extends CI_Model {
     $insert['longitude_request'] = $data['longitude_request'];
     $insert['booking_status_id'] = "01";
     $insert['cancel_status'] = "N";
-
     $partner_type = $data['partner_type_id'];
     $spesialisasi_id = $data['spesialisasi_id'];
-
     $insert['created_by'] = $data['user_id'];
+    //---------------------------------------------------------------test
+    $bal_check = $this->db->query("select sum(amount) as balance from va_balance where user_id='$user_id'")->row();
+    $price = $this->db->query("select price_amount from mst_price where service_type_id='$service_type' and pymt_methode_id='$pymt_methode' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id'")->row();
 
-    $price = $this->db->query("select price_amount from mst_price where service_type_id='$service_type' and pymt_methode_id='$pymt_methode' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id' ")->row();
+    if ($pymt_methode =='03') {    
 
-    if ($promo_code != null || $promo_code !='') {
-      $cur_date = date('Y-m-d');
-      $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
-      if ($promo != null) {
-        $total_price = $price->price_amount-($price->price_amount*$promo->discount);
-        $insert["promo_code"]=$data['promo_code'];
+      if ($bal_check->balance <= $price->price_amount)  {
+        return $result['message'] = 'saldo ewallet tidak mencukupi, segera lakukan top-up!!';
       } else {
-        $total_price = $price->price_amount;
+        if ($promo_code != null || $promo_code !='') {
+          $cur_date = date('Y-m-d');
+          $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
+          if ($promo != null) {
+            $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+            $insert["promo_code"]=$data['promo_code'];
+          } else {
+            $total_price = $price->price_amount;
+          }
+        } else {
+          $total_price = $price->price_amount;
+        }
+        $insert['price_amount'] = $total_price;
+
+        $cur_date = date('Y-m-d');
+        $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row(); 
+        if ($pymt_methode !='03') {
+          $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
+        } else {   
+          $partner_fee = $total_price*($profit_sharing->profit_sharing);
+        }
+        $insert['partner_profit_share'] = $partner_fee;              
       }
     } else {
-      $total_price = $price->price_amount;
-    }
+        if ($promo_code != null || $promo_code !='') {
+          $cur_date = date('Y-m-d');
+          $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
+          if ($promo != null) {
+            $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+            $insert["promo_code"]=$data['promo_code'];
+          } else {
+            $total_price = $price->price_amount;
+          }
+        } else {
+          $total_price = $price->price_amount;
+        }
+        $insert['price_amount'] = $total_price;
 
-    $insert['price_amount'] = $total_price;
-
-
-    $cur_date = date('Y-m-d');
-    $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row();
-    
-    if ($pymt_methode !='03') {
-      $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
-    } else {   
-      $partner_fee = $total_price*($profit_sharing->profit_sharing);
-    }
-
-    $insert['partner_profit_share'] = $partner_fee;
-
+        $cur_date = date('Y-m-d');
+        $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row(); 
+        if ($pymt_methode !='03') {
+          $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
+        } else {   
+          $partner_fee = $total_price*($profit_sharing->profit_sharing);
+        }
+        $insert['partner_profit_share'] = $partner_fee;              
+      }
     $query = $this->db->insert('booking_trx', $insert);
-    return $query?TRUE:FALSE;
+    return $query?'Transaction Added successfully':FALSE;
   }
 
   public function user_booking_confirmation($data) {
