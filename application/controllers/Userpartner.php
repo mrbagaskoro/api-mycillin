@@ -150,7 +150,7 @@ class UserPartner extends Controlpartner
         $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
   
         if ($user_data) {
-            $config['upload_path'] = UPLOAD_PATH_PROFILE;
+            $config['upload_path'] = UPLOAD_PATH_DOCUMENT;
             $config['allowed_types'] = 'jpeg|jpg|png';
             $config['max_size'] = 4096;
             $config['overwrite'] = true;

@@ -18,7 +18,7 @@ class ModelPartner extends CI_Model
 
     public function detail_partner($user_id)
     {
-        $query = $this->db->query("select pr.user_id, pa.email, pa.mobile_no, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi, pa.available_id as available_status, pa.visit_id as status_visit, pa.reservasi_id as status_reservasi, pa.consul_id as status_consul, pa.BPJS_RCV_status as status_BPJS, pa.status_id as partner_status, avg(bt.service_rating) as rating from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id left join booking_trx bt on pr.user_id=bt.partner_selected where pr.user_id='$user_id'");
+        $query = $this->db->query("select pr.user_id, pa.email, pa.mobile_no, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_DOCUMENT."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_DOCUMENT."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi, pa.available_id as available_status, pa.visit_id as status_visit, pa.reservasi_id as status_reservasi, pa.consul_id as status_consul, pa.BPJS_RCV_status as status_BPJS, pa.status_id as partner_status, avg(bt.service_rating) as rating from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id left join booking_trx bt on pr.user_id=bt.partner_selected where pr.user_id='$user_id'");
         return $query->result();
     }
 
@@ -136,7 +136,7 @@ class ModelPartner extends CI_Model
   
         $query = $this->db->update('partner_profile', $update, $where);
         if ($query) {
-            $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ".$data['type'].") image_profile from partner_profile where user_id='$uid'");
+            $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_DOCUMENT."', ".$data['type'].") image_profile from partner_profile where user_id='$uid'");
             return $query->result();
         }
         return false;
@@ -145,7 +145,7 @@ class ModelPartner extends CI_Model
     public function get_doc($data)
     {
         $uid = $data['user_id'];
-        $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ".$data['type'].") image_profile from partner_profile where user_id='$uid'");
+        $query = $this->db->query("select user_id, concat('".FULL_UPLOAD_PATH_DOCUMENT."', ".$data['type'].") image_profile from partner_profile where user_id='$uid'");
         // var_dump($query);
         // exit();
         return $query->result();
@@ -346,14 +346,14 @@ class ModelPartner extends CI_Model
         
 
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
-        $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Transaksi Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
+        $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Honor Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
 
         $cur_date1 = date ("Y-m-d");
         $trx_data1 = $this->db->query("select user_id, price_amount from booking_trx where booking_id='$booking' ")->row();
         if ($pymt_methode->pymt_methode_id =='03') {            
-            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Transaksi Biaya Pelayanan', 'amount'=>$trx_data1->price_amount *-1, 'notes'=>$booking);
+            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Biaya Pelayanan', 'amount'=>$trx_data1->price_amount *-1, 'notes'=>$booking);
         } else {
-            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Transaksi Biaya Pelayanan', 'amount'=>'0', 'notes'=>$booking);
+            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Biaya Pelayanan', 'amount'=>'0', 'notes'=>$booking);
         }
         
         $where['booking_id'] = $data['booking_id'];

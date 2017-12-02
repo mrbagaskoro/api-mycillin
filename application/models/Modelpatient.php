@@ -309,7 +309,7 @@ class ModelPatient extends CI_Model {
     $partner_type = $data['partner_type_id'];
     $spesialisasi_id = $data['spesialisasi_id'];
     $insert['created_by'] = $data['user_id'];
-    //---------------------------------------------------------------test
+    
     $bal_check = $this->db->query("select sum(amount) as balance from va_balance where user_id='$user_id'")->row();
     $price = $this->db->query("select price_amount from mst_price where service_type_id='$service_type' and pymt_methode_id='$pymt_methode' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id'")->row();
 
@@ -412,7 +412,7 @@ class ModelPatient extends CI_Model {
 
   public function detail_partner_information($user_id) {
 
-      $query = $this->db->query("select pr.user_id, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_PROFILE."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi, avg(bt.service_rating) as rating from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id left join booking_trx bt on pr.user_id=bt.partner_selected where pr.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N'");
+      $query = $this->db->query("select pr.user_id, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_DOCUMENT."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_DOCUMENT."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi, avg(bt.service_rating) as rating from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id left join booking_trx bt on pr.user_id=bt.partner_selected where pr.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N'");
       return $query->result();
   }
 
@@ -566,51 +566,62 @@ class ModelPatient extends CI_Model {
 
   public function user_booking_consultation($data) 
   {
+    $user_id = $data['user_id'];
     $partner_selected = $data['partner_selected'];
     $service_type = '02';
     $pymt_methode = '03'; 
     $partner_type = $data['partner_type_id'];
     $spesialisasi_id = $data['spesialisasi_id'];
 
+    $bal_check = $this->db->query("select sum(amount) as balance from va_balance where user_id='$user_id'")->row();
     $price = $this->db->query("select price_amount from mst_price where service_type_id='02' and pymt_methode_id='03' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id' ")->row();
 
-    $promo_code = $data['promo_code'];
-    if ($promo_code != null || $promo_code !='') {
-      $cur_date = date('Y-m-d');
-      $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
-      if ($promo != null) {
-        $total_price = $price->price_amount-($price->price_amount*$promo->discount);
-      } else {
-        $total_price = $price->price_amount;
-      }
+    if ($bal_check->balance <= $price->price_amount)  {
+      return $result['message'] = 'saldo ewallet tidak mencukupi, segera lakukan top-up!!';
     } else {
-      $total_price = $price->price_amount;
-    }
 
-    $cur_date = date('Y-m-d');
-    $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row();  
-    if ($pymt_methode !='03') {
-      $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
-    } else {   
-      $partner_fee = $total_price*($profit_sharing->profit_sharing);
-    }
+      $promo_code = $data['promo_code'];
+      if ($promo_code != null || $promo_code !='') {
+          $cur_date = date('Y-m-d');
+          $promo = $this->db->query("select promo_code, discount from mst_promo_code where promo_code='$promo_code' and '$cur_date' BETWEEN start_date AND end_date")->row();
+          if ($promo != null) {
+            $total_price = $price->price_amount-($price->price_amount*$promo->discount);
+          } else {
+            $total_price = $price->price_amount;
+          }
+      } else {
+          $total_price = $price->price_amount;
+      }
 
-    $date = date('Y-m-d H:i:s'); 
-    $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>$service_type, 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N');
+      $cur_date = date('Y-m-d');
+      $profit_sharing = $this->db->query("select partner_id, profit_sharing from mst_partner_ps where partner_id='$partner_selected' and '$cur_date' BETWEEN start_date AND end_date")->row();  
+      if ($pymt_methode !='03') {
+          $partner_fee = -$total_price*(1-$profit_sharing->profit_sharing);
+      } else {   
+          $partner_fee = $total_price*($profit_sharing->profit_sharing);
+      }
 
-    $wallet = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'TRX','amount'=>$partner_fee);
+      $date = date('Y-m-d H:i:s'); 
+      $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>$service_type, 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N');
 
-    $this->db->trans_begin();
+      $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'Biaya Pelayanan Konsultasi','amount'=>$total_price*-1);
+
+      $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$date,'transaction_type_id'=>'Honor jasa Pelayanan Konsultasi', 'amount'=>$partner_fee);
+
+      $this->db->trans_begin();
 
         $q1 = $this->db->insert('booking_trx', $transaksi);
-        $q2 = $this->db->insert('va_balance', $wallet); // perlu di check lagi apakah biaya charging akan dikenakan didepan, atau setelah task completed oleh dokter
+        $q2 = $this->db->insert('va_balance', $wallet_user);
+        $q3 = $this->db->insert('va_balance', $wallet_partner); 
+        // perlu di check lagi apakah biaya charging akan dikenakan didepan, atau setelah task completed oleh dokter
 
-        if ($q1 && $q2) {
+          if ($q1 && $q2 && $q3) {
             $this->db->trans_commit();
             return TRUE;
-        }
-        $this->db->trans_rollback();
-        return FALSE;
+          }
+          $this->db->trans_rollback();
+          return FALSE;
+    }
   }
 
   public function insert_valid_token_fcm($data,$token)
