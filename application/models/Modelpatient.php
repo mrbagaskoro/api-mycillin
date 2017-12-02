@@ -675,4 +675,16 @@ class ModelPatient extends CI_Model {
       $query = $this->db->query("select user_id, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
     return $query->result();
   }
+
+  public function list_history_onprogress($user_id)
+  {
+      $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo, pa.mobile_no, avg(bt.service_rating) as rating, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount from booking_trx bt inner join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id where bt.user_id='$user_id' and bt.booking_status_id='03' and bt.cancel_status='N'");
+      return $query->result();
+  }
+
+  public function list_history_completed($user_id)
+  {
+      $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo, pa.mobile_no, avg(bt.service_rating) as rating, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id from booking_trx bt inner join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id where bt.user_id='$user_id' and bt.booking_status_id='04'");
+      return $query->result();
+  }
 }

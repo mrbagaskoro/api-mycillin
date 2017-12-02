@@ -866,6 +866,20 @@
         }
     }
 
+    public function list_history_onprogress_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_history_onprogress($data['user_id']);
+        $this->ok($data);
+    }
 
-
+    public function list_history_completed_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_history_completed($data['user_id']);
+        $this->ok($data);
+    }
+    
   }
