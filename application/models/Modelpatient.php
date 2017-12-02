@@ -295,7 +295,6 @@ class ModelPatient extends CI_Model {
   }
 
   public function add_request($data) {
-
     $insert['user_id'] = $user_id = $data['user_id'];
     $insert['relation_id'] = $data['relation_id'];
     $partner_selected = $data['partner_selected'];

@@ -755,5 +755,4 @@ class UserPartner extends Controlpartner
         $data = $this->ma->partner_check_balance($data['user_id']);
         $this->ok($data);
     }
-
 }

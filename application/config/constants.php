@@ -96,4 +96,5 @@ define('UPLOAD_PATH_BANNER', "uploads/banner/");
 define('UPLOAD_PATH_INSR', "uploads/insurance/");
 define('UPLOAD_PATH_DOCUMENT', "uploads/document/");
 
+
 define('EMAIL_ADDR', 'lucy@mycillin.com');

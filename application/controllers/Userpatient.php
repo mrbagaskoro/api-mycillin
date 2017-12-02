@@ -677,8 +677,7 @@
         $data = $this->ma->detail_partner_information($data['user_id']);
         $this->ok($data);
     }
-    /*------------recovery-------------------*/
-
+    
     public function add_request_post()
     {
         $this->validate_jwt();

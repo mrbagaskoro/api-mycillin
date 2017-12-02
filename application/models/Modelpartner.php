@@ -344,7 +344,6 @@ class ModelPartner extends CI_Model
             $effective_date = $cur_date;
         }
         
-
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
         $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Honor Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
 
