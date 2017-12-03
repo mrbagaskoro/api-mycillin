@@ -428,4 +428,13 @@ class ModelPartner extends CI_Model
         $query = $this->db->query("select user_id, user_id as virtual_acount_no, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
       return $query->result();
     }
+
+    public function add_prescription_photo($data) {
+    $update['updated_by'] = $data['user_id'];
+    $update['prescription_img'] = $data['prescription_img'];
+    $where['booking_id'] = $data['booking_id'];
+
+    $query = $this->db->update('medical_record', $update, $where);
+    return $query?TRUE:FALSE;
+  }
 }

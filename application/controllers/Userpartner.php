@@ -755,4 +755,45 @@ class UserPartner extends Controlpartner
         $data = $this->ma->partner_check_balance($data['user_id']);
         $this->ok($data);
     }
+
+    public function add_prescription_photo_post()
+    {
+        $this->validate_jwt();
+        $data = file_get_contents('php://input');
+
+        $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
+  
+        if ($user_data) {
+            $config['upload_path'] = UPLOAD_PATH_PRESCRIPTION;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $config['max_size'] = 4096;
+            $config['overwrite'] = true;
+
+            $this->load->library('upload', $config);
+            if (!empty($_FILES['prescription_img']['name'])) {
+                $config['file_name'] = 'img_prescription_'.$this->post('booking_id');
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('prescription_img')) {
+                    $err = array("result" => $this->upload->display_errors());
+                    $this->bad_req($err);
+                }
+
+                $up = $this->upload->data();
+                $data['user_id'] = $this->post('user_id');
+                $data['booking_id'] = $this->post('booking_id');
+
+                $data['prescription_img'] = $up['file_name'];
+
+                if ($this->ma->add_prescription_photo($data)) {
+                    $this->success('prescription_img added successfully');
+                } else {
+                    $this->bad_req('An error was occured');
+                }
+            } else {
+                $this->bad_req('File can not empty');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
 }
