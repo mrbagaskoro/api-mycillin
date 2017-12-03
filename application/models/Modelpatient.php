@@ -383,11 +383,12 @@ class ModelPatient extends CI_Model {
   }
 
   public function user_cancel_transaction($data) {
+      $where['booking_id'] = $data['booking_id'];
       $update['cancel_status'] = "Y";
       $update['cancel_by'] = $data['user_id'];
       $update['cancel_reason_id'] = $data['cancel_reason_id'];
       $update['updated_by'] = $data['user_id'];
-      $where['booking_id'] = $data['booking_id'];
+      
       $query = $this->db->update('booking_trx', $update, $where);
       return $query?TRUE:FALSE;
   }
