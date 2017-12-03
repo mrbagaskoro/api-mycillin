@@ -371,6 +371,7 @@ class ModelPartner extends CI_Model
         return FALSE;
     }
 
+
     public function add_prescription($data) {
         $insert['prescription_no'] = $data['prescription_id'];
         $insert['nama_obat'] = $data['nama_obat'];
