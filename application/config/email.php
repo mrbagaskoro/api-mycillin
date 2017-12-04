@@ -15,7 +15,7 @@
 	//$config['mailpath'] = '/usr/sbin/sendmail';
 	$config['smtp_host'] = 'srv28.niagahoster.com';
 	$config['smtp_user'] = 'lucy@mycillin.com';
-	$config['smtp_pass'] = 'Tis_2017';
+	$config['smtp_pass'] = '@Sejagat_2017';
 	$config['smtp_port'] = 465;
 	$config['smtp_auth'] = TRUE;
 	$config['smtp_crypto'] = 'ssl';
