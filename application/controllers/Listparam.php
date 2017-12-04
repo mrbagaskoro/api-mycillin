@@ -45,6 +45,12 @@ class ListParam extends Controlpatient {
     $this->ok($data);
   }
 
+  public function list_mst_partner_type_post(){
+    $data = json_decode(file_get_contents('php://input'), true);
+    $data = $this->mp->mst_partner_type1($data['service_type_id']);
+    $this->ok($data);
+  }
+
   public function list_mst_spesialisasi_post(){
     $data = json_decode(file_get_contents('php://input'), true);
     $data = $this->mp->mst_spesialisasi($data['partner_type_id']);

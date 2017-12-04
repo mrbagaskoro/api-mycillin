@@ -85,6 +85,7 @@ $route['api/list_insr_provider']['GET']			= 'listparam/list_mst_insr_provider';
 $route['api/list_payment_methode']['GET']		= 'listparam/list_mst_payment_methode';
 $route['api/list_service_type']['GET']			= 'listparam/list_mst_service_type';
 $route['api/list_partner_type']['GET']			= 'listparam/list_mst_partner_type';
+$route['api/list_partner_type']['POST']			= 'listparam/list_mst_partner_type';
 $route['api/list_spesialisasi']['POST']			= 'listparam/list_mst_spesialisasi';
 $route['api/list_dosis_obat']['GET']			= 'listparam/list_mst_dosis_obat';
 $route['api/list_prescription_type']['GET']		= 'listparam/list_mst_prescription_type';

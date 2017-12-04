@@ -232,7 +232,7 @@ class ModelPatient extends CI_Model {
 
   public function detail_medical_record($user_id, $record_id)
   {
-      $query = $this->db->query("select mr.created_date, mr.partner_id, pr.full_name as partner_name, mr.record_id, mr.user_id, mst.service_type_desc, mr.body_temperature, mr.blood_sugar_level, mr.cholesterol_level, mr.blood_press_upper, mr.blood_press_lower, mr.patient_condition, mr.diagnosa, mr.prescription_status, mr.prescription_id, mpt.prescription_type_desc from medical_record mr inner join partner_profile pr on mr.partner_id=pr.user_id left join mst_service_type mst on mr.service_type_id=mst.service_type_id left join mst_prescription_type mpt on mr.prescription_type_id=mpt.prescription_type_id where mr.user_id='$user_id' and mr.record_id='$record_id'");
+      $query = $this->db->query("select mr.created_date, mr.partner_id, pr.full_name as partner_name, mr.record_id, mr.user_id, mst.service_type_desc, mr.body_temperature, mr.blood_sugar_level, mr.cholesterol_level, mr.blood_press_upper, mr.blood_press_lower, mr.patient_condition, mr.diagnosa, mr.prescription_status, mr.prescription_id, mpt.prescription_type_desc, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img from medical_record mr inner join partner_profile pr on mr.partner_id=pr.user_id left join mst_service_type mst on mr.service_type_id=mst.service_type_id left join mst_prescription_type mpt on mr.prescription_type_id=mpt.prescription_type_id where mr.user_id='$user_id' and mr.record_id='$record_id'");
       return $query->result();
   }
 
@@ -441,6 +441,8 @@ class ModelPatient extends CI_Model {
     * COS(RADIANS($latitude))))
       AS distance,
       pr.full_name,
+      concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
+      pr.no_SIP,
       pr.wilayah_kerja
       FROM partner_account pa 
       INNER JOIN partner_profile pr 
@@ -478,6 +480,8 @@ class ModelPatient extends CI_Model {
     * COS(RADIANS($latitude))))
       AS distance,
       pr.full_name,
+      concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
+      pr.no_SIP,
       pr.wilayah_kerja
       FROM partner_account pa 
       INNER JOIN partner_profile pr 
@@ -515,6 +519,8 @@ class ModelPatient extends CI_Model {
     * COS(RADIANS($latitude))))
       AS distance,
       pr.full_name,
+      concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
+      pr.no_SIP,
       pr.wilayah_kerja
       FROM partner_account pa 
       INNER JOIN partner_profile pr 
@@ -543,6 +549,8 @@ class ModelPatient extends CI_Model {
     $query = $this->db->query("
     SELECT pr.user_id,
       pr.full_name,
+      concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
+      pr.no_SIP,
       pt.partner_type_desc,
       ss.spesialisasi_desc,
       pr.wilayah_kerja
