@@ -425,7 +425,7 @@ class ModelPartner extends CI_Model
     public function partner_check_balance($user_id)
     {
         $cur_date = date ("Y-m-d");
-        $query = $this->db->query("select user_id, user_id as virtual_acount_no, sum(amount) as sisa_saldo from va_balance where user_id='$user_id'");
+        $query = $this->db->query("select user_id, user_id as virtual_acount_no, sum(amount) as total_saldo, sum(CASE WHEN effective_date <= $cur_date THEN amount ELSE 0 END) as saldo_eff, sum(CASE WHEN effective_date > $cur_date THEN amount ELSE 0 END) as saldo_tertahan from va_balance where user_id='$user_id'");
       return $query->result();
     }
 
