@@ -401,7 +401,7 @@ class UserPartner extends Controlpartner
         /*$this->validate_jwt();*/
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $user_data = $this->ma->is_valid_user($data['email']);
+        $user_data = $this->ma->is_valid_user_email($data['email']);
   
         if ($user_data) {
             if ($this->ma->change_user_state($data)) {

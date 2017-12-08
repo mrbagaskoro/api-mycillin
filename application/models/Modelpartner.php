@@ -74,6 +74,12 @@ class ModelPartner extends CI_Model
         return $query->row();
     }
 
+    public function is_valid_user_email($email)
+    {
+        $query = $this->db->query("select * from partner_account pa left join partner_profile pp on pa.user_id=pp.user_id where pa.email='$email'");
+        return $query->row();
+    }
+
     public function is_valid_num_user($email)
     {
         $this->db->select('*');
@@ -183,11 +189,33 @@ class ModelPartner extends CI_Model
 
     public function change_user_state($data)
     {
-        $where['email'] = $data['email'];
+        //$where['email'] = $data['email'];
 
-        $update['status_id'] = '1';
-        $query = $this->db->update('partner_account', $update, $where);
-        return $query?true:false;
+        $date = date('Y-m-d H:i:s');
+        $eml = $data['email'];
+
+        $a = $this->db->query("select user_id from partner_account where email='$eml'")->row();
+        $uid = $a->user_id;
+        
+        $update_status = array('updated_by'=>$uid, 'updated_date'=>$date, 'status_id'=>'01');
+
+        $now = new DateTime();
+        $now->add(new DateInterval('P30D'));
+        $end_date = $now->format('Y-m-d H:i:s');
+
+        $data_share = array('created_by'=>$uid, 'created_date'=>$date, 'partner_id'=>$uid,'profit_sharing'=>'1', 'start_date'=>$date, 'end_date'=>$end_date);
+        
+        $this->db->trans_begin();
+
+        $q1 = $this->db->update('partner_account', $update_status);
+        $q2 = $this->db->insert('mst_partner_ps', $data_share);
+ 
+        if ($q1 && $q2) {
+            $this->db->trans_commit();
+            return TRUE;
+        }
+        $this->db->trans_rollback();
+        return FALSE;
     }
 
     public function forgot_password($user_id)
