@@ -32,6 +32,14 @@
       $this->ok($data);
     }
 
+    public function get_bigbanner_apps_get()
+    {
+        //$this->validate_jwt();
+        //$data = json_decode(file_get_contents('php://input'), true);
+      $data = $this->ma->get_bigbanner_apps();
+      $this->ok($data);
+    }
+
     public function change_avatar_post()
     {
         $this->validate_jwt();

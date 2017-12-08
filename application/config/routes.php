@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 /*--------------------------- my route -----------------------------*/
 $route['api/banner']['GET']                     = 'userpatient/get_banner_apps';
+$route['api/bigbanner']['GET']                  = 'userpatient/get_bigbanner_apps';
 
 $route['api/register']['POST']                  = 'userpatient/register_user';
 $route['api/activation']['GET']                 = 'userpatient/confirm_account';

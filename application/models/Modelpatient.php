@@ -57,6 +57,20 @@ class ModelPatient extends CI_Model {
       return $query->result();
     }
 
+  function get_bigbanner_apps(){
+      $cur_date = date('Y-m-d');
+      $query = $this->db->query("SELECT 
+        image_id,
+        url_link,
+        concat('".FULL_UPLOAD_PATH_BIGBANNER."', image_name) image_name,
+        start_date,
+        end_date
+        FROM
+        big_banner_apps
+        WHERE  '$cur_date' BETWEEN start_date AND end_date");
+      return $query->result();
+    }  
+
   public function is_valid_token($user_id,$token) {
     $datetime = date('Y-m-d H:i:s');
     $query = $this->db->query("select * from mst_token where user_id='$user_id' and token='$token' and expired > STR_TO_DATE('$datetime', '%Y-%m-%d %H:%i:%s')");
