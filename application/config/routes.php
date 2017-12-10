@@ -66,6 +66,9 @@ $route['api/complete_account']['POST']          = 'userpatient/complete_account'
 $route['api/change_avatar']['POST']          	= 'userpatient/change_avatar';
 $route['api/get_avatar']['POST']         	 	= 'userpatient/get_avatar';
 
+$route['api/get_pin_no']['POST']         	 	= 'userpatient/get_pin_user';
+$route['api/set_pin_no']['POST']         	 	= 'userpatient/set_pin_user';
+
 $route['api/add_family']['POST']          		= 'userpatient/add_member';
 $route['api/update_family']['POST']          	= 'userpatient/update_member';
 $route['api/list_family']['POST']          		= 'userpatient/list_member';

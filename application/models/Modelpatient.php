@@ -700,7 +700,48 @@ class ModelPatient extends CI_Model {
 
   public function list_history_onprogress($user_id)
   {
-      $query = $this->db->query("select pr.user_id, bt.created_date as order_date, bt.booking_id, pm.pymt_methode_desc, bt.service_type_id, st.service_type_desc, bt.partner_selected, pr.full_name as partner_name, pa.mobile_no, concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo, mpt.partner_type_desc, ss.spesialisasi_desc, pr.no_SIP, pr.no_STR, pr.wilayah_kerja, bt.promo_code, bt.price_amount, bt.booking_status_id, bt.cancel_status, bt.latitude_request, bt.longitude_request, pr.latitude_praktik, pr.longitude_praktik from booking_trx bt inner join partner_account pa on bt.partner_selected=pa.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join mst_payment_methode pm on bt.pymt_methode_id=pm.pymt_methode_id left join partner_profile pr on pa.user_id=pr.user_id left join mst_partner_type mpt on pr.partner_type_id=mpt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id where bt.user_id='$user_id' and bt.cancel_status='N' and bt.booking_status_id != '04' ");
+      $query = $this->db->query("SELECT 
+          pr.user_id,
+          bt.created_date AS order_date,
+          bt.booking_id,
+          pm.pymt_methode_desc,
+          bt.service_type_id,
+          st.service_type_desc,
+          bt.partner_selected,
+          pr.full_name AS partner_name,
+          pa.mobile_no,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PROFILE."',
+            pa.profile_photo
+          ) profile_photo,
+          mpt.partner_type_desc,
+          ss.spesialisasi_desc,
+          pr.no_SIP,
+          pr.no_STR,
+          pr.wilayah_kerja,
+          bt.promo_code,
+          bt.price_amount,
+          bt.booking_status_id,
+          bt.cancel_status,
+          bt.latitude_request,
+          bt.longitude_request,
+          pr.latitude_praktik,
+          pr.longitude_praktik 
+        FROM
+          booking_trx bt 
+          INNER JOIN partner_account pa 
+            ON bt.partner_selected = pa.user_id 
+          LEFT JOIN mst_service_type st 
+            ON bt.service_type_id = st.service_type_id 
+          LEFT JOIN mst_payment_methode pm 
+            ON bt.pymt_methode_id = pm.pymt_methode_id 
+          LEFT JOIN partner_profile pr 
+            ON pa.user_id = pr.user_id 
+          LEFT JOIN mst_partner_type mpt 
+            ON pr.partner_type_id = mpt.partner_type_id AND st.service_type_id=mpt.service_type_id
+          LEFT JOIN mst_spesialisasi ss 
+            ON pr.spesialisasi_id = ss.spesialisasi_id 
+        WHERE bt.user_id='$user_id' and bt.cancel_status='N' and bt.booking_status_id != '04' ");
       return $query->result();
   }
 
@@ -708,5 +749,28 @@ class ModelPatient extends CI_Model {
   {
       $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo, pa.mobile_no, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.service_rating, bt.price_amount, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img, bt.booking_status_id, bt.cancel_status from booking_trx bt inner join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id where (bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status = 'N') or (bt.user_id='$user_id' and bt.booking_status_id!= '04' and bt.cancel_status='Y') ");
       return $query->result();
+  }
+
+  public function get_pin_user($user_id)
+  {
+      $this->db->select('user_id, email, pin_no');
+      $this->db->from('user_account');
+      $this->db->where('user_id', $user_id);
+      $query = $this->db->get();
+      return $query->row();
+  }
+
+  public function set_pin_user($data)
+  {
+      $date = date('Y-m-d H:i:s');
+      
+      $where['user_id'] = $data['user_id'];
+      
+      $update['pin_no'] = $data['pin'];
+      $update['updated_by'] = $data['user_id'];
+      $update['updated_date'] = $date;
+      
+      $query = $this->db->update('user_account', $update, $where);
+      return $query?TRUE:FALSE;
   }
 }

@@ -897,5 +897,47 @@
             $this->bad_req('Data Is Empty');
         }
     }
+
+    public function get_pin_user_post() {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+        if ($user_data) {
+            if ($get = $this->ma->get_pin_user($data['user_id'])) {
+                if ($get->pin_no == null || $get->pin_no == 0 || $get->pin_no == '') {
+                    $this->success('Set your PIN first');
+                } else {
+                    $this->ok($get);
+                }
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+    public function set_pin_user_post() {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($data['password'] == $this->encrypt->decode($user_data->password)){
+                if ($set = $this->ma->set_pin_user($data)) {
+                    $this->success('PIN successfully updated');
+                } else {
+                    $this->bad_req('An error was occured');
+                }
+            } else {
+                $this->success('Password incorrect');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
     
   }
