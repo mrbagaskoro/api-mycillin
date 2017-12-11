@@ -741,6 +741,8 @@ class ModelPatient extends CI_Model {
           bt.price_amount,
           bt.booking_status_id,
           bt.cancel_status,
+          cr.cancel_reason_desc as cancel_reason_user,
+          crp.cancel_reason_desc as cancel_reason_partner,
           bt.cancel_by,
           bt.latitude_request,
           bt.longitude_request,
@@ -760,6 +762,10 @@ class ModelPatient extends CI_Model {
             ON pr.partner_type_id = mpt.partner_type_id AND st.service_type_id=mpt.service_type_id
           LEFT JOIN mst_spesialisasi ss 
             ON pr.spesialisasi_id = ss.spesialisasi_id 
+          LEFT JOIN mst_cancel_reason cr 
+            ON bt.cancel_reason_id = cr.cancel_reason_id 
+          LEFT JOIN mst_cancel_reason_partner crp
+            ON bt.cancel_reason_id = crp.cancel_reason_id 
         WHERE bt.user_id='$user_id' and bt.cancel_status='N' and bt.booking_status_id != '04' ");
       return $query->result();
   }
@@ -792,6 +798,8 @@ class ModelPatient extends CI_Model {
         ) prescription_img, 
         bt.booking_status_id, 
         bt.cancel_status,
+        cr.cancel_reason_desc as cancel_reason_user,
+        crp.cancel_reason_desc as cancel_reason_partner,
         bt.cancel_by  
         FROM
          booking_trx bt 
@@ -806,7 +814,11 @@ class ModelPatient extends CI_Model {
         LEFT JOIN medical_record mr 
           on bt.booking_id=mr.booking_id 
         LEFT JOIN mst_action_type mat 
-          on bt.action_type_id=mat.action_type_id 
+          on bt.action_type_id=mat.action_type_id
+        LEFT JOIN mst_cancel_reason cr 
+          ON bt.cancel_reason_id = cr.cancel_reason_id 
+        LEFT JOIN mst_cancel_reason_partner crp
+          ON bt.cancel_reason_id = crp.cancel_reason_id 
       WHERE 
         (bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status = 'N') 
       OR
