@@ -464,7 +464,7 @@ class ModelPatient extends CI_Model {
       INNER JOIN partner_profile pr 
       ON pa.user_id=pr.user_id
       LEFT JOIN mst_partner_type pt 
-      ON pr.partner_type_id=pt.partner_type_id 
+      ON pr.partner_type_id=pt.partner_type_id AND pt.service_type_id='00'
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id  
       WHERE pr.partner_type_id='$partner_type_id' 
@@ -509,7 +509,7 @@ class ModelPatient extends CI_Model {
       INNER JOIN partner_profile pr 
       ON pa.user_id=pr.user_id
       LEFT JOIN mst_partner_type pt 
-      ON pr.partner_type_id=pt.partner_type_id 
+      ON pr.partner_type_id=pt.partner_type_id AND pt.service_type_id='05'
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id  
       WHERE pr.partner_type_id='$partner_type_id' 
@@ -519,7 +519,7 @@ class ModelPatient extends CI_Model {
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.visit_id='1' 
-      HAVING distance < 20 
+      HAVING distance < 20
       ");
     return $query->result();
   }
@@ -554,7 +554,7 @@ class ModelPatient extends CI_Model {
       INNER JOIN partner_profile pr 
       ON pa.user_id=pr.user_id
       LEFT JOIN mst_partner_type pt 
-      ON pr.partner_type_id=pt.partner_type_id 
+      ON pr.partner_type_id=pt.partner_type_id AND pt.service_type_id='01'
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id 
       WHERE pr.partner_type_id='$partner_type_id' 
@@ -564,7 +564,7 @@ class ModelPatient extends CI_Model {
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.reservasi_id='1' 
-      HAVING distance < 20 
+      HAVING distance < 20
       ");
     return $query->result();
   }
@@ -581,8 +581,8 @@ class ModelPatient extends CI_Model {
     $query = $this->db->query("
     SELECT pr.user_id,
       pr.full_name,
-      concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
       pr.no_SIP,
+      concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
       pt.partner_type_desc,
       ss.spesialisasi_desc,
       pr.wilayah_kerja
@@ -590,7 +590,7 @@ class ModelPatient extends CI_Model {
       INNER JOIN partner_profile pr 
       ON pa.user_id=pr.user_id 
       LEFT JOIN mst_partner_type pt 
-      ON pr.partner_type_id=pt.partner_type_id 
+      ON pr.partner_type_id=pt.partner_type_id AND pt.service_type_id='02'
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id
       WHERE pr.partner_type_id='$partner_type_id' 
