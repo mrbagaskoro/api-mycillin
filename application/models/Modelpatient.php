@@ -457,10 +457,16 @@ class ModelPatient extends CI_Model {
       pr.full_name,
       concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
       pr.no_SIP,
+      pt.partner_type_desc,
+      ss.spesialisasi_desc,
       pr.wilayah_kerja
       FROM partner_account pa 
       INNER JOIN partner_profile pr 
-      ON pa.user_id=pr.user_id 
+      ON pa.user_id=pr.user_id
+      LEFT JOIN mst_partner_type pt 
+      ON pr.partner_type_id=pt.partner_type_id 
+      LEFT JOIN mst_spesialisasi ss 
+      ON pr.spesialisasi_id=ss.spesialisasi_id  
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
       AND $q
@@ -496,10 +502,16 @@ class ModelPatient extends CI_Model {
       pr.full_name,
       concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
       pr.no_SIP,
+      pt.partner_type_desc,
+      ss.spesialisasi_desc,
       pr.wilayah_kerja
       FROM partner_account pa 
       INNER JOIN partner_profile pr 
-      ON pa.user_id=pr.user_id 
+      ON pa.user_id=pr.user_id
+      LEFT JOIN mst_partner_type pt 
+      ON pr.partner_type_id=pt.partner_type_id 
+      LEFT JOIN mst_spesialisasi ss 
+      ON pr.spesialisasi_id=ss.spesialisasi_id  
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
       AND $q
@@ -535,10 +547,16 @@ class ModelPatient extends CI_Model {
       pr.full_name,
       concat('".FULL_UPLOAD_PATH_PROFILE."', pa.profile_photo) profile_photo,
       pr.no_SIP,
+      pt.partner_type_desc,
+      ss.spesialisasi_desc,
       pr.wilayah_kerja
       FROM partner_account pa 
       INNER JOIN partner_profile pr 
-      ON pa.user_id=pr.user_id 
+      ON pa.user_id=pr.user_id
+      LEFT JOIN mst_partner_type pt 
+      ON pr.partner_type_id=pt.partner_type_id 
+      LEFT JOIN mst_spesialisasi ss 
+      ON pr.spesialisasi_id=ss.spesialisasi_id 
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
       AND $q
