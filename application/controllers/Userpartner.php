@@ -796,4 +796,49 @@ class UserPartner extends Controlpartner
             $this->bad_req('Account does not exist');
         }
     }
+
+    public function list_new_partner_get()
+    {
+      $data = $this->ma->list_new_partner();
+      $this->ok($data);
+    }
+
+    public function list_all_partner_get()
+    {
+      $data = $this->ma->list_all_partner();
+      $this->ok($data);
+    }
+
+    public function reject_partner_register_post()
+    {
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+        if ($user_data) {
+            if ($this->ma->reject_partner_register($data)) {
+                $this->success('Partner Register Rejected successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+    public function suspend_partner_post()
+    {
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+  
+        if ($user_data) {
+            if ($this->ma->suspend_partner($data)) {
+                $this->success('Partner Suspended successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
 }

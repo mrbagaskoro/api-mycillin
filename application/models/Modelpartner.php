@@ -464,5 +464,36 @@ class ModelPartner extends CI_Model
 
     $query = $this->db->update('medical_record', $update, $where);
     return $query?TRUE:FALSE;
-  }
+    }
+
+    function list_new_partner(){
+      
+      $query = $this->db->query("SELECT pa.created_date, pa.user_id, pa.email, pr.full_name, pa.mobile_no, pa.status_id FROM partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id WHERE  status_id='03'");
+      return $query->result();
+    }
+
+    function list_all_partner(){
+      
+      $query = $this->db->query("SELECT pa.created_date, pa.user_id, pa.email, pr.full_name, pa.mobile_no, pa.status_id FROM partner_account pa inner join partner_profile pr on pa.user_id=pr.user_id ");
+      return $query->result();
+    }
+
+    public function reject_partner_register($data) {
+    $update['status_id'] = '02';
+    $where['user_id'] = $data['user_id'];
+    $where['status_id'] = '03';
+
+    $query = $this->db->update('partner_account', $update, $where);
+    return $query?TRUE:FALSE;
+    }
+
+    public function suspend_partner($data) {
+    $update['status_id'] = '02';
+    $where['user_id'] = $data['user_id'];
+    $where['status_id'] = '01';
+
+    $query = $this->db->update('partner_account', $update, $where);
+    return $query?TRUE:FALSE;
+    }
+
 }

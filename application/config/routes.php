@@ -166,3 +166,9 @@ $route['api/partner_check_transaction']['POST']   = 'userpartner/partner_check_t
 $route['api/partner_check_balance']['POST']       = 'userpartner/partner_check_balance';
 $route['api/user_check_transaction']['POST'] 	  = 'userpartner/user_check_transaction';
 $route['api/user_check_balance']['POST']     	  = 'userpartner/user_check_balance';
+
+/*---------------------- Admin Backend ------------------*/
+$route['api/list_new_partner']['GET']      	  	  = 'userpartner/list_new_partner';
+$route['api/list_all_partner']['GET']      	  	  = 'userpartner/list_all_partner';
+$route['api/reject_partner_register']['POST']     = 'userpartner/reject_partner_register';
+$route['api/suspend_partner']['POST']     		  = 'userpartner/suspend_partner';
