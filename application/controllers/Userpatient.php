@@ -939,5 +939,13 @@
             $this->bad_req('Account does not exist');
         }
     }
+
+    public function find_nearest_med_facility_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->find_nearest_med_facility($data['user_id'], $data['latitude'], $data['longitude']);
+        $this->ok($data);
+    }
     
   }

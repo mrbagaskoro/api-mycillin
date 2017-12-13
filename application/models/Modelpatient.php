@@ -848,4 +848,26 @@ class ModelPatient extends CI_Model {
       $query = $this->db->update('user_account', $update, $where);
       return $query?TRUE:FALSE;
   }
+
+  Public function find_nearest_med_facility($user_id, $latitude, $longitude)
+  {
+    $query = $this->db->query("
+    SELECT facility_name,
+    latitude,
+    longitude,
+    (6371 * ACOS(SIN(RADIANS(latitude)) 
+    * SIN(RADIANS($latitude)) 
+    + COS(RADIANS(longitude 
+    - $longitude)) 
+    * COS(RADIANS(latitude)) 
+    * COS(RADIANS($latitude))))
+      AS distance,
+      address,
+      phone_no
+      FROM mst_healthcenter_data 
+      WHERE is_active='Y' 
+      HAVING distance < 20
+      ");
+    return $query->result();
+  }
 }
