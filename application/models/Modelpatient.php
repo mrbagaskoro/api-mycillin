@@ -869,7 +869,8 @@ class ModelPatient extends CI_Model {
     * COS(RADIANS($latitude))))
       AS distance,
       address,
-      phone_no
+      phone_no,
+      concat('".FULL_UPLOAD_PATH_MEDFACILITY."', facility_picture) facility_picture
       FROM mst_healthcenter_data 
       WHERE is_active='Y' 
       HAVING distance < 20

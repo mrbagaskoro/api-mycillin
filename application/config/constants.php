@@ -91,6 +91,7 @@ define('FULL_UPLOAD_PATH_BIGBANNER', "http://$_SERVER[HTTP_HOST]/services/upload
 define('FULL_UPLOAD_PATH_INSR', "http://$_SERVER[HTTP_HOST]/services/uploads/insurance/");
 define('FULL_UPLOAD_PATH_DOCUMENT', "http://$_SERVER[HTTP_HOST]/services/uploads/document/");
 define('FULL_UPLOAD_PATH_PRESCRIPTION', "http://$_SERVER[HTTP_HOST]/services/uploads/prescription/");
+define('FULL_UPLOAD_PATH_MEDFACILITY', "http://$_SERVER[HTTP_HOST]/services/uploads/facility_picture/");
 
 define('UPLOAD_PATH', "uploads/");
 define('UPLOAD_PATH_PROFILE', "uploads/avatar/");
@@ -99,6 +100,6 @@ define('UPLOAD_PATH_BIGBANNER', "uploads/big_banner/");
 define('UPLOAD_PATH_INSR', "uploads/insurance/");
 define('UPLOAD_PATH_DOCUMENT', "uploads/document/");
 define('UPLOAD_PATH_PRESCRIPTION', "uploads/prescription/");
-
+define('UPLOAD_PATH_MEDFACILITY', "uploads/facility_picture/");
 
 define('EMAIL_ADDR', 'lucy@mycillin.com');
