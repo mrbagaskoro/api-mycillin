@@ -571,7 +571,6 @@ class ModelPatient extends CI_Model {
 
   public function find_consultation($user_id, $partner_type_id, $spesialisasi_id, $gender) 
   {
-    
     if ($gender == null || $gender == '') {
       $q = "1=1";
     } else {
@@ -774,7 +773,8 @@ class ModelPatient extends CI_Model {
   {
       $query = $this->db->query("SELECT 
         bt.created_date as order_date, 
-        bt.booking_id, bt.service_type_id, 
+        bt.booking_id, 
+        bt.service_type_id, 
         st.service_type_desc, 
         bt.partner_selected, 
         pr.full_name as partner_name, 
@@ -784,6 +784,8 @@ class ModelPatient extends CI_Model {
           '".FULL_UPLOAD_PATH_PROFILE."', 
           pa.profile_photo
         ) profile_photo, 
+        mpt.partner_type_desc,
+        ss.spesialisasi_desc,
         pa.mobile_no, 
         bt.pymt_methode_id, 
         mpm.pymt_methode_desc, 
@@ -809,6 +811,10 @@ class ModelPatient extends CI_Model {
           on bt.service_type_id=st.service_type_id 
         LEFT JOIN partner_account pa 
           on bt.partner_selected=pa.user_id 
+        LEFT JOIN mst_partner_type mpt 
+            ON pr.partner_type_id = mpt.partner_type_id AND st.service_type_id=mpt.service_type_id
+        LEFT JOIN mst_spesialisasi ss 
+            ON pr.spesialisasi_id = ss.spesialisasi_id 
         LEFT JOIN mst_payment_methode mpm 
           on bt.pymt_methode_id=mpm.pymt_methode_id 
         LEFT JOIN medical_record mr 
