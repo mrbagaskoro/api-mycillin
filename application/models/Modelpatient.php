@@ -442,6 +442,12 @@ class ModelPatient extends CI_Model {
     } else {
       $q = "pr.gender='$gender'";
     }
+    
+    if ($BPJS_RCV_status == 0 || $BPJS_RCV_status == '') {
+      $bpjs = "1=1";
+    } else {
+      $bpjs = "pa.BPJS_RCV_status='$BPJS_RCV_status'";
+    }
 
     $query = $this->db->query("
     SELECT pa.user_id,
@@ -470,7 +476,7 @@ class ModelPatient extends CI_Model {
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
       AND $q
-      AND pa.BPJS_RCV_status='$BPJS_RCV_status'
+      AND $bpjs
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.visit_id='1' 
@@ -532,6 +538,12 @@ class ModelPatient extends CI_Model {
     } else {
       $q = "pr.gender='$gender'";
     }
+
+    if ($BPJS_RCV_status == 0 || $BPJS_RCV_status == '') {
+      $bpjs = "1=1";
+    } else {
+      $bpjs = "pa.BPJS_RCV_status='$BPJS_RCV_status'";
+    }
    
     $query = $this->db->query("
     SELECT pr.user_id,
@@ -560,7 +572,7 @@ class ModelPatient extends CI_Model {
       WHERE pr.partner_type_id='$partner_type_id' 
       AND pr.spesialisasi_id='$spesialisasi_id' 
       AND $q
-      AND pa.BPJS_RCV_status='$BPJS_RCV_status'
+      AND $bpjs
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.reservasi_id='1' 
