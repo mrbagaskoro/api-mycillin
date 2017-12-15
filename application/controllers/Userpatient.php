@@ -27,8 +27,14 @@
     public function get_banner_apps_get()
     {
         //$this->validate_jwt();
-        //$data = json_decode(file_get_contents('php://input'), true);
+        //$data2 = base64_encode(file_get_contents($data[0]->image_name));
       $data = $this->ma->get_banner_apps();
+      $i=0;
+      foreach($data as $row){
+          $base_data = base64_encode(file_get_contents($row->image_name));
+          $data[$i]->base_data = $base_data;
+          $i++;
+      }
       $this->ok($data);
     }
 
