@@ -758,7 +758,8 @@ class ModelPatient extends CI_Model {
           bt.latitude_request,
           bt.longitude_request,
           pr.latitude_praktik,
-          pr.longitude_praktik 
+          pr.longitude_praktik,
+          mbs.booking_status_desc 
         FROM
           booking_trx bt 
           INNER JOIN partner_account pa 
@@ -777,6 +778,8 @@ class ModelPatient extends CI_Model {
             ON bt.cancel_reason_id = cr.cancel_reason_id 
           LEFT JOIN mst_cancel_reason_partner crp
             ON bt.cancel_reason_id = crp.cancel_reason_id 
+          LEFT JOIN mst_booking_status mbs
+            ON bt.booking_status_id = mbs.booking_status_id 
         WHERE bt.user_id='$user_id' and bt.cancel_status='N' and bt.booking_status_id != '04' ");
       return $query->result();
   }
