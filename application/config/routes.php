@@ -116,6 +116,8 @@ $route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avata
 $route['api/change_partner_doc']['POST']        = 'userpartner/change_partner_doc';
 $route['api/get_partner_doc']['POST']           = 'userpartner/get_partner_doc';
 $route['api/list_partner_booking']['POST']      = 'userpartner/list_partner_booking';
+$route['api/create_clinic_schedule']['POST']   = 'userpartner/create_clinic_schedule';
+$route['api/clinic_schedule_update']['POST']   = 'userpartner/clinic_schedule_update';
 
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';

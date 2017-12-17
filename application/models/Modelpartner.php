@@ -496,4 +496,32 @@ class ModelPartner extends CI_Model
     return $query?TRUE:FALSE;
     }
 
+    public function create_clinic_schedule($data)
+    {
+        $where['schedule_id'] = $data['schedule_id'];
+        $insert['updated_by'] = $data['user_id'];
+        $insert['partner_id'] = $data['user_id'];
+        $insert['day_id'] = $data['day_id'];
+        $insert['time_id'] = $data['time_id'];
+        $insert['note'] = $data['note'];
+
+        $query = $this->db->insert('clinic_schedule', $insert);
+
+        return $query?true:false;
+    }
+
+    public function clinic_schedule_update($data)
+    {
+        $where['schedule_id'] = $data['schedule_id'];
+        $update['updated_by'] = $data['user_id'];
+        $update['partner_id'] = $data['user_id'];
+        $update['day_id'] = $data['day_id'];
+        $update['time_id'] = $data['time_id'];
+        $update['note'] = $data['note'];
+
+        $query = $this->db->update('clinic_schedule', $update, $where);
+
+        return $query?true:false;
+    }
+
 }
