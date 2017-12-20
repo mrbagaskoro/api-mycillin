@@ -95,6 +95,8 @@ $route['api/list_dosis_obat']['GET']			= 'listparam/list_mst_dosis_obat';
 $route['api/list_prescription_type']['GET']		= 'listparam/list_mst_prescription_type';
 $route['api/list_use_instruction']['GET']		= 'listparam/list_mst_use_instruction';
 $route['api/list_satuan_obat']['GET']			= 'listparam/list_mst_satuan_obat';
+$route['api/list_action_type']['GET']			= 'listparam/list_action_type';
+$route['api/list_prescription_type']['GET']		= 'listparam/list_prescription_type';
 $route['api/valid_promo_code']['POST']			= 'listparam/valid_promo_code';
 
 /*---------------------- doctor --------------------------*/

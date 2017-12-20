@@ -157,6 +157,22 @@ class ModelParam extends CI_Model{
     return $query->result();
   }
 
+  public function list_action_type() {
+    $this->db->select('action_type_id, action_type_desc');
+    $this->db->from('mst_action_type');
+    $this->db->where('is_active','Y');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
+  public function list_prescription_type() {
+    $this->db->select('prescription_type_id, prescription_type_desc');
+    $this->db->from('mst_prescription_type');
+    $this->db->where('is_active','Y');
+    $query = $this->db->get();
+    return $query->result();
+  }
+
   public function promo_code($promo_code) {
     $curr_date = date('Y-m-d');
     $this->db->select('promo_id, promo_code, discount, start_date, end_date');

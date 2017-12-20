@@ -102,6 +102,16 @@ class ListParam extends Controlpatient {
     $this->ok($data);
   }
 
+  public function list_action_type_get(){
+    $data = $this->mp->list_action_type();
+    $this->ok($data);
+  }
+
+  public function list_prescription_type_get(){
+    $data = $this->mp->list_prescription_type();
+    $this->ok($data);
+  }
+
   public function valid_promo_code_post(){
     $data = json_decode(file_get_contents('php://input'), true);
     $data = $this->mp->promo_code($data['promo_code']);
