@@ -74,6 +74,13 @@ class ModelPartner extends CI_Model
         return $query->row();
     }
 
+    public function is_valid_booking_id($booking_id)
+    {
+        $query = $this->db->query("select ua.email, bt.created_date, mst.service_type_desc, mat.action_type_desc, pp.full_name as partner_name, ar.full_name as user_name, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount from booking_trx bt left join partner_profile pp on bt.partner_selected=pp.user_id left join account_relation ar on bt.user_id=ar.user_id left join user_account ua on bt.user_id=ua.user_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join mst_service_type mst on bt.service_type_id=mst.service_type_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id where booking_id='$booking_id'");
+        return $query->row();
+    }
+
+
     public function is_valid_user_email($email)
     {
         $query = $this->db->query("select * from partner_account pa left join partner_profile pp on pa.user_id=pp.user_id where pa.email='$email'");
@@ -356,11 +363,14 @@ class ModelPartner extends CI_Model
         $date = date('Y-m-d H:i:s');    
         $test = md5($date.$data['user_id']); //crate random nomor resep obat- test sementara
         $booking = $data['booking_id'];
+        $record_id = 'R-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
 
         $data_transaction = array('action_type_id'=>$data['action_type_id'], 'booking_status_id'=>"04", 'updated_by'=>$data['user_id']);
 
         $trx_data = $this->db->query("select user_id, relation_id from booking_trx where booking_id='$booking' ")->row();
-        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data->user_id, 'relation_id'=>$trx_data->relation_id, 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id']);
+
+
+        $data_record = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data->user_id, 'relation_id'=>$trx_data->relation_id, 'partner_id'=>$data['user_id'], 'booking_id'=>$data['booking_id'], 'body_temperature'=>$data['body_temperature'], 'blood_sugar_level'=>$data['blood_sugar_level'], 'cholesterol_level'=>$data['cholesterol_level'], 'blood_press_upper'=>$data['blood_press_upper'], 'blood_press_lower'=>$data['blood_press_lower'], 'patient_condition'=>$data['patient_condition'], 'diagnosa'=>$data['diagnosa'], 'prescription_status'=>$data['prescription_status'], 'prescription_id'=>$test,'prescription_type_id'=>$data['prescription_type_id'], 'record_id'=>$record_id);
 
         $cur_date = date ("Y-m-d");
         $pymt_methode = $this->db->query("select pymt_methode_id from booking_trx where booking_id='$booking'")->row();      
@@ -372,7 +382,7 @@ class ModelPartner extends CI_Model
             $effective_date = $cur_date;
         }
         
-        $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id=$booking ")->row();
+        $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id='$booking' ")->row();
         $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Honor Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
 
         $cur_date1 = date ("Y-m-d");

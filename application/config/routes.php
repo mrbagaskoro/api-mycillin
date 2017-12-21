@@ -80,6 +80,7 @@ $route['api/login_fb']['POST']                  = 'controlpatient/register_fb';
 $route['api/login']['POST']                     = 'controlpatient/generate_jwt';
 $route['api/list_history_onprogress']['POST']   = 'userpatient/list_history_onprogress';
 $route['api/list_history_completed']['POST']   	= 'userpatient/list_history_completed';
+$route['api/email_e_receipt']['POST']   		= 'userpatient/email_e_receipt';
 
 /*---------------------- List Parameter ------------------*/
 $route['api/list_relation']['GET']				= 'listparam/list_mst_relation';
@@ -130,9 +131,9 @@ $route['articles/kebijakan_privasi']['GET']		= 'general/kebijakan_privasi';
 $route['api/list_medical_record']['POST']         = 'userpatient/list_medical_record';
 $route['api/detail_medical_record']['POST']       = 'userpatient/detail_medical_record';
 $route['api/detail_prescription']['POST']         = 'userpatient/detail_prescription';
-$route['api/list_medical_record1']['POST']         = 'userpartner/list_medical_record1';
-$route['api/detail_medical_record1']['POST']       = 'userpartner/detail_medical_record1';
-$route['api/detail_prescription1']['POST']         = 'userpartner/detail_prescription1';
+$route['api/list_medical_record1']['POST']        = 'userpartner/list_medical_record1';
+$route['api/detail_medical_record1']['POST']      = 'userpartner/detail_medical_record1';
+$route['api/detail_prescription1']['POST']        = 'userpartner/detail_prescription1';
 $route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insurance';
 $route['api/list_member_insurance']['POST']       = 'userpatient/list_member_insurance';
 $route['api/delete_member_insurance']['POST']     = 'userpatient/delete_member_insurance';
@@ -149,7 +150,7 @@ $route['api/find_partner']['POST']		  		  = 'userpatient/find_partner';
 $route['api/find_healthcare']['POST']		  	  = 'userpatient/find_healthcare';
 $route['api/find_clinic']['POST']		  	  	  = 'userpatient/find_clinic';
 $route['api/find_consultation']['POST']		  	  = 'userpatient/find_consultation';
-$route['api/find_nearest_med_facility']['POST'] = 'userpatient/find_nearest_med_facility';
+$route['api/find_nearest_med_facility']['POST']   = 'userpatient/find_nearest_med_facility';
 
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
 $route['api/add_request']['POST']          		  = 'userpatient/add_request';

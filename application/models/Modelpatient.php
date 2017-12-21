@@ -43,6 +43,12 @@ class ModelPatient extends CI_Model {
     return $query->num_rows();
   }
 
+  public function is_valid_booking_id($booking_id)
+    {
+        $query = $this->db->query("select ua.email, bt.created_date, mst.service_type_desc, mat.action_type_desc, pp.full_name as partner_name, ar.full_name as user_name, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount from booking_trx bt left join partner_profile pp on bt.partner_selected=pp.user_id left join account_relation ar on bt.user_id=ar.user_id left join user_account ua on bt.user_id=ua.user_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join mst_service_type mst on bt.service_type_id=mst.service_type_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id where booking_id='$booking_id'");
+        return $query->row();
+    }
+
   function get_banner_apps(){
       $cur_date = date('Y-m-d');
       $query = $this->db->query("SELECT 
@@ -309,6 +315,7 @@ class ModelPatient extends CI_Model {
   }
 
   public function add_request($data) {
+    $insert['booking_id'] = 'T-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
     $insert['user_id'] = $user_id = $data['user_id'];
     $insert['relation_id'] = $data['relation_id'];
     $insert['partner_selected'] = $partner_selected = $data['partner_selected'];
@@ -322,7 +329,7 @@ class ModelPatient extends CI_Model {
     $partner_type = $data['partner_type_id'];
     $spesialisasi_id = $data['spesialisasi_id'];
     $insert['created_by'] = $data['user_id'];
-    
+
     $bal_check = $this->db->query("select sum(amount) as balance from va_balance where user_id='$user_id'")->row();
     $price = $this->db->query("select price_amount from mst_price where service_type_id='$service_type' and pymt_methode_id='$pymt_methode' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id'")->row();
 
