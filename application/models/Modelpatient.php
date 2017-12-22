@@ -45,7 +45,7 @@ class ModelPatient extends CI_Model {
 
   public function is_valid_booking_id($booking_id)
     {
-        $query = $this->db->query("select ua.email, bt.created_date, mst.service_type_desc, mat.action_type_desc, pp.full_name as partner_name, ar.full_name as user_name, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount from booking_trx bt left join partner_profile pp on bt.partner_selected=pp.user_id left join account_relation ar on bt.user_id=ar.user_id left join user_account ua on bt.user_id=ua.user_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join mst_service_type mst on bt.service_type_id=mst.service_type_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id where booking_id='$booking_id'");
+        $query = $this->db->query("select ua.email, bt.created_date, bt.booking_id, mst.service_type_desc, mat.action_type_desc, pp.full_name as partner_name, ar.full_name as user_name, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount from booking_trx bt left join partner_profile pp on bt.partner_selected=pp.user_id left join account_relation ar on bt.user_id=ar.user_id left join user_account ua on bt.user_id=ua.user_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join mst_service_type mst on bt.service_type_id=mst.service_type_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id where booking_id='$booking_id'");
         return $query->row();
     }
 

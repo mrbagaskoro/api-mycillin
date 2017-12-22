@@ -301,7 +301,7 @@ class UserPartner extends Controlpartner
                 if ($result = $this->ma->register_partner($data)) {
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($data['email']);
-                    $this->email->subject('[noreply] MyCillin Account Activation');
+                    $this->email->subject('[noreply] Registrasi anda berhasil');
                     $this->email->set_mailtype("html");
 
                     $this->email->message('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -339,32 +339,24 @@ class UserPartner extends Controlpartner
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Hi '.$data['full_name'].',</b><br>
-                                                        Terima kasih telah mendaftar sebagai partner MyCillin (www.mycillin.com). Kini tinggal selangkah lagi bagi anda untuk bergabung bersama kami sebagai penyedia platform digital medis no 1 di Indonesia!
+                                                        Terima kasih telah mendaftar sebagai partner mycillin (www.mycillin.com). Kini tinggal selangkah lagi bagi anda untuk bergabung bersama ribuan rekan sejawat dengan profesi tenaga medis ke dalam wadah penyedia platform digital medis no 1 di Indonesia!
                                                       </td>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        Dalam tiga hari kedepan, petugas kami akan menghubungi anda untuk melakukan proses verifikasi dan kami berharap anda dapat bekerjasama dengan petugas kami memberikan informasi dan dokumen yang dibutuhkan dalam proses verifikasi tersebut.
+                                                        Maksimal tiga hari kedepan, petugas mycillin  akan menghubungi anda untuk melakukan proses verifikasi dan kami berharap anda dapat bekerjasama dengan petugas kami memberikan informasi dan dokumen yang dibutuhkan dalam proses verifikasi tersebut.
                                                       </td>
                                                     </tr>
                                                     <tr>                                                    
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <br><b>Questions?</b><br>
-                                                        Feel free to contact us anytime for questions about our services.
+                                                        <br><b>Pertanyaan?</b><br>
+                                                        Informasi lebih lanjut mengenai proses verifikasi serta panduan penggunaan aplikasi mycillin bagi partner, silahkan hubungi petugas kami atau dapat diunduh secara langsung melalui situs resmi kami www.mycillin.com. Kami akan melayani dan memberikan support dengan segenap hati..
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td style="padding-top:10px;background-color:#ffffff;">
-                                                        Sincerely,<br>
+                                                        Salam Hangat,<br>
                                                         MyCillin Team
-                                                      </td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td style="padding-top:20px;background-color:#ffffff;">
-                                                        <p style="text-align: justify; color: grey; padding-left: 10px">This message was sent to '.$data['email'].'.
-                                                        You are receiving this email because you have chosen to be notified when someone contacts you on your
-                                                        MyCillin account. If you do not wish to receive this type of email from MyCillin in the future,
-                                                        please click here to unsubscribe. MyCillin, Jl Baru Pemda Bambu Kuning No.15 Cibinong, West Java, Indonesia - 16922.</p>
                                                       </td>
                                                     </tr>
                                                   </table>
@@ -372,8 +364,8 @@ class UserPartner extends Controlpartner
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  mycillin.com<br>
-                                                  © 2017 All Rights Reserved
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -407,7 +399,7 @@ class UserPartner extends Controlpartner
             if ($this->ma->change_user_state($data)) {
                 $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($user_data->email);
-                    $this->email->subject('[noreply] MyCillin Account Activated');
+                    $this->email->subject('[noreply] Akun mycillin anda telah aktif!');
                     $this->email->set_mailtype("html");
 
                     $this->email->message('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -438,13 +430,13 @@ class UserPartner extends Controlpartner
                                                   <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
-                                                        <h1>Welcome to MyCillin</h1>
+                                                        <h1>Selamat Datang di Mycillin</h1>
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Hi '.$user_data->full_name.',</b><br>
-                                                        Selamat bergabung bersama mycillin. Account Anda telah siap digunakan. Silahkan login menggunakan alamat email yang terdaftar dan segera bertumbuh bersama mycillin.
+                                                        Selamat, kini anda telah tergabung bersama ribuan rekan sejawat dengan profesi tenaga medis ke dalam keluarga besar mycillin. Account Anda telah siap digunakan. Untuk memulai memberikan layanan, silahkan login menggunakan alamat email yang terdaftar dan mulailah mengatur waktu anda secara effektif bersama mycillin.
                                                       </td>
                                                     </tr>
                                                     <tr>
@@ -456,13 +448,13 @@ class UserPartner extends Controlpartner
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Questions?</b><br>
-                                                        Feel free to contact us anytime for questions about our services.
+                                                        <b>Pertanyaan?</b><br>
+                                                        Informasi lebih lanjut mengenai panduan penggunaan aplikasi mycillin bagi partner, silahkan hubungi petugas kami atau dapat diunduh secara langsung melalui situs resmi kami www.mycillin.com. Kami akan melayani dan memberikan support dengan segenap hati.
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td style="padding-top:20px;background-color:#ffffff;">
-                                                        Sincerely,<br>
+                                                        Salam Hangat,<br>
                                                         MyCillin Team
                                                       </td>
                                                     </tr>
@@ -471,8 +463,8 @@ class UserPartner extends Controlpartner
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  mycillin<br>
-                                                  © 2017 All Rights Reserved
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -511,7 +503,7 @@ class UserPartner extends Controlpartner
                     $user_full = $this->ma->is_valid_user_id($user_data->user_id);
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($user_data->email);
-                    $this->email->subject('[noreply] MyCillin Password Reset');
+                    $this->email->subject('[noreply] MyCillin Password Reset!');
                     $this->email->set_mailtype("html");
 
                     $this->email->message('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -542,42 +534,42 @@ class UserPartner extends Controlpartner
 													  <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
 														<tr>
 														  <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
-															<h1>Welcome to MyCillin</h1>
+															<h1>Informasi Pemulihan Password Anda</h1>
 														  </td>
 														</tr>
 														<tr>
 														  <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
 															<b>Hi '.$user_full->full_name.',</b><br>
-															You are requesting password reset, and this email contain your new password. Please login and change your password.
+															Anda telah meminta pemulihan paswword login, email ini berisi password login yang baru. Segera login ke aplikasi mycillin anda dan lakukan penggantian password. Segala bentuk penyalahgunaan akses aplikasi menjadi tanggung jawab anda sendiri.
 														  </td>
 														</tr>
 														<tr>
 														  <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-															<b>Your Account Information : </b><br>
-															Account name : '.$user_full->full_name.'<br>
+															<b>Informasi Akun Anda : </b><br>
+															Nama Akun : '.$user_full->full_name.'<br>
 															Email : '.$user_data->email.'<br>
-															<b>Your New Password : '.$new_pass.'</b><br>
+															<b>Password Baru : '.$new_pass.'</b><br>
 														  </td>
 														</tr>
 														<tr>
 														  <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-															<b>Questions?</b><br>
-															Feel free to contact us anytime for questions about our services.
-														  </td>
-														</tr>
-														<tr>
-														  <td style="padding-top:20px;background-color:#ffffff;">
-															Sincerely,<br>
-															MyCillin Team
-														  </td>
-														</tr>
-													  </table>
-													</td>
-												  </tr>
-												  <tr>
-													<td valign="top" class="footer-cell">
-													  MyCillin<br>
-													  © 2017 All Rights Reserved
+															<b>Pertanyaan?</b><br>
+                                                        Informasi lebih lanjut mengenai panduan penggunaan aplikasi mycillin bagi partner, silahkan hubungi petugas kami atau dapat diunduh secara langsung melalui situs resmi kami www.mycillin.com. Kami akan melayani dan memberikan support dengan segenap hati.
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td style="padding-top:20px;background-color:#ffffff;">
+                                                        Salam Hangat,<br>
+                                                        MyCillin Team
+                                                      </td>
+                                                    </tr>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td valign="top" class="footer-cell">
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
 													</td>
 												  </tr>
 												</table>
@@ -712,21 +704,25 @@ class UserPartner extends Controlpartner
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Hi '.$user_data->user_name.',</b><br>
+                                                        <b>Yth '.$user_data->user_name.',</b><br>
                                                         Semoga jasa pelayanan kesehatan tadi memuaskan !
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-
+                                                        <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Diterbitkan Untuk : </b>'.$user_data->user_name.'<br>
-                                                        </tr>
+                                                      </td>
+                                                      </table>
+                                                      </tr>
                                                         <b>Detail Pesanan: </b><br>
                                                         Tanggal Pesanan : '.$user_data->created_date.'<br>
                                                         Jenis Layanan : '.$user_data->service_type_desc.'<br>
                                                         Jenis Tindakan : '.$user_data->action_type_desc.'<br>
                                                         Petugas Medis : '.$user_data->partner_name.'<br>
-                                                        </tr>
+                                                      </td>
+                                                      </tr>
+                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Detail Tagihan: </b><br>
                                                         Cara Pembayaran : '.$user_data->pymt_methode_desc.'<br>
                                                         Tarif Layanan : '.$user_data->price_amount.'<br>
@@ -736,12 +732,12 @@ class UserPartner extends Controlpartner
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Questions?</b><br>
-                                                        Feel free to contact us anytime for questions about our services.
+                                                        <b>Pertanyaan?</b><br>
+                                                        Silahkan kontak kami apabila anda memiliki pertanyaan tentang layanan.
                                                       </td>
                                                     <tr>
                                                       <td style="padding-top:20px;background-color:#ffffff;">
-                                                        Sincerely,<br>
+                                                        Salam Hangat,<br>
                                                         Mycillin Team
                                                       </td>
                                                     </tr>
@@ -750,8 +746,8 @@ class UserPartner extends Controlpartner
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  mycillin<br>
-                                                  © 2017 All Rights Reserved
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>

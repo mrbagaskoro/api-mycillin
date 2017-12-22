@@ -235,7 +235,7 @@
                 if ($this->ma->confirm_account($user_data->user_id)) {
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($user_data->email);
-                    $this->email->subject('[noreply] MyCillin Account Activated');
+                    $this->email->subject('[noreply] Akun mycillin anda telah aktif!');
                     $this->email->set_mailtype("html");
 
                     $this->email->message('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -266,31 +266,31 @@
                                                   <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
-                                                        <h1>Welcome to MyCillin</h1>
+                                                        <h1>Selamat Datang di Mycillin</h1>
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Hi '.$user_data->full_name.',</b><br>
-                                                        Thank you for your confirmation. Your MyCillin account is ready to use. Please login using your email and start growing with us.
+                                                        Terima kasih atas konfirmasi yang telah anda lakukan. Akun anda telah siap digunakan. Untuk mulai menikmati layanan 1 stop medical solution dari mycillin, silahkan login menggunakan alamat email yang terdaftar. Kini akses untuk semua kebutuhan layanan kesehatan ada di gengaman anda. Ayo mulai sekarang..
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Your Account Information : </b><br>
-                                                        Account name : '.$user_data->full_name.'<br>
+                                                        <b>Informasi Akun Anda : </b><br>
+                                                        Nama Akun : '.$user_data->full_name.'<br>
                                                         Email : '.$user_data->email.'<br>
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Questions?</b><br>
-                                                        Feel free to contact us anytime for questions about our services.
+                                                        <b>Pertanyaan?</b><br>
+                                                        Silahkan kontak kami apabila anda memiliki pertanyaan tentang layanan atau anda juga memperoleh informasi langsung melalui situs resmi kami www.mycillin.com. Kami akan melayani dan memberikan support dengan segenap hati.
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td style="padding-top:20px;background-color:#ffffff;">
-                                                        Sincerely,<br>
+                                                        Salam Hangat,<br>
                                                         MyCillin Team
                                                       </td>
                                                     </tr>
@@ -299,8 +299,8 @@
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  MyCillin<br>
-                                                  © 2017 All Rights Reserved
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -369,7 +369,7 @@
                 if ($result = $this->ma->register_user($data)) {
                     $this->email->from(EMAIL_ADDR, 'Lucy@MyCillin', EMAIL_ADDR);
                     $this->email->to($data['email']);
-                    $this->email->subject('[noreply] MyCillin Account Activation');
+                    $this->email->subject('[noreply] Registrasi anda berhasil');
                     $this->email->set_mailtype("html");
 
                     $this->email->message('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -401,17 +401,17 @@
                                             <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
                                               <tr>
                                                 <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
-                                                  <h1>Welcome to MyCillin</h1>
+                                                  <h1>Selamat Datang di Mycillin</h1>
                                                 </td>
                                               </tr>
                                               <tr>
                                                 <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                   <b>Hi '.$data['full_name'].',</b><br>
-                                                  Thanks for registering on MyCillin (www.mycillin.com). You are just one step more to becoming an active member on the world\'s leading penpal site!
+                                                  Terima kasih telah mendaftar di mycillin (www.mycillin.com).. Kini tinggal selangkah lagi bagi anda untuk bergabung bersama jutaan pengguna platform digital medis no 1 di Indonesia!
                                                 </td>
                                               <tr>
                                                 <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                  To activate your account, click this button below :
+                                                  Untuk mengaktifkan akun anda, silahkan click tombol aktivasi dibawah ini :
                                                 </td>
                                               </tr>
                                               <tr>
@@ -425,7 +425,7 @@
                                                             <center>
                                                           <![endif]-->
                                                               <a href="'.base_url().'api/activation?myid='.$user_id.'&activation_code='.$result->token.'"
-                                                        style="background-color:#008000;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:18px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;">Activate Account</a>
+                                                        style="background-color:#008000;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:18px;line-height:40px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;">Aktivasi Akun Saya Sekarang</a>
                                                           <!--[if mso]>
                                                             </center>
                                                           </v:rect>
@@ -438,37 +438,29 @@
                                               </tr>
                                               <tr>
                                                 <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                  or copy and paste this link into your browser :
+                                                  atau copy dan paste ling berikut ini ke url browser internet anda :
                                                   <p>'.base_url().'api/activation?myid='.$user_id.'&activation_code='.$result->token.'</p>
                                                 </td>
                                               </tr>
                                               <tr>
                                                 <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                  <br><b>Questions?</b><br>
-                                                  Feel free to contact us anytime for questions about our services.
+                                                  <br><b>Pertanyaan?</b><br>
+                                                  Silahkan kontak kami apabila anda memiliki pertanyaan tentang layanan atau anda juga memperoleh informasi langsung melalui situs resmi kami www.mycillin.com. Kami akan melayani dan memberikan support dengan segenap hati.
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td style="padding-top:20px;background-color:#ffffff;">
+                                                        Salam Hangat,<br>
+                                                        MyCillin Team
+                                                      </td>
+                                                    </tr>
+                                                  </table>
                                                 </td>
                                               </tr>
                                               <tr>
-                                                <td style="padding-top:10px;background-color:#ffffff;">
-                                                  Sincerely,<br>
-                                                  MyCillin Team
-                                                </td>
-                                              </tr>
-                                              <tr>
-                                                <td style="padding-top:20px;background-color:#ffffff;">
-                                                  <p style="text-align: justify; color: grey; padding-left: 10px">This message was sent to '.$data['email'].'.
-                                                  You are receiving this email because you have chosen to be notified when someone contacts you on your
-                                                  MyCillin account. If you do not wish to receive this type of email from MyCillin in the future,
-                                                  please click here to unsubscribe. MyCillin, Jl Baru Pemda Bambu Kuning No.15 Cibinong, West Java, Indonesia - 16922.</p>
-                                                </td>
-                                              </tr>
-                                            </table>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td valign="top" class="footer-cell">
-                                            MyCillin.com<br>
-                                            © 2017 All Rights Reserved
+                                                <td valign="top" class="footer-cell">
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
                                           </td>
                                         </tr>
                                       </table>
@@ -508,81 +500,81 @@
                     $this->email->set_mailtype("html");
 
                     $this->email->message('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-      								<html xmlns="http://www.w3.org/1999/xhtml">
-      								<head>
-      								  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      								  <meta name="viewport" content="width=device-width, initial-scale=1" />
-      								  <title>Welcome!</title>
-      								  <style type="text/css" media="screen"> /* Force Hotmail to display emails at full width */ .ExternalClass {display: block !important; width: 100%; } /* Force Hotmail to display normal line spacing */ .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%; } body, p, h1, h2, h3, h4, h5, h6 {margin: 0; padding: 0; } body, p, td {font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #333333; line-height: 1.5em; } h1 {font-size: 24px; font-weight: normal; line-height: 24px; } body, p {margin-bottom: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; } img {outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; } a img {border: none; } .background {background-color: #333333; } table.background {margin: 0; padding: 0; width: 100% !important; } .block-img {display: block; line-height: 0; } a {color: white; text-decoration: none; } a, a:link {color: #2A5DB0; text-decoration: underline; } table td {border-collapse: collapse; } td {vertical-align: top; text-align: left; } .wrap {width: 600px; } .wrap-cell {padding-top: 30px; padding-bottom: 30px; } .header-cell, .body-cell, .footer-cell {padding-left: 20px; padding-right: 20px; } .header-cell {background-color: #eeeeee; font-size: 24px; color: #ffffff; } .body-cell {background-color: #ffffff; padding-top: 30px; padding-bottom: 34px; } .footer-cell {background-color: #eeeeee; text-align: center; font-size: 13px; padding-top: 30px; padding-bottom: 30px; } .card {width: 400px; margin: 0 auto; } .data-heading {text-align: right; padding: 10px; background-color: #ffffff; font-weight: bold; } .data-value {text-align: left; padding: 10px; background-color: #ffffff; } .force-full-width {width: 100% !important; } </style> <style type="text/css" media="only screen and (max-width: 600px)"> @media only screen and (max-width: 600px) {body[class*="background"], table[class*="background"], td[class*="background"] {background: #eeeeee !important; } table[class="card"] {width: auto !important; } td[class="data-heading"], td[class="data-value"] {display: block !important; } td[class="data-heading"] {text-align: left !important; padding: 10px 10px 0; } table[class="wrap"] {width: 100% !important; } td[class="wrap-cell"] {padding-top: 0 !important; padding-bottom: 0 !important; } } </style> </head>
-      								
-      								<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor="" class="background">
-      								  <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" class="background">
-      									<tr>
-      									  <td align="center" valign="top" width="100%" class="background">
-      										<center>
-      										  <table cellpadding="0" cellspacing="0" width="600" class="wrap">
-      											<tr>
-      											  <td valign="top" class="wrap-cell" style="padding-top:30px; padding-bottom:30px;">
-      												<table cellpadding="0" cellspacing="0" class="force-full-width">
-      												  <tr>
-      												   <td height="60" valign="top" class="header-cell">
-      													  <img style="height: 100px;" src="'.FULL_UPLOAD_PATH.'assets/logo_trf.png" alt="mycillin-logo" />
-      													</td>
-      												  </tr>
-      												  <tr>
-      													<td valign="top" class="body-cell">
-      								
-      													  <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
-      														<tr>
-      														  <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
-      															<h1>Welcome to MyCillin</h1>
-      														  </td>
-      														</tr>
-      														<tr>
-      														  <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-      															<b>Hi '.$user_full->full_name.',</b><br>
-      															You are requesting password reset, and this email contain your new password. Please login and change your password.
-      														  </td>
-      														</tr>
-      														<tr>
-      														  <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-      															<b>Your Account Information : </b><br>
-      															Account name : '.$user_full->full_name.'<br>
-      															Email : '.$user_data->email.'<br>
-      															<b>Your New Password : '.$new_pass.'</b><br>
-      														  </td>
-      														</tr>
-      														<tr>
-      														  <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-      															<b>Questions?</b><br>
-      															Feel free to contact us anytime for questions about our services.
-      														  </td>
-      														</tr>
-      														<tr>
-      														  <td style="padding-top:20px;background-color:#ffffff;">
-      															Sincerely,<br>
-      															MyCillin Team
-      														  </td>
-      														</tr>
-      													  </table>
-      													</td>
-      												  </tr>
-      												  <tr>
-      													<td valign="top" class="footer-cell">
-      													  MyCillin<br>
-      													  © 2017 All Rights Reserved
-      													</td>
-      												  </tr>
-      												</table>
-      											  </td>
-      											</tr>
-      										  </table>
-      										</center>
-      									  </td>
-      									</tr>
-      								  </table>
-      								</body>
-      								</html>');
+                                <html xmlns="http://www.w3.org/1999/xhtml">
+                                <head>
+                                  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                                  <meta name="viewport" content="width=device-width, initial-scale=1" />
+                                  <title>Welcome!</title>
+                                  <style type="text/css" media="screen"> /* Force Hotmail to display emails at full width */ .ExternalClass {display: block !important; width: 100%; } /* Force Hotmail to display normal line spacing */ .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%; } body, p, h1, h2, h3, h4, h5, h6 {margin: 0; padding: 0; } body, p, td {font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #333333; line-height: 1.5em; } h1 {font-size: 24px; font-weight: normal; line-height: 24px; } body, p {margin-bottom: 0; -webkit-text-size-adjust: none; -ms-text-size-adjust: none; } img {outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; } a img {border: none; } .background {background-color: #333333; } table.background {margin: 0; padding: 0; width: 100% !important; } .block-img {display: block; line-height: 0; } a {color: white; text-decoration: none; } a, a:link {color: #2A5DB0; text-decoration: underline; } table td {border-collapse: collapse; } td {vertical-align: top; text-align: left; } .wrap {width: 600px; } .wrap-cell {padding-top: 30px; padding-bottom: 30px; } .header-cell, .body-cell, .footer-cell {padding-left: 20px; padding-right: 20px; } .header-cell {background-color: #eeeeee; font-size: 24px; color: #ffffff; } .body-cell {background-color: #ffffff; padding-top: 30px; padding-bottom: 34px; } .footer-cell {background-color: #eeeeee; text-align: center; font-size: 13px; padding-top: 30px; padding-bottom: 30px; } .card {width: 400px; margin: 0 auto; } .data-heading {text-align: right; padding: 10px; background-color: #ffffff; font-weight: bold; } .data-value {text-align: left; padding: 10px; background-color: #ffffff; } .force-full-width {width: 100% !important; } </style> <style type="text/css" media="only screen and (max-width: 600px)"> @media only screen and (max-width: 600px) {body[class*="background"], table[class*="background"], td[class*="background"] {background: #eeeeee !important; } table[class="card"] {width: auto !important; } td[class="data-heading"], td[class="data-value"] {display: block !important; } td[class="data-heading"] {text-align: left !important; padding: 10px 10px 0; } table[class="wrap"] {width: 100% !important; } td[class="wrap-cell"] {padding-top: 0 !important; padding-bottom: 0 !important; } } </style> </head>
+
+                                <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" bgcolor="" class="background">
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" class="background">
+                                    <tr>
+                                      <td align="center" valign="top" width="100%" class="background">
+                                        <center>
+                                          <table cellpadding="0" cellspacing="0" width="600" class="wrap">
+                                            <tr>
+                                              <td valign="top" class="wrap-cell" style="padding-top:30px; padding-bottom:30px;">
+                                                <table cellpadding="0" cellspacing="0" class="force-full-width">
+                                                  <tr>
+                                                   <td height="60" valign="top" class="header-cell">
+                                                      <img style="height: 100px;" src="'.FULL_UPLOAD_PATH.'assets/logo_trf.png" alt="mycillin-logo" />
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td valign="top" class="body-cell">
+
+                                                      <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+                                                        <tr>
+                                                          <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
+                                                            <h1>Informasi Pemulihan Password Anda</h1>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
+                                                            <b>Hi '.$user_full->full_name.',</b><br>
+                                                            Anda telah meminta pemulihan paswword login, email ini berisi password login yang baru. Segera login ke aplikasi mycillin anda dan lakukan penggantian password. Segala bentuk penyalahgunaan akses aplikasi menjadi tanggung jawab anda sendiri.
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
+                                                            <b>Informasi Akun Anda : </b><br>
+                                                            Nama Akun : '.$user_full->full_name.'<br>
+                                                            Email : '.$user_data->email.'<br>
+                                                            <b>Password Baru : '.$new_pass.'</b><br>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
+                                                            <b>Pertanyaan?</b><br>
+                                                        Silahkan kontak kami apabila anda memiliki pertanyaan tentang layanan atau anda juga memperoleh informasi langsung melalui situs resmi kami www.mycillin.com. Kami akan melayani dan memberikan support dengan segenap hati.
+                                                      </td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td style="padding-top:20px;background-color:#ffffff;">
+                                                        Salam Hangat,<br>
+                                                        MyCillin Team
+                                                      </td>
+                                                    </tr>
+                                                  </table>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td valign="top" class="footer-cell">
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </center>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </body>
+                                </html>');
 
                     $this->email->send();
                     $this->success('Reset password success, please check your email');
@@ -998,21 +990,25 @@
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Hi '.$user_data->user_name.',</b><br>
+                                                        <b>Yth '.$user_data->user_name.',</b><br>
                                                         Semoga jasa pelayanan kesehatan tadi memuaskan !
                                                       </td>
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-
+                                                        <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Diterbitkan Untuk : </b>'.$user_data->user_name.'<br>
-                                                        </tr>
+                                                      </td>
+                                                      </table>
+                                                      </tr>
                                                         <b>Detail Pesanan: </b><br>
                                                         Tanggal Pesanan : '.$user_data->created_date.'<br>
                                                         Jenis Layanan : '.$user_data->service_type_desc.'<br>
                                                         Jenis Tindakan : '.$user_data->action_type_desc.'<br>
                                                         Petugas Medis : '.$user_data->partner_name.'<br>
-                                                        </tr>
+                                                      </td>
+                                                      </tr>
+                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
                                                         <b>Detail Tagihan: </b><br>
                                                         Cara Pembayaran : '.$user_data->pymt_methode_desc.'<br>
                                                         Tarif Layanan : '.$user_data->price_amount.'<br>
@@ -1022,12 +1018,12 @@
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>Questions?</b><br>
-                                                        Feel free to contact us anytime for questions about our services.
+                                                        <b>Pertanyaan?</b><br>
+                                                        Silahkan kontak kami apabila anda memiliki pertanyaan tentang layanan.
                                                       </td>
                                                     <tr>
                                                       <td style="padding-top:20px;background-color:#ffffff;">
-                                                        Sincerely,<br>
+                                                        Salam Hangat,<br>
                                                         Mycillin Team
                                                       </td>
                                                     </tr>
@@ -1036,8 +1032,8 @@
                                               </tr>
                                               <tr>
                                                 <td valign="top" class="footer-cell">
-                                                  mycillin<br>
-                                                  © 2017 All Rights Reserved
+                                                  www.mycillin.com<br>
+                                                  © 2018 All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
