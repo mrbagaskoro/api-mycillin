@@ -178,3 +178,4 @@ $route['api/list_new_partner']['GET']      	  	  = 'userpartner/list_new_partner
 $route['api/list_all_partner']['GET']      	  	  = 'userpartner/list_all_partner';
 $route['api/reject_partner_register']['POST']     = 'userpartner/reject_partner_register';
 $route['api/suspend_partner']['POST']     		  = 'userpartner/suspend_partner';
+$route['api/partner_account_inisiation']['POST']  = 'userpartner/partner_account_inisiation';

@@ -426,7 +426,7 @@ class ModelPatient extends CI_Model {
   }
 
   public function rating_fill_checking($user_id) {
-      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id where bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N' and bt.service_rating is null ");
+      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) partner_photo, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id left join partner_account pa on bt.partner_selected=pa.user_id where bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N' and bt.service_rating is null ");
       return $query->result();
   }
 
@@ -629,6 +629,9 @@ class ModelPatient extends CI_Model {
     $pymt_methode = '03'; 
     $partner_type = $data['partner_type_id'];
     $spesialisasi_id = $data['spesialisasi_id'];
+    $booking_id = 'T-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
+    $wallet_user = 'U-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
+    $wallet_partner = 'P-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
 
     $bal_check = $this->db->query("select sum(amount) as balance from va_balance where user_id='$user_id'")->row();
     $price = $this->db->query("select price_amount from mst_price where service_type_id='02' and pymt_methode_id='03' and partner_type_id='$partner_type' and spesialisasi_id='$spesialisasi_id' ")->row();
@@ -659,11 +662,11 @@ class ModelPatient extends CI_Model {
       }
 
       $date = date('Y-m-d H:i:s'); 
-      $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>$service_type, 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N');
+      $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>$service_type, 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N','booking_id'=>$booking_id);
 
-      $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'transaction_type_id'=>'Biaya Pelayanan Konsultasi','amount'=>$total_price*-1);
+      $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$date,'transaction_type_id'=>'Biaya Pelayanan Konsultasi','amount'=>$total_price*-1,'transaction_id'=>$wallet_user);
 
-      $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$date,'transaction_type_id'=>'Honor jasa Pelayanan Konsultasi', 'amount'=>$partner_fee);
+      $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$date,'transaction_type_id'=>'Honor jasa Pelayanan Konsultasi', 'amount'=>$partner_fee,'transaction_id'=>$wallet_partner);
 
       $this->db->trans_begin();
 

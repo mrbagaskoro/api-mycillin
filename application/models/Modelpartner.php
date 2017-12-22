@@ -292,10 +292,10 @@ class ModelPartner extends CI_Model
         $update['gender'] = strtoupper($data['gender']);
         $update['address'] = strtoupper($data['address']);
         $update['dob'] = date("Y-m-d", strtotime($data['dob']));
-        $update['no_SIP'] = $data['no_SIP'];
-        $update['SIP_berakhir'] = date("Y-m-d", strtotime($data['SIP_berakhir']));
-        $update['no_STR'] = $data['no_STR'];
-        $update['STR_berakhir'] = date("Y-m-d", strtotime($data['STR_berakhir']));
+        //$update['no_SIP'] = $data['no_SIP'];
+        //$update['SIP_berakhir'] = date("Y-m-d", strtotime($data['SIP_berakhir']));
+        //$update['no_STR'] = $data['no_STR'];
+        //$update['STR_berakhir'] = date("Y-m-d", strtotime($data['STR_berakhir']));
         $update['partner_type_id'] = $data['partner_type_id'];
         $update['spesialisasi_id'] = $data['spesialisasi_id'];
         $update['wilayah_kerja'] = $data['wilayah_kerja'];
@@ -364,6 +364,8 @@ class ModelPartner extends CI_Model
         $test = md5($date.$data['user_id']); //crate random nomor resep obat- test sementara
         $booking = $data['booking_id'];
         $record_id = 'R-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
+        $wallet_user = 'U-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
+        $wallet_partner = 'P-'.str_replace('-', '', date('Y-m-d')).str_replace(':', '', date('H:i:sU'));
 
         $data_transaction = array('action_type_id'=>$data['action_type_id'], 'booking_status_id'=>"04", 'updated_by'=>$data['user_id']);
 
@@ -383,14 +385,14 @@ class ModelPartner extends CI_Model
         }
         
         $profit_share = $this->db->query("select partner_profit_share from booking_trx where booking_id='$booking' ")->row();
-        $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Honor Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking);
+        $wallet_partner = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$effective_date,'transaction_type_id'=>'Honor Pelayanan', 'amount'=>$profit_share->partner_profit_share, 'notes'=>$booking,'transaction_id'=>$wallet_partner);
 
         $cur_date1 = date ("Y-m-d");
         $trx_data1 = $this->db->query("select user_id, price_amount from booking_trx where booking_id='$booking' ")->row();
         if ($pymt_methode->pymt_methode_id =='03') {            
-            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Biaya Pelayanan', 'amount'=>$trx_data1->price_amount *-1, 'notes'=>$booking);
+            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Biaya Pelayanan', 'amount'=>$trx_data1->price_amount *-1, 'notes'=>$booking,'transaction_id'=>$wallet_user);
         } else {
-            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Biaya Pelayanan', 'amount'=>'0', 'notes'=>$booking);
+            $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$trx_data1->user_id, 'effective_date'=>$cur_date1,'transaction_type_id'=>'Biaya Pelayanan', 'amount'=>'0', 'notes'=>$booking,'transaction_id'=>$wallet_user);
         }
         
         $where['booking_id'] = $data['booking_id'];
@@ -531,6 +533,33 @@ class ModelPartner extends CI_Model
 
         $query = $this->db->update('clinic_schedule', $update, $where);
 
+        return $query?true:false;
+    }
+
+    public function partner_account_inisiation($data)
+    {
+        $where['user_id'] = $data['user_id'];
+        //$update['full_name'] = strtoupper($data['full_name']);
+        //$update['gender'] = strtoupper($data['gender']);
+        //$update['address'] = strtoupper($data['address']);
+        //$update['dob'] = date("Y-m-d", strtotime($data['dob']));
+        $update['no_SIP'] = $data['no_SIP'];
+        $update['SIP_berakhir'] = date("Y-m-d", strtotime($data['SIP_berakhir']));
+        $update['no_STR'] = $data['no_STR'];
+        $update['STR_berakhir'] = date("Y-m-d", strtotime($data['STR_berakhir']));
+        //$update['partner_type_id'] = $data['partner_type_id'];
+        //$update['spesialisasi_id'] = $data['spesialisasi_id'];
+        //$update['wilayah_kerja'] = $data['wilayah_kerja'];
+        //$update['profile_desc'] = $data['profile_desc'];
+        //$update['lama_professi'] = $data['lama_professi'];
+        //$update['alamat_praktik'] = $data['alamat_praktik'];
+        //$update['latitude_praktik'] = $data['latitude_praktik'];
+        //$update['longitude_praktik'] = $data['longitude_praktik'];
+        //$update['nama_institusi'] = $data['nama_institusi'];
+
+        //$update['updated_by'] = $data['user_id'];
+
+        $query = $this->db->update('partner_profile', $update, $where);
         return $query?true:false;
     }
 

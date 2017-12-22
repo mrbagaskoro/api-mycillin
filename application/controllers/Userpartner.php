@@ -969,4 +969,22 @@ class UserPartner extends Controlpartner
         }
     }
 
+    public function partner_account_inisiation_post() //--untuk backend admin, namun masih kena validasi token
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->partner_account_inisiation($data)) {
+                $this->success('Account completed');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
 }
