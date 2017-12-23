@@ -39,6 +39,12 @@
     public function get_bigbanner_apps_get()
     {
       $data = $this->ma->get_bigbanner_apps();
+      $i=0;
+        foreach($data as $row){
+            $base_data = base64_encode(file_get_contents($row->image_name));
+            $data[$i]->base_data = $base_data;
+            $i++;
+        }
       $this->ok($data);
     }
 
