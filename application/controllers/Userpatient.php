@@ -727,14 +727,14 @@
                 $i++;
             }
             
-            $i=0;
+            $i=1;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->photo_SIP));
                 $data[$i]->base_data = $base_data;
                 $i++;
             }
             
-            $i=0;
+            $i=2;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->photo_STR));
                 $data[$i]->base_data = $base_data;
@@ -987,7 +987,7 @@
                 $i++;
             }
 
-            $i=0;
+            $i=1;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->prescription_img));
                 $data[$i]->base_data = $base_data;
