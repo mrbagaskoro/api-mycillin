@@ -75,12 +75,12 @@
 
                 $update = $this->ma->change_avatar($upd);
                 if ($update) {
-                    $i=0;
+                    /*$i=0;
                     foreach($data as $row){
                         $base_data = base64_encode(file_get_contents($row->image_profile));
                         $data[$i]->base_data = $base_data;
                         $i++;
-                    }
+                    }*/
                     $this->success($update);
                 } else {
                     $this->bad_req('Changet photo fail, please try again');
@@ -104,12 +104,12 @@
             $q = $this->ma->get_avatar($data['user_id']);
                 
             if ($q) { 
-                $i=0;
+                /*$i=0;
                 foreach($q as $row){
                     $base_data = base64_encode(file_get_contents($row->image_profile));
                     $q[$i]->base_data = $base_data;
                 $i++;
-                }               
+                } */              
                 $this->success($q);
             } else {
                 $this->bad_req('Changet photo fail, please try again');
@@ -203,12 +203,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->detail_medical_record($data['user_id'], $data['record_id']);
-        $i=0;
+        /*$i=0;
         foreach($data as $row){
             $base_data = base64_encode(file_get_contents($row->prescription_img));
             $data[$i]->base_data = $base_data;
             $i++;
-        }
+        }*/
         $this->ok($data);
     }   
 
@@ -217,12 +217,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_medical_record($data['user_id'], $data['relation_id']);
-        $i=0;
+        /*$i=0;
         foreach($data as $row){
             $base_data = base64_encode(file_get_contents($row->prescription_img));
             $data[$i]->base_data = $base_data;
             $i++;
-        }
+        }*/
         $this->ok($data);
     }
 
@@ -692,12 +692,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_member_insurance($data['user_id'], $data['relation_id']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->img_insr_card));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
@@ -706,12 +706,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->rating_fill_checking($data['user_id']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->partner_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
@@ -720,7 +720,7 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->detail_partner_information($data['user_id']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
@@ -739,7 +739,7 @@
                 $base_data = base64_encode(file_get_contents($row->photo_STR));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
     
@@ -827,12 +827,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->find_partner($data['user_id'], $data['partner_type_id'], $data['spesialisasi_id'], $data['gender'], $data['BPJS_RCV_status'], $data['latitude'], $data['longitude']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
@@ -841,12 +841,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->find_healthcare($data['user_id'], $data['partner_type_id'], $data['spesialisasi_id'], $data['gender'], $data['BPJS_RCV_status'], $data['latitude'], $data['longitude']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
@@ -855,12 +855,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->find_clinic($data['user_id'], $data['partner_type_id'], $data['spesialisasi_id'], $data['gender'], $data['BPJS_RCV_status'], $data['latitude'], $data['longitude']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
@@ -870,12 +870,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->find_consultation($data['user_id'], $data['partner_type_id'], $data['spesialisasi_id'], $data['gender']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
@@ -962,12 +962,12 @@
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_history_onprogress($data['user_id']);
         if($data){
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
             $this->ok($data);
         }else{
             $this->bad_req('Data Is Empty');
@@ -980,19 +980,12 @@
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_history_completed($data['user_id']);
         if($data){
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
-
-            $i=1;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->prescription_img));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }
+            }*/
             $this->ok($data);
         }else{
             $this->bad_req('Data Is Empty');
@@ -1046,12 +1039,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->find_nearest_med_facility($data['user_id'], $data['latitude'], $data['longitude']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $base_data = base64_encode(file_get_contents($row->facility_picture));
                 $data[$i]->base_data = $base_data;
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
 
