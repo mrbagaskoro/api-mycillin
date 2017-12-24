@@ -176,7 +176,7 @@ class UserPartner extends Controlpartner
             if ($q) {
                 $i=0;
                 foreach($q as $row){
-                    $base_data = base64_encode(file_get_contents($row->image_profile));
+                    $base_data = base64_encode(file_get_contents($row->profile_photo));
                     $q[$i]->base_data = $base_data;
                     $i++;
                 }
