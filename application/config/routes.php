@@ -165,7 +165,7 @@ $route['api/detail_partner_information']['POST']  = 'userpatient/detail_partner_
 $route['api/add_prescription']['POST']     		  = 'userpartner/add_prescription';
 $route['api/user_booking_consultation']['POST']   = 'userpatient/user_booking_consultation';
 $route['api/add_prescription_photo']['POST']      = 'userpartner/add_prescription_photo';
-$route['api/get_clinic_schedule']['POST']     	  = 'userpartner/get_clinic_schedule';
+$route['api/get_clinic_schedule']['POST']     	  = 'userpatient/get_clinic_schedule';
 
 /*---------------------- virtual account ------------------*/
 $route['api/partner_top_up']['POST']      		  = 'userpartner/partner_top_up';

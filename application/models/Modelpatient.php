@@ -905,7 +905,7 @@ class ModelPatient extends CI_Model {
 
   public function get_clinic_schedule($user_id, $partner_id)
   {
-      $query = $this->db->query("select cs.partner_id, md.day_desc, mt.time_desc from clinic_schedule cs left join mst_day md on cs.day_id=md.day_id left join mst_time mt on cs.time_id=mt.time_id where partner_id='$user_id'");
+      $query = $this->db->query("select cs.partner_id, md.day_desc, mt.time_desc, cs.note from clinic_schedule cs left join mst_day md on cs.day_id=md.day_id left join mst_time mt on cs.time_id=mt.time_id where partner_id='$partner_id'");
       return $query->result();
   }
 }
