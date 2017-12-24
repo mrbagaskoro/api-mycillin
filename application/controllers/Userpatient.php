@@ -105,9 +105,9 @@
                 
             if ($q) { 
                 $i=0;
-                foreach($data as $row){
+                foreach($q as $row){
                     $base_data = base64_encode(file_get_contents($row->image_profile));
-                    $data[$i]->base_data = $base_data;
+                    $q[$i]->base_data = $base_data;
                 $i++;
                 }               
                 $this->success($q);
