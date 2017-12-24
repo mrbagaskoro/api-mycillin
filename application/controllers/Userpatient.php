@@ -1167,5 +1167,14 @@
             $this->bad_req('Account does not exist');
         }
     }
+
+    public function get_clinic_schedule_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->get_clinic_schedule($data['user_id'], $data['partner_id']);
+        
+        $this->ok($data);
+    }
     
   }
