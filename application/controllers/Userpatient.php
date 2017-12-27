@@ -75,13 +75,13 @@
 
                 $update = $this->ma->change_avatar($upd);
                 if ($update) {
-                    /*$i=0;
-                    foreach($data as $row){
+                    $i=0;
+                    foreach($update as $row){
                         $base_data = base64_encode(file_get_contents($row->image_profile));
-                        $data[$i]->base_data = $base_data;
+                        $update[$i]->base_data = $base_data;
                         $i++;
-                    }*/
-                    $this->success($update);
+                    }
+                    $this->ok($update);
                 } else {
                     $this->bad_req('Changet photo fail, please try again');
                 }
@@ -104,13 +104,13 @@
             $q = $this->ma->get_avatar($data['user_id']);
                 
             if ($q) { 
-                /*$i=0;
+                $i=0;
                 foreach($q as $row){
                     $base_data = base64_encode(file_get_contents($row->image_profile));
                     $q[$i]->base_data = $base_data;
                 $i++;
-                } */              
-                $this->success($q);
+                }
+                $this->ok($q);
             } else {
                 $this->bad_req('Changet photo fail, please try again');
             }
@@ -203,12 +203,12 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->detail_medical_record($data['user_id'], $data['record_id']);
-        /*$i=0;
+        $i=0;
         foreach($data as $row){
             $base_data = base64_encode(file_get_contents($row->prescription_img));
             $data[$i]->base_data = $base_data;
             $i++;
-        }*/
+        }
         $this->ok($data);
     }   
 
@@ -720,26 +720,13 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->detail_partner_information($data['user_id']);
-            /*$i=0;
+            $i=0;
             foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->profile_photo));
-                $data[$i]->base_data = $base_data;
+                $data[$i]->base_profile_photo = base64_encode(file_get_contents($row->profile_photo));
+                $data[$i]->base_photo_SIP = base64_encode(file_get_contents($row->photo_SIP));
+                $data[$i]->base_photo_STR = base64_encode(file_get_contents($row->photo_STR));
                 $i++;
             }
-            
-            $i=1;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->photo_SIP));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }
-            
-            $i=2;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->photo_STR));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }*/
         $this->ok($data);
     }
     
