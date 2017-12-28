@@ -57,7 +57,7 @@ class ModelParam extends CI_Model{
   }
 
   public function mst_partner_type() {
-    $this->db->select('partner_type_id, partner_type_desc');
+    $this->db->select('distinct(partner_type_id), partner_type_desc');
     $this->db->from('mst_partner_type');
     $this->db->where('is_active','Y');
     $query = $this->db->get();
