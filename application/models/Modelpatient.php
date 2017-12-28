@@ -426,7 +426,13 @@ class ModelPatient extends CI_Model {
   }
 
   public function rating_fill_checking($user_id) {
-      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) partner_photo, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id left join partner_account pa on bt.partner_selected=pa.user_id where bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N' and bt.service_rating is null ");
+      if ($service_rating == null || $service_rating == '') {
+      $service_rating = "1=1";
+    } else {
+      $service_rating = "bt.service_rating='$service_rating'";
+    }      
+
+      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) partner_photo, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id left join partner_account pa on bt.partner_selected=pa.user_id where bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N' and $service_rating ");
       return $query->result();
   }
 
@@ -456,6 +462,12 @@ class ModelPatient extends CI_Model {
       $bpjs = "pa.BPJS_RCV_status='$BPJS_RCV_status'";
     }
 
+    if ($spesialisasi_id == 0 || $spesialisasi_id == '') {
+      $spesialis = "1=1";
+    } else {
+      $spesialis = "pr.spesialisasi_id='$spesialisasi_id'";
+    }
+
     $query = $this->db->query("
     SELECT pa.user_id,
     latitude,
@@ -481,13 +493,13 @@ class ModelPatient extends CI_Model {
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id  
       WHERE pr.partner_type_id='$partner_type_id' 
-      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND $spesialis 
       AND $q
       AND $bpjs
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.visit_id='1' 
-      HAVING distance < 20 
+      HAVING distance < 200 
       ");
     return $query->result();
   }
@@ -499,6 +511,18 @@ class ModelPatient extends CI_Model {
       $q = "1=1";
     } else {
       $q = "pr.gender='$gender'";
+    }
+
+    if ($BPJS_RCV_status == 0 || $BPJS_RCV_status == '') {
+      $bpjs = "1=1";
+    } else {
+      $bpjs = "pa.BPJS_RCV_status='$BPJS_RCV_status'";
+    }
+
+    if ($spesialisasi_id == 0 || $spesialisasi_id == '') {
+      $spesialis = "1=1";
+    } else {
+      $spesialis = "pr.spesialisasi_id='$spesialisasi_id'";
     }
    
     $query = $this->db->query("
@@ -526,13 +550,13 @@ class ModelPatient extends CI_Model {
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id  
       WHERE pr.partner_type_id='$partner_type_id' 
-      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND $spesialis 
       AND $q
-      AND pa.BPJS_RCV_status='$BPJS_RCV_status'
+      AND $bpjs
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.visit_id='1' 
-      HAVING distance < 20
+      HAVING distance < 200
       ");
     return $query->result();
   }
@@ -550,6 +574,12 @@ class ModelPatient extends CI_Model {
       $bpjs = "1=1";
     } else {
       $bpjs = "pa.BPJS_RCV_status='$BPJS_RCV_status'";
+    }
+
+    if ($spesialisasi_id == 0 || $spesialisasi_id == '') {
+      $spesialis = "1=1";
+    } else {
+      $spesialis = "pr.spesialisasi_id='$spesialisasi_id'";
     }
    
     $query = $this->db->query("
@@ -577,13 +607,13 @@ class ModelPatient extends CI_Model {
       LEFT JOIN mst_spesialisasi ss 
       ON pr.spesialisasi_id=ss.spesialisasi_id 
       WHERE pr.partner_type_id='$partner_type_id' 
-      AND pr.spesialisasi_id='$spesialisasi_id' 
+      AND $spesialis 
       AND $q
       AND $bpjs
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.reservasi_id='1' 
-      HAVING distance < 20
+      HAVING distance < 200
       ");
     return $query->result();
   }
