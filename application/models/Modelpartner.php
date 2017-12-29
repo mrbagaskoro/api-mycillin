@@ -16,6 +16,20 @@ class ModelPartner extends CI_Model
         return $query->result();
     }
 
+    function get_bigbanner_partner(){
+      $cur_date = date('Y-m-d');
+      $query = $this->db->query("SELECT 
+        image_id,
+        url_link,
+        concat('".FULL_UPLOAD_PATH_BIGBANNER."', image_name) image_name,
+        start_date,
+        end_date
+        FROM
+        big_banner_partner
+        WHERE  '$cur_date' BETWEEN start_date AND end_date");
+      return $query->result();
+    }
+
     public function detail_partner($user_id)
     {
         $query = $this->db->query("select pr.user_id, pa.email, pa.mobile_no, pr.full_name, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) profile_photo, pr.gender, pr.address, pr.dob, pr.no_SIP, pr.SIP_berakhir, concat('".FULL_UPLOAD_PATH_DOCUMENT."', photo_SIP) photo_SIP, pr.no_STR, pr.STR_berakhir, concat('".FULL_UPLOAD_PATH_DOCUMENT."', photo_STR) photo_STR, pr.partner_type_id, pt.partner_type_desc,  pr.spesialisasi_id, ss.spesialisasi_desc, pr.wilayah_kerja, pr.profile_desc, pr.lama_professi, pr.alamat_praktik, pr.nama_institusi, pa.available_id as available_status, pa.visit_id as status_visit, pa.reservasi_id as status_reservasi, pa.consul_id as status_consul, pa.BPJS_RCV_status as status_BPJS, pa.status_id as partner_status, avg(bt.service_rating) as rating from partner_profile pr inner join partner_account pa on pa.user_id=pr.user_id left join mst_partner_type pt on pr.partner_type_id=pt.partner_type_id left join mst_spesialisasi ss on pr.spesialisasi_id=ss.spesialisasi_id left join booking_trx bt on pr.user_id=bt.partner_selected where pr.user_id='$user_id'");

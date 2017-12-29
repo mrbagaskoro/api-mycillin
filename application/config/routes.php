@@ -101,6 +101,7 @@ $route['api/list_prescription_type']['GET']		= 'listparam/list_prescription_type
 $route['api/valid_promo_code']['POST']			= 'listparam/valid_promo_code';
 
 /*---------------------- doctor --------------------------*/
+$route['api/bigbanner_partner']['GET']          = 'userpartner/get_bigbanner_partner';
 $route['api/forgot_password_partner']['POST']   = 'userpartner/forgot_password';
 $route['api/register_partner']['POST']          = 'userpartner/register_partner';
 $route['api/login_doctor']['POST']              = 'controlpartner/generate_jwt';
