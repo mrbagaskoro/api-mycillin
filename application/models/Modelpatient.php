@@ -425,14 +425,9 @@ class ModelPatient extends CI_Model {
       return $query?TRUE:FALSE;
   }
 
-  public function rating_fill_checking($user_id) {
-      if ($service_rating == null || $service_rating == '') {
-      $service_rating = "1=1";
-    } else {
-      $service_rating = "bt.service_rating='$service_rating'";
-    }      
+  public function rating_fill_checking($user_id) {  
 
-      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) partner_photo, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id left join partner_account pa on bt.partner_selected=pa.user_id where bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N' and $service_rating ");
+      $query = $this->db->query("select bt.created_date, bt.booking_id, bt.partner_selected, concat('".FULL_UPLOAD_PATH_PROFILE."', profile_photo) partner_photo, pp.full_name from booking_trx bt inner join partner_profile pp on bt.partner_selected=pp.user_id left join partner_account pa on bt.partner_selected=pa.user_id where bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status='N' and bt.service_rating is null ");
       return $query->result();
   }
 
