@@ -691,13 +691,7 @@
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_member_insurance($data['user_id'], $data['relation_id']);
-            /*$i=0;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->img_insr_card));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }*/
+        $data = $this->ma->list_member_insurance($data['user_id'], $data['relation_id']);            
         $this->ok($data);
     }
 
@@ -705,13 +699,7 @@
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->rating_fill_checking($data['user_id']);
-            /*$i=0;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->partner_photo));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }*/
+        $data = $this->ma->rating_fill_checking($data['user_id']);    
         $this->ok($data);
     }
 
