@@ -26,19 +26,66 @@ class UserPartner extends Controlpartner
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->list_partner_booking($data);
         if($data){
-            /*$i=0;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->profile_photo));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
 
-            $i=1;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->prescription_img));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }*/
+    public function list_dash_kunjungan_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_dash_kunjungan($data);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
+
+    public function list_dash_reservasi_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_dash_reservasi($data);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
+
+    public function list_dash_konsultasi_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_dash_konsultasi($data);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
+
+    public function list_todo_onprogress_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_todo_onprogress($data);
+        if($data){
+            $this->ok($data);
+        }else{
+            $this->bad_req('Data Is Empty');
+        }
+    }
+
+    public function list_todo_completed_post()
+    {
+        $this->validate_jwt();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->ma->list_todo_completed($data);
+        if($data){
             $this->ok($data);
         }else{
             $this->bad_req('Data Is Empty');
@@ -76,27 +123,6 @@ class UserPartner extends Controlpartner
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->detail_partner($data['user_id']);
         if($data){
-            /*$i=0;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->profile_photo));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }
-
-            $i=1;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->photo_SIP));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }
-
-            $i=2;
-            foreach($data as $row){
-                $base_data = base64_encode(file_get_contents($row->photo_STR));
-                $data[$i]->base_data = $base_data;
-                $i++;
-            }*/
-
             $this->ok($data);
         }else{
             $this->bad_req('Data Is Empty');
@@ -158,12 +184,6 @@ class UserPartner extends Controlpartner
 
                 $update = $this->ma->change_avatar($upd);
                 if ($update) {
-                    /*$i=0;
-                    foreach($update as $row){
-                        $base_data = base64_encode(file_get_contents($row->profile_photo));
-                        $update[$i]->base_data = $base_data;
-                        $i++;
-                    }*/
                     $this->success($update);
                 } else {
                     $this->bad_req('Changet photo fail, please try again');
@@ -186,12 +206,6 @@ class UserPartner extends Controlpartner
         if ($user_data) {
             $q = $this->ma->get_avatar($data['user_id']);
             if ($q) {
-                /*$i=0;
-                foreach($q as $row){
-                    $base_data = base64_encode(file_get_contents($row->profile_photo));
-                    $q[$i]->base_data = $base_data;
-                    $i++;
-                }*/
                 $this->success($q);
             } else {
                 $this->bad_req('Changet photo fail, please try again');
@@ -230,12 +244,6 @@ class UserPartner extends Controlpartner
 
                 $update = $this->ma->change_doc($upd);
                 if ($update) {
-                    /*$i=0;
-                    foreach($update as $row){
-                        $base_data = base64_encode(file_get_contents($row->image_profile));
-                        $update[$i]->base_data = $base_data;
-                        $i++;
-                    }*/
                     $this->success($update);
                 } else {
                     $this->bad_req('Changet photo fail, please try again');
@@ -258,12 +266,6 @@ class UserPartner extends Controlpartner
         if ($user_data) {
             $q = $this->ma->get_doc($data);
             if ($q) {
-                /*$i=0;
-                foreach($q as $row){
-                    $base_data = base64_encode(file_get_contents($row->image_profile));
-                    $q[$i]->base_data = $base_data;
-                    $i++;
-                }*/
                 $this->success($q);
             } else {
                 $this->bad_req('Get photo fail, please try again');

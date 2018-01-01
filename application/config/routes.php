@@ -120,8 +120,13 @@ $route['api/get_partner_avatar']['POST']        = 'userpartner/get_partner_avata
 $route['api/change_partner_doc']['POST']        = 'userpartner/change_partner_doc';
 $route['api/get_partner_doc']['POST']           = 'userpartner/get_partner_doc';
 $route['api/list_partner_booking']['POST']      = 'userpartner/list_partner_booking';
-$route['api/create_clinic_schedule']['POST']   = 'userpartner/create_clinic_schedule';
-$route['api/clinic_schedule_update']['POST']   = 'userpartner/clinic_schedule_update';
+$route['api/create_clinic_schedule']['POST']    = 'userpartner/create_clinic_schedule';
+$route['api/clinic_schedule_update']['POST']    = 'userpartner/clinic_schedule_update';
+$route['api/list_dash_kunjungan']['POST']       = 'userpartner/list_dash_kunjungan';
+$route['api/list_dash_reservasi']['POST']       = 'userpartner/list_dash_reservasi';
+$route['api/list_dash_konsultasi']['POST']      = 'userpartner/list_dash_konsultasi';
+$route['api/list_todo_onprogress']['POST']      = 'userpartner/list_todo_onprogress';
+$route['api/list_todo_completed']['POST']      = 'userpartner/list_todo_completed';
 
 /*---------------------- List Articles ------------------*/
 $route['articles/syarat_ketentuan']['GET']		= 'general/syarat_ketentuan';
@@ -139,11 +144,6 @@ $route['api/add_member_insurance']['POST']        = 'userpatient/add_member_insu
 $route['api/list_member_insurance']['POST']       = 'userpatient/list_member_insurance';
 $route['api/delete_member_insurance']['POST']     = 'userpatient/delete_member_insurance';
 $route['api/partner_loc_autoupdate']['POST']      = 'userpartner/partner_loc_autoupdate';
-//$route['api/list_dash_kunjungan']['GET']       	  = 'listparam/list_dash_kunjungan';
-//$route['api/list_dash_reservasi']['GET']       	  = 'listparam/list_dash_reservasi';
-//$route['api/list_dash_konsultasi']['GET']      	  = 'listparam/list_dash_konsultasi';
-//$route['api/list_todo_inprogress']['GET']      	  = 'listparam/list_todo_inprogress';
-//$route['api/list_todo_completed']['GET']      	  = 'listparam/list_todo_completed';
 $route['api/partner_activation']['POST']          = 'userpartner/partner_activation';
     
 /*---------------------- Route Process ------------------*/
