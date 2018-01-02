@@ -36,7 +36,7 @@ class UserPartner extends Controlpartner
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_dash_kunjungan($data);
+        $data = $this->ma->list_dash_kunjungan($data['user_id']);
         if($data){
             $this->ok($data);
         }else{
@@ -48,7 +48,7 @@ class UserPartner extends Controlpartner
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_dash_reservasi($data);
+        $data = $this->ma->list_dash_reservasi($data['user_id']);
         if($data){
             $this->ok($data);
         }else{
@@ -60,7 +60,7 @@ class UserPartner extends Controlpartner
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_dash_konsultasi($data);
+        $data = $this->ma->list_dash_konsultasi($data['user_id']);
         if($data){
             $this->ok($data);
         }else{
@@ -72,7 +72,7 @@ class UserPartner extends Controlpartner
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_todo_onprogress($data);
+        $data = $this->ma->list_todo_onprogress($data['user_id']);
         if($data){
             $this->ok($data);
         }else{
@@ -84,7 +84,7 @@ class UserPartner extends Controlpartner
     {
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
-        $data = $this->ma->list_todo_completed($data);
+        $data = $this->ma->list_todo_completed($data['user_id']);
         if($data){
             $this->ok($data);
         }else{

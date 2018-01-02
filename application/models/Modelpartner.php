@@ -299,33 +299,350 @@ class ModelPartner extends CI_Model
         }
     }
 
-    public function list_dash_kunjungan($data)
+    public function list_dash_kunjungan($user_id)
     {        
-        $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.user_id as patient_id, bt.relation_id, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ua.profile_photo) profile_photo, pa.mobile_no, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.service_rating, bt.price_amount, bt.partner_profit_share, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img, bt.booking_status_id, bt.cancel_status, bt.latitude_request, bt.longitude_request, pa.latitude as latitude_origin, pa.longitude as longitude_origin from booking_trx bt left join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join user_account ua on bt.user_id=ua.user_id where (bt.partner_selected='".$data['user_id']."' and bt.service_type_id='00' and bt.booking_status_id='01' and bt.cancel_status='N') or (bt.partner_selected='".$data['user_id']."' and bt.service_type_id='05' and bt.booking_status_id='01' and bt.cancel_status='N')");
+        $query = $this->db->query("SELECT 
+          bt.created_date AS order_date,
+          bt.booking_id,
+          bt.service_type_id,
+          st.service_type_desc,
+          bt.user_id AS patient_id,
+          bt.relation_id,
+          bt.partner_selected,
+          pr.full_name AS partner_name,
+          pr.partner_type_id,
+          pr.spesialisasi_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PROFILE."',
+            ua.profile_photo
+          ) profile_photo,
+          pa.mobile_no,
+          bt.pymt_methode_id,
+          mpm.pymt_methode_desc,
+          bt.promo_code,
+          bt.service_rating,
+          bt.price_amount,
+          bt.partner_profit_share,
+          bt.cancel_by,
+          cr.cancel_reason_desc AS cancel_reason_by_user,
+          crp.cancel_reason_desc AS cancel_reason_by_partner,
+          mr.diagnosa,
+          mat.action_type_desc,
+          mr.prescription_type_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PRESCRIPTION."',
+            mr.prescription_img
+          ) prescription_img,
+          bt.booking_status_id,
+          bt.cancel_status,
+          bt.latitude_request,
+          bt.longitude_request,
+          pa.latitude AS latitude_origin,
+          pa.longitude AS longitude_origin 
+        FROM
+          booking_trx bt 
+          LEFT JOIN partner_profile pr 
+            ON bt.partner_selected = pr.user_id 
+          LEFT JOIN mst_service_type st 
+            ON bt.service_type_id = st.service_type_id 
+          LEFT JOIN partner_account pa 
+            ON bt.partner_selected = pa.user_id 
+          LEFT JOIN mst_payment_methode mpm 
+            ON bt.pymt_methode_id = mpm.pymt_methode_id 
+          LEFT JOIN mst_cancel_reason cr 
+            ON bt.cancel_reason_id = cr.cancel_reason_id 
+          LEFT JOIN mst_cancel_reason_partner crp 
+            ON bt.cancel_reason_id = crp.cancel_reason_id 
+          LEFT JOIN medical_record mr 
+            ON bt.booking_id = mr.booking_id 
+          LEFT JOIN mst_action_type mat 
+            ON bt.action_type_id = mat.action_type_id 
+          LEFT JOIN user_account ua 
+            ON bt.user_id = ua.user_id 
+        WHERE (
+            bt.partner_selected = '$user_id' 
+            AND bt.service_type_id = '00' 
+            AND bt.booking_status_id = '01' 
+            AND bt.cancel_status = 'N'
+          ) 
+          OR (
+            bt.partner_selected = '$user_id' 
+            AND bt.service_type_id = '05' 
+            AND bt.booking_status_id = '01' 
+            AND bt.cancel_status = 'N'
+          )");
         return $query->result();        
     }
 
-    public function list_dash_reservasi($data)
+    public function list_dash_reservasi($user_id)
     {        
-        $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.user_id as patient_id, bt.relation_id, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ua.profile_photo) profile_photo, pa.mobile_no, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.service_rating, bt.price_amount, bt.partner_profit_share, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img, bt.booking_status_id, bt.cancel_status, bt.latitude_request, bt.longitude_request, pa.latitude as latitude_origin, pa.longitude as longitude_origin from booking_trx bt left join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join user_account ua on bt.user_id=ua.user_id where bt.partner_selected='".$data['user_id']."' and bt.service_type_id='01' and bt.booking_status_id='01' and bt.cancel_status='N'");
+        $query = $this->db->query("SELECT 
+          bt.created_date AS order_date,
+          bt.booking_id,
+          bt.service_type_id,
+          st.service_type_desc,
+          bt.user_id AS patient_id,
+          bt.relation_id,
+          bt.partner_selected,
+          pr.full_name AS partner_name,
+          pr.partner_type_id,
+          pr.spesialisasi_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PROFILE."',
+            ua.profile_photo
+          ) profile_photo,
+          pa.mobile_no,
+          bt.pymt_methode_id,
+          mpm.pymt_methode_desc,
+          bt.promo_code,
+          bt.service_rating,
+          bt.price_amount,
+          bt.partner_profit_share,
+          bt.cancel_by,
+          cr.cancel_reason_desc AS cancel_reason_by_user,
+          crp.cancel_reason_desc AS cancel_reason_by_partner,
+          mr.diagnosa,
+          mat.action_type_desc,
+          mr.prescription_type_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PRESCRIPTION."',
+            mr.prescription_img
+          ) prescription_img,
+          bt.booking_status_id,
+          bt.cancel_status,
+          bt.latitude_request,
+          bt.longitude_request,
+          pa.latitude AS latitude_origin,
+          pa.longitude AS longitude_origin 
+        FROM
+          booking_trx bt 
+          LEFT JOIN partner_profile pr 
+            ON bt.partner_selected = pr.user_id 
+          LEFT JOIN mst_service_type st 
+            ON bt.service_type_id = st.service_type_id 
+          LEFT JOIN partner_account pa 
+            ON bt.partner_selected = pa.user_id 
+          LEFT JOIN mst_payment_methode mpm 
+            ON bt.pymt_methode_id = mpm.pymt_methode_id 
+          LEFT JOIN mst_cancel_reason cr 
+            ON bt.cancel_reason_id = cr.cancel_reason_id 
+          LEFT JOIN mst_cancel_reason_partner crp 
+            ON bt.cancel_reason_id = crp.cancel_reason_id 
+          LEFT JOIN medical_record mr 
+            ON bt.booking_id = mr.booking_id 
+          LEFT JOIN mst_action_type mat 
+            ON bt.action_type_id = mat.action_type_id 
+          LEFT JOIN user_account ua 
+            ON bt.user_id = ua.user_id 
+        WHERE bt.partner_selected = '$user_id' 
+          AND bt.service_type_id = '01' 
+          AND bt.booking_status_id = '01' 
+          AND bt.cancel_status = 'N' ");
         return $query->result();        
     }
 
-    public function list_dash_konsultasi($data)
+    public function list_dash_konsultasi($user_id)
     {        
-        $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.user_id as patient_id, bt.relation_id, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ua.profile_photo) profile_photo, pa.mobile_no, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.service_rating, bt.price_amount, bt.partner_profit_share, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img, bt.booking_status_id, bt.cancel_status, bt.latitude_request, bt.longitude_request, pa.latitude as latitude_origin, pa.longitude as longitude_origin from booking_trx bt left join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join user_account ua on bt.user_id=ua.user_id where bt.partner_selected='".$data['user_id']."' and bt.service_type_id='02' and bt.booking_status_id='01' and bt.cancel_status='N'");
+        $query = $this->db->query("SELECT 
+          bt.created_date AS order_date,
+          bt.booking_id,
+          bt.service_type_id,
+          st.service_type_desc,
+          bt.user_id AS patient_id,
+          bt.relation_id,
+          bt.partner_selected,
+          pr.full_name AS partner_name,
+          pr.partner_type_id,
+          pr.spesialisasi_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PROFILE."',
+            ua.profile_photo
+          ) profile_photo,
+          pa.mobile_no,
+          bt.pymt_methode_id,
+          mpm.pymt_methode_desc,
+          bt.promo_code,
+          bt.service_rating,
+          bt.price_amount,
+          bt.partner_profit_share,
+          bt.cancel_by,
+          cr.cancel_reason_desc AS cancel_reason_by_user,
+          crp.cancel_reason_desc AS cancel_reason_by_partner,
+          mr.diagnosa,
+          mat.action_type_desc,
+          mr.prescription_type_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PRESCRIPTION."',
+            mr.prescription_img
+          ) prescription_img,
+          bt.booking_status_id,
+          bt.cancel_status,
+          bt.latitude_request,
+          bt.longitude_request,
+          pa.latitude AS latitude_origin,
+          pa.longitude AS longitude_origin 
+        FROM
+          booking_trx bt 
+          LEFT JOIN partner_profile pr 
+            ON bt.partner_selected = pr.user_id 
+          LEFT JOIN mst_service_type st 
+            ON bt.service_type_id = st.service_type_id 
+          LEFT JOIN partner_account pa 
+            ON bt.partner_selected = pa.user_id 
+          LEFT JOIN mst_payment_methode mpm 
+            ON bt.pymt_methode_id = mpm.pymt_methode_id 
+          LEFT JOIN mst_cancel_reason cr 
+            ON bt.cancel_reason_id = cr.cancel_reason_id 
+          LEFT JOIN mst_cancel_reason_partner crp 
+            ON bt.cancel_reason_id = crp.cancel_reason_id 
+          LEFT JOIN medical_record mr 
+            ON bt.booking_id = mr.booking_id 
+          LEFT JOIN mst_action_type mat 
+            ON bt.action_type_id = mat.action_type_id 
+          LEFT JOIN user_account ua 
+            ON bt.user_id = ua.user_id 
+        WHERE bt.partner_selected = '$user_id' 
+          AND bt.service_type_id = '02' 
+          AND bt.booking_status_id = '01' 
+          AND bt.cancel_status = 'N' ");
         return $query->result();        
     }
 
-    public function list_todo_onprogress($data)
+    public function list_todo_onprogress($user_id)
     {        
-        $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.user_id as patient_id, bt.relation_id, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ua.profile_photo) profile_photo, pa.mobile_no, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.service_rating, bt.price_amount, bt.partner_profit_share, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img, bt.booking_status_id, bt.cancel_status, bt.latitude_request, bt.longitude_request, pa.latitude as latitude_origin, pa.longitude as longitude_origin from booking_trx bt left join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join user_account ua on bt.user_id=ua.user_id where bt.partner_selected='".$data['user_id']."' and bt.booking_status_id='03' and bt.cancel_status='N'");
+        $query = $this->db->query("SELECT 
+          bt.created_date AS order_date,
+          bt.booking_id,
+          bt.service_type_id,
+          st.service_type_desc,
+          bt.user_id AS patient_id,
+          bt.relation_id,
+          bt.partner_selected,
+          pr.full_name AS partner_name,
+          pr.partner_type_id,
+          pr.spesialisasi_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PROFILE."',
+            ua.profile_photo
+          ) profile_photo,
+          pa.mobile_no,
+          bt.pymt_methode_id,
+          mpm.pymt_methode_desc,
+          bt.promo_code,
+          bt.service_rating,
+          bt.price_amount,
+          bt.partner_profit_share,
+          bt.cancel_by,
+          cr.cancel_reason_desc AS cancel_reason_by_user,
+          crp.cancel_reason_desc AS cancel_reason_by_partner,
+          mr.diagnosa,
+          mat.action_type_desc,
+          mr.prescription_type_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PRESCRIPTION."',
+            mr.prescription_img
+          ) prescription_img,
+          bt.booking_status_id,
+          bt.cancel_status,
+          bt.latitude_request,
+          bt.longitude_request,
+          pa.latitude AS latitude_origin,
+          pa.longitude AS longitude_origin 
+        FROM
+          booking_trx bt 
+          LEFT JOIN partner_profile pr 
+            ON bt.partner_selected = pr.user_id 
+          LEFT JOIN mst_service_type st 
+            ON bt.service_type_id = st.service_type_id 
+          LEFT JOIN partner_account pa 
+            ON bt.partner_selected = pa.user_id 
+          LEFT JOIN mst_payment_methode mpm 
+            ON bt.pymt_methode_id = mpm.pymt_methode_id 
+          LEFT JOIN mst_cancel_reason cr 
+            ON bt.cancel_reason_id = cr.cancel_reason_id 
+          LEFT JOIN mst_cancel_reason_partner crp 
+            ON bt.cancel_reason_id = crp.cancel_reason_id 
+          LEFT JOIN medical_record mr 
+            ON bt.booking_id = mr.booking_id 
+          LEFT JOIN mst_action_type mat 
+            ON bt.action_type_id = mat.action_type_id 
+          LEFT JOIN user_account ua 
+            ON bt.user_id = ua.user_id 
+        WHERE bt.partner_selected = '$user_id'
+          AND bt.booking_status_id = '03' 
+          AND bt.cancel_status = 'N' ");
         return $query->result();        
     }
 
-    public function list_todo_completed($data)
+    public function list_todo_completed($user_id)
     {        
-        $query = $this->db->query("select bt.created_date as order_date, bt.booking_id, bt.service_type_id, st.service_type_desc, bt.user_id as patient_id, bt.relation_id, bt.partner_selected, pr.full_name as partner_name, pr.partner_type_id, pr.spesialisasi_id, concat('".FULL_UPLOAD_PATH_PROFILE."', ua.profile_photo) profile_photo, pa.mobile_no, bt.pymt_methode_id, mpm.pymt_methode_desc, bt.promo_code, bt.service_rating, bt.price_amount, bt.partner_profit_share, bt.cancel_by, cr.cancel_reason_desc as cancel_reason_by_user, crp.cancel_reason_desc as cancel_reason_by_partner, mr.diagnosa, mat.action_type_desc, mr.prescription_type_id, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img, bt.booking_status_id, bt.cancel_status, bt.latitude_request, bt.longitude_request, pa.latitude as latitude_origin, pa.longitude as longitude_origin from booking_trx bt left join partner_profile pr on bt.partner_selected=pr.user_id left join mst_service_type st on bt.service_type_id=st.service_type_id left join partner_account pa on bt.partner_selected=pa.user_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id left join mst_cancel_reason cr on bt.cancel_reason_id=cr.cancel_reason_id left join mst_cancel_reason_partner crp on bt.cancel_reason_id=crp.cancel_reason_id left join medical_record mr on bt.booking_id=mr.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join user_account ua on bt.user_id=ua.user_id where (bt.partner_selected='".$data['user_id']."' and bt.booking_status_id='04' and bt.cancel_status='N') or (bt.partner_selected='".$data['user_id']."' and bt.cancel_status='Y')");
+        $query = $this->db->query("SELECT 
+          bt.created_date AS order_date,
+          bt.booking_id,
+          bt.service_type_id,
+          st.service_type_desc,
+          bt.user_id AS patient_id,
+          bt.relation_id,
+          bt.partner_selected,
+          pr.full_name AS partner_name,
+          pr.partner_type_id,
+          pr.spesialisasi_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PROFILE."',
+            ua.profile_photo
+          ) profile_photo,
+          pa.mobile_no,
+          bt.pymt_methode_id,
+          mpm.pymt_methode_desc,
+          bt.promo_code,
+          bt.service_rating,
+          bt.price_amount,
+          bt.partner_profit_share,
+          bt.cancel_by,
+          cr.cancel_reason_desc AS cancel_reason_by_user,
+          crp.cancel_reason_desc AS cancel_reason_by_partner,
+          mr.diagnosa,
+          mat.action_type_desc,
+          mr.prescription_type_id,
+          CONCAT(
+            '".FULL_UPLOAD_PATH_PRESCRIPTION."',
+            mr.prescription_img
+          ) prescription_img,
+          bt.booking_status_id,
+          bt.cancel_status,
+          bt.latitude_request,
+          bt.longitude_request,
+          pa.latitude AS latitude_origin,
+          pa.longitude AS longitude_origin 
+        FROM
+          booking_trx bt 
+          LEFT JOIN partner_profile pr 
+            ON bt.partner_selected = pr.user_id 
+          LEFT JOIN mst_service_type st 
+            ON bt.service_type_id = st.service_type_id 
+          LEFT JOIN partner_account pa 
+            ON bt.partner_selected = pa.user_id 
+          LEFT JOIN mst_payment_methode mpm 
+            ON bt.pymt_methode_id = mpm.pymt_methode_id 
+          LEFT JOIN mst_cancel_reason cr 
+            ON bt.cancel_reason_id = cr.cancel_reason_id 
+          LEFT JOIN mst_cancel_reason_partner crp 
+            ON bt.cancel_reason_id = crp.cancel_reason_id 
+          LEFT JOIN medical_record mr 
+            ON bt.booking_id = mr.booking_id 
+          LEFT JOIN mst_action_type mat 
+            ON bt.action_type_id = mat.action_type_id 
+          LEFT JOIN user_account ua 
+            ON bt.user_id = ua.user_id 
+        WHERE (
+            bt.partner_selected = '$user_id'
+            AND bt.booking_status_id = '04' 
+            AND bt.cancel_status = 'N'
+          ) 
+          OR (
+            bt.partner_selected = '$user_id'
+            AND bt.cancel_status = 'Y'
+          )");
         return $query->result();        
     }
 
