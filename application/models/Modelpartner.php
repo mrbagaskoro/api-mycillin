@@ -924,4 +924,14 @@ class ModelPartner extends CI_Model
         return $query?true:false;
     }
 
+    public function partner_consultation_completed($data) 
+    {
+        $where['booking_id'] = $data['booking_id'];
+        $update['booking_status_id'] = "04";
+        $update['updated_by'] = $data['user_id'];
+
+        $query = $this->db->update('booking_trx', $update, $where);
+        return $query?TRUE:FALSE;
+    }
+
 }
