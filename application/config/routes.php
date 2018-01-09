@@ -81,6 +81,7 @@ $route['api/login']['POST']                     = 'controlpatient/generate_jwt';
 $route['api/list_history_onprogress']['POST']   = 'userpatient/list_history_onprogress';
 $route['api/list_history_completed']['POST']   	= 'userpatient/list_history_completed';
 $route['api/email_e_receipt']['POST']   		= 'userpatient/email_e_receipt';
+$route['api/email_record']['POST']   			= 'userpatient/email_record';
 
 /*---------------------- List Parameter ------------------*/
 $route['api/list_relation']['GET']				= 'listparam/list_mst_relation';

@@ -49,6 +49,12 @@ class ModelPatient extends CI_Model {
         return $query->row();
     }
 
+    public function is_valid_record_id($booking_id)
+    {
+        $query = $this->db->query("select ua.email, bt.created_date, bt.booking_id, mr.record_id ,mst.service_type_desc, mat.action_type_desc, pp.full_name as partner_name, ar.full_name as user_name, mpm.pymt_methode_desc, bt.promo_code, bt.price_amount, mr.body_temperature, mr.blood_sugar_level, mr.cholesterol_level, mr.blood_press_upper, mr.blood_press_lower, mr.patient_condition, mr.diagnosa, concat('".FULL_UPLOAD_PATH_PRESCRIPTION."', mr.prescription_img) prescription_img from medical_record mr left join partner_profile pp on mr.partner_id=pp.user_id left join account_relation ar on mr.user_id=ar.user_id left join user_account ua on mr.user_id=ua.user_id left join booking_trx bt on mr.booking_id=bt.booking_id left join mst_action_type mat on bt.action_type_id=mat.action_type_id left join mst_service_type mst on bt.service_type_id=mst.service_type_id left join mst_payment_methode mpm on bt.pymt_methode_id=mpm.pymt_methode_id where booking_id='$booking_id'");
+        return $query->row();
+    }
+
   function get_banner_apps(){
       $cur_date = date('Y-m-d');
       $query = $this->db->query("SELECT 
