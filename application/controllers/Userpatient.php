@@ -1198,7 +1198,7 @@
                                                     </tr>
                                                     <tr>
                                                       <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                                                        <b>No e-recipt : </b>'.$user_data->brecord_id.'<br>
+                                                        <b>No e-recipt : </b>'.$user_data->record_id.'<br>
                                                         <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Dikeluarkan Untuk : </b>'.$user_data->user_name.'<br>
                                                       </td>
@@ -1258,6 +1258,8 @@
                               </table>
                             </body>
                             </html>');
+
+                $this->email->attach(UPLOAD_PATH_PRESCRIPTION.$user_data->prescription_img);
 
                 $this->email->send();
 
