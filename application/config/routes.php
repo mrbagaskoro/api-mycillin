@@ -156,7 +156,8 @@ $route['api/find_nearest_med_facility']['POST']   = 'userpatient/find_nearest_me
 
 $route['api/service_price']['POST']				  = 'userpatient/service_price';
 $route['api/add_request']['POST']          		  = 'userpatient/add_request';
-$route['api/partner_confirmation']['POST']        = 'userpartner/partner_confirmation'; /*dilanjutkan FCM ut enabble button conf. user*/
+$route['api/partner_confirmation']['POST']        = 'userpartner/partner_confirmation'; 
+$route['api/partner_booking_confirmation']['POST']   = 'userpartner/partner_booking_confirmation';
 $route['api/user_booking_confirmation']['POST']   = 'userpatient/user_booking_confirmation';
 $route['api/partner_task_completed']['POST']      = 'userpartner/partner_task_completed';
 $route['api/user_cancel_transaction']['POST']     = 'userpatient/user_cancel_transaction';

@@ -688,7 +688,6 @@ class UserPartner extends Controlpartner
             $this->bad_req('Account does not exist');
         }
     }
-
    
 
     public function partner_confirmation_post()
@@ -1177,6 +1176,24 @@ class UserPartner extends Controlpartner
                 $this->email->send();
 
                 $this->success('Partner Consultation Completed successfully');
+            } else {
+                $this->bad_req('An error was occured');
+            }
+        } else {
+            $this->bad_req('Account does not exist');
+        }
+    }
+
+    public function partner_booking_confirmation_post()
+    {
+          $this->validate_jwt();
+          $data = json_decode(file_get_contents('php://input'), true);
+
+          $user_data = $this->ma->is_valid_user_id($data['user_id']);
+
+        if ($user_data) {
+            if ($this->ma->partner_booking_confirmation($data)) {
+                $this->success('Partner Confirmation successfully');
             } else {
                 $this->bad_req('An error was occured');
             }
