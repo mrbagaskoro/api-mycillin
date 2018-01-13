@@ -937,8 +937,6 @@ class ModelPartner extends CI_Model
     public function partner_booking_confirmation($data) 
     {
         $where['booking_id'] = $data['booking_id'];
-
-        $update['actual_partner_loc'] = $data['actual_partner_loc']; 
         $update['booking_status_id'] = "03";
         $update['updated_by'] = $data['user_id'];
 
