@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'mycillin.com',
+	'hostname' => '153.92.8.68',
 	'username' => 't17000001',
 	'password' => '@Sejagat_2017',
 	'database' => 't1700000_mcdb',
