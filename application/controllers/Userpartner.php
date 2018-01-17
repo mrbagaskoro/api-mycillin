@@ -782,7 +782,7 @@ class UserPartner extends Controlpartner
                                                         <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Diterbitkan Untuk : </b>'.$user_data->user_name.'<br>
                                                       </td>
-                                                      </table>
+                                                      
                                                       </tr>
                                                         <b>Detail Pesanan: </b><br>
                                                         Tanggal Pesanan : '.$user_data->created_date.'<br>
@@ -1125,7 +1125,7 @@ class UserPartner extends Controlpartner
                                                         <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Diterbitkan Untuk : </b>'.$user_data->user_name.'<br>
                                                       </td>
-                                                      </table>
+                                                      
                                                       </tr>
                                                         <b>Detail Pesanan: </b><br>
                                                         Tanggal Pesanan : '.$user_data->created_date.'<br>

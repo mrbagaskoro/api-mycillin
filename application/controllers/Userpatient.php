@@ -708,13 +708,13 @@
         $this->validate_jwt();
         $data = json_decode(file_get_contents('php://input'), true);
         $data = $this->ma->detail_partner_information($data['user_id']);
-            $i=0;
+            /*$i=0;
             foreach($data as $row){
                 $data[$i]->base_profile_photo = base64_encode(file_get_contents($row->profile_photo));
                 $data[$i]->base_photo_SIP = base64_encode(file_get_contents($row->photo_SIP));
                 $data[$i]->base_photo_STR = base64_encode(file_get_contents($row->photo_STR));
                 $i++;
-            }
+            }*/
         $this->ok($data);
     }
     
@@ -1079,7 +1079,7 @@
                                                         <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Diterbitkan Untuk : </b>'.$user_data->user_name.'<br>
                                                       </td>
-                                                      </table>
+                                                      
                                                       </tr>
                                                         <b>Detail Pesanan: </b><br>
                                                         Tanggal Pesanan : '.$user_data->created_date.'<br>
@@ -1202,7 +1202,7 @@
                                                         <b>No e-recipt : </b>'.$user_data->booking_id.'<br>
                                                         <b>Dikeluarkan Untuk : </b>'.$user_data->user_name.'<br>
                                                       </td>
-                                                      </table>
+                                                      
                                                       </tr>
                                                         <b>Detail Penanganan: </b><br>
                                                         Tanggal Pesanan : '.$user_data->created_date.'<br>
@@ -1210,7 +1210,7 @@
                                                         Jenis Tindakan : '.$user_data->action_type_desc.'<br>
                                                         Petugas Medis : '.$user_data->partner_name.'<br>
                                                       </td>
-                                                      </table>
+                                                      
                                                       </tr>
                                                         <b>Detail Pemeriksaan & Diagnosa Penyakit: </b><br>
                                                         Tanggal Pemeriksaan : '.$user_data->created_date.'<br>

@@ -500,7 +500,7 @@ class ModelPatient extends CI_Model {
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.visit_id='1' 
-      HAVING distance < 200 
+      HAVING distance < 20 
       ");
     return $query->result();
   }
@@ -557,7 +557,7 @@ class ModelPatient extends CI_Model {
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.visit_id='1' 
-      HAVING distance < 200
+      HAVING distance < 20
       ");
     return $query->result();
   }
@@ -614,7 +614,7 @@ class ModelPatient extends CI_Model {
       AND pa.status_id='01'
       AND pa.available_id='1'
       AND pa.reservasi_id='1' 
-      HAVING distance < 200
+      HAVING distance < 20
       ");
     return $query->result();
   }
@@ -929,7 +929,7 @@ class ModelPatient extends CI_Model {
       concat('".FULL_UPLOAD_PATH_MEDFACILITY."', facility_picture) facility_picture
       FROM mst_healthcenter_data 
       WHERE is_active='Y' 
-      HAVING distance < 20
+      HAVING distance < 10
       ");
     return $query->result();
   }
