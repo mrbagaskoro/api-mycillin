@@ -693,7 +693,7 @@ class ModelPatient extends CI_Model {
       }
 
       $date = date('Y-m-d H:i:s'); 
-      $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>$service_type, 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N','booking_id'=>$booking_id);
+      $transaksi = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'relation_id'=>$data['relation_id'], 'Action_type_id'=>'04', 'partner_selected'=>$partner_selected, 'pymt_methode_id'=>$pymt_methode,'service_type_id'=>'02', 'promo_code'=>$promo_code, 'price_amount'=>$total_price,'partner_profit_share'=>$partner_fee,'booking_status_id'=>'01','cancel_status'=>'N','booking_id'=>$booking_id);
 
       $wallet_user = array('created_by'=>$data['user_id'], 'created_date'=>$date, 'user_id'=>$data['user_id'], 'effective_date'=>$date,'transaction_type_id'=>'Biaya Pelayanan Konsultasi','amount'=>$total_price*-1,'transaction_id'=>$wallet_user);
 
