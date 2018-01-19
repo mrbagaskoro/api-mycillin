@@ -792,6 +792,7 @@ class ModelPatient extends CI_Model {
           bt.promo_code,
           bt.price_amount,
           bt.booking_status_id,
+          mbs.booking_status_desc, 
           bt.cancel_status,
           cr.cancel_reason_desc as cancel_reason_user,
           crp.cancel_reason_desc as cancel_reason_partner,
@@ -799,8 +800,7 @@ class ModelPatient extends CI_Model {
           bt.latitude_request,
           bt.longitude_request,
           pr.latitude_praktik,
-          pr.longitude_praktik,
-          mbs.booking_status_desc 
+          pr.longitude_praktik          
         FROM
           booking_trx bt 
           INNER JOIN partner_account pa 
@@ -854,7 +854,8 @@ class ModelPatient extends CI_Model {
           '".FULL_UPLOAD_PATH_PRESCRIPTION."', 
           mr.prescription_img
         ) prescription_img, 
-        bt.booking_status_id, 
+        bt.booking_status_id,
+        mbs.booking_status_desc, 
         bt.cancel_status,
         cr.cancel_reason_desc as cancel_reason_user,
         crp.cancel_reason_desc as cancel_reason_partner,
@@ -880,7 +881,9 @@ class ModelPatient extends CI_Model {
         LEFT JOIN mst_cancel_reason cr 
           ON bt.cancel_reason_id = cr.cancel_reason_id 
         LEFT JOIN mst_cancel_reason_partner crp
-          ON bt.cancel_reason_id = crp.cancel_reason_id 
+          ON bt.cancel_reason_id = crp.cancel_reason_id
+        LEFT JOIN mst_booking_status mbs
+            ON bt.booking_status_id = mbs.booking_status_id  
       WHERE 
         (bt.user_id='$user_id' and bt.booking_status_id='04' and bt.cancel_status = 'N') 
       OR
