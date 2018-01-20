@@ -331,7 +331,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © '.echo date('Y');.' All Rights Reserved
+                                                  © '.date('Y').' All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -515,7 +515,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © '.echo date('Y');.' All Rights Reserved
+                                                  © '.date('Y').' All Rights Reserved
                                           </td>
                                         </tr>
                                       </table>
@@ -617,7 +617,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © '.echo date('Y');.' All Rights Reserved
+                                                  © '.date('Y').' All Rights Reserved
                                                     </td>
                                                   </tr>
                                                 </table>
@@ -1137,7 +1137,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © '.echo date('Y');.' All Rights Reserved
+                                                  © '.date('Y').' All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -1269,7 +1269,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © '.echo date('Y');.' All Rights Reserved
+                                                  © '.date('Y').' All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
