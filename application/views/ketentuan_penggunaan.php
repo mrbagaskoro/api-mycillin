@@ -55,16 +55,15 @@
                 <p>1). PT Traksi Indonesia Solusi adalah suatu perseroan yang didirikan berdasarkan hukum Negara
                 Republik Indonesia (&quot;kami&quot; atau &quot;milik kami&quot;).</p>
                 <p>2). Aplikasi ini merupakan aplikasi perangkat lunak yang berfungsi sebagai sarana untuk
-                menemukan layanan homecare yang disediakan oleh pihak ketiga (dokter, tenaga paramedis,
+                menemukan layanan jasa yang disediakan oleh pihak ketiga (dokter, perawat, bidan
                 badan usaha pengelola klinik, badan usaha pengelola rumah sakit) (&quot;Penyedia(-penyedia)
                 Layanan&quot;). Aplikasi ini menawarkan informasi tentang layanan yang ditawarkan oleh Penyedia
                 Layanan. Jenis layanan yang dapat diminta melalui Aplikasi adalah :
-                  <br/>a. homecare;
-                  <br/>b. pemesanan berobat terjadwal;
-                  <br/>c. konsultasi tentang kesehatan;
-                  <br/>d. Pembelanjaan Obat Pribadi;
-                  <br/>e. Penyewaan ambulance; dan
-                  <br/>f. Layanan lain yang dapat kami tambahkan dari waktu ke waktu (&quot;Layanan&quot;).</p>
+                  <br/>a. Panggil dokter ke rumah (in-house visit doctor);
+                  <br/>b. Pemesanan berobat terjadwal;
+                  <br/>c. homecare oleh perawat/bidan;
+                  <br/>d. konsultasi tentang kesehatan; dan
+                  <br/>e. Layanan lain yang dapat kami tambahkan dari waktu ke waktu (&quot;Layanan&quot;).</p>
                 <p>3).Aplikasi ini memungkinkan anda untuk mengirimkan permintaan untuk suatu Layanan kepada
                 Penyedia Layanan. Penerima GPS - yang harus dipasang pada perangkat bergerak (smart
                 phone) dimana anda telah mengunduh Aplikasi - mendeteksi lokasi anda dan mengirimkan
@@ -129,11 +128,8 @@
                   <p>7. Anda berjanji bahwa anda akan menggunakan Aplikasi hanya untuk tujuan yang dimaksud
                   untuk mendapatkan Layanan. Anda tidak diperbolehkan untuk menyalahgunakan atau
                   menggunakan Aplikasi untuk tujuan penipuan atau menyebabkan ketidaknyamanan kepada
-                  orang lain atau melakukan pemesanan palsu.</p>
-                  <p>8. Jika anda juga adalah seorang atau badan usaha Penyedia Layanan, anda tidak dapat
-                  menggunakan akun konsumen anda sendiri (atau akun milik konsumen orang lain) untuk
-                  melakukan pemesanan yang akan anda terima sendiri sebagai seorang pengemudi.</p>
-                  <p>9. Anda tidak diperkenankan untuk membahayakan, mengubah atau memodifikasi Aplikasi
+                  orang lain atau melakukan pemesanan layanan palsu.</p>
+                  <p>8. Anda tidak diperkenankan untuk membahayakan, mengubah atau memodifikasi Aplikasi
                   dan/atau Situs web atau mencoba untuk membahayakan, mengubah atau memodifikasi
                   Aplikasi dan/atau Situs web dengan cara apapun. Kami tidak bertanggung jawab jika anda
                   tidak memiliki perangkat yang sesuai atau jika anda telah mengunduh versi Aplikasi yang salah
@@ -142,64 +138,42 @@
                   tidak sah atau untuk tujuan lain selain daripada tujuan yang dimaksud untuk penggunaan
                   Aplikasi ini. Anda berjanji bahwa anda hanya akan menggunakan suatu jalur akses yang
                   diperbolehkan untuk anda gunakan.</p>
-                  <p>10. Anda akan menjaga kerahasiaan dan tidak akan menyalahgunakan informasi yang anda terima
+                  <p>9. Anda akan menjaga kerahasiaan dan tidak akan menyalahgunakan informasi yang anda terima
                   dari penggunaan Aplikasi tersebut. Anda akan memperlakukan Penyedia Layanan dengan
                   hormat dan tidak akan terlibat dalam perilaku atau tindakan yang tidak sah, mengancam atau
                   melecehkan ketika menggunakan layanan mereka.</p>
-                  <p>11. Anda memahami dan setuju bahwa penggunaan Aplikasi oleh anda akan tunduk pula pada
+                  <p>10. Anda memahami dan setuju bahwa penggunaan Aplikasi oleh anda akan tunduk kepada
                   Kebijakan Privasi kami sebagaimana dapat diubah dari waktu ke waktu. Dengan menggunakan
                   Aplikasi, Anda juga memberikan persetujuan sebagaimana dipersyaratkan berdasarkan
                   Kebijakan Privasi kami.</p>
-                  <p>12. Dengan memberikan informasi kepada kami, anda menyatakan bahwa anda berhak untuk
+                  <p>11. Dengan memberikan informasi kepada kami, anda menyatakan bahwa anda berhak untuk
                   memberikan kepada kami informasi yang akan kami gunakan dan berikan kepada Penyedia
                   Layanan.</p>
-                  <p>13. Aplikasi tidak boleh dipergunakan untuk mencari Layanan untuk:
+                  <p>12. Aplikasi tidak boleh dipergunakan untuk mencari Layanan untuk:
                   <br/>a. menggunakan layanan jasa kesehatan untuk membahayakan diri anda sendiri dan atau
                   <br/>orang lain;
                   <br/>b. konsultasi atas hal-hal yang menyangkut unsur SARA;
-                  <br/>c. membeli dan/atau obat-obatan terlarang/ilegal;</p>
-                  <p>14. Anda harus memberikan kepada kami informasi yang akurat dan lengkap mengenai jenis
+                  <br/>c. membeli dan/atau memesan obat-obatan terlarang/ilegal;</p>
+                  <p>13. Anda harus memberikan kepada kami informasi yang akurat dan lengkap mengenai jenis
                   layanan yang di butuhkan, informasi lokasi kunjungan, informasi penyakit dan atau kondisi
-                  yang berhubungan dengan keluhan kesehatan, serta informasi dokumen fisik resep obat.
-                  <p>15. Kami maupun Penyedia Layanan tidak akan bertanggung jawab atas segala kerusakan,
-                  perubahan bentuk dan wujud, kadaluwarsa, bau, tumpahan atau ketidaklengkapan lain dari
-                  produk selama pengiriman yang disebabkan oleh kemasan atau pembungkusan yang kurang
-                  baik/sesuai oleh Penyedia Layanan.</p>
-                  <p>16. Penyedia Layanan berhak untuk menolak pesanan anda jika menurut penilaian Penyedia
-                  Layanan, obat yang diminta dianggap tidak sesuai dan atau merupakan jenis obat-obatan
-                  terlarang/ilegal, ia mungkin tidak memiliki persedian obat, dan tidak dapat melakukan
-                  pengiriman obat.</p>
-                  <p>17. Kami dan/atau Penyedia Layanan yang terkait berhak menolak untuk menerima pesanan Anda
+                  yang berhubungan dengan keluhan kesehatan, serta informasi penunjang lain yang dibutuhkan.</p>
+                  <p>14. Penyedia Layanan berhak untuk menolak pesanan atau permintaan anda jika menurut penilaian Penyedia
+                  Layanan, jenis obat yang diminta dianggap tidak sesuai dan atau merupakan jenis obat-obatan
+                  terlarang/ilegal, penyedia layanan berhak untuk menolak untuk mengeluarkan resep obat dengan pertimbangan yang mereka lakukan.</p>
+                  <p>15. Kami dan/atau Penyedia Layanan yang terkait berhak menolak untuk menerima pesanan Anda
                   jika kami memiliki alasan yang wajar untuk mencurigai bahwa anda telah, atau dengan
                   menerima pesanan dari anda, anda akan melanggar Ketentuan Penggunaan ini atau hukum
                   dan peraturan perundang-undangan yang berlaku.</p>
-                  <p>18. Kami dapat, berdasarkan kebijakan kami, memberikan promosi-promosi yang dapat ditukar
+                  <p>16. Kami dapat, berdasarkan kebijakan kami, memberikan promosi-promosi yang dapat ditukar
                   untuk manfaat terkait dengan penggunaan Aplikasi. Anda setuju bahwa anda hanya akan
                   menggunakan promosi tersebut sebagaimana promosi tersebut dimaksudkan dan tidak akan
                   menyalahgunakan, menggandakan, menjual atau mengalihkan promosi tersebut dengan cara
                   apapun. Anda juga memahami bahwa promosi tidak dapat ditukarkan dengan uang tunai dan
                   dapat berakhir pada tanggal tertentu, bahkan sebelum anda menggunakannya.</p>
-                  <p>19. Untuk ketentuan Layanan Pembelian Obat Pribadi, anda menyatakan bahwa barang yang akan
-                  dibeli dan dkirimkan oleh Penyedia Layanan adalah barang yang sah dan tidak melanggar
-                  hukum dan perundang-undangan yang berlaku dengan cara apapun. Anda setuju untuk
-                  menjaga, mengganti kerugian dan membebaskan kami dan kami tidak bertanggung jawab atas
-                  barang yang dibeli oleh Penyedia Layanan atas nama anda dan diberikan kepada anda yang
-                  mungkin dapat melanggar hukum dan peraturan perundang-undangan yang berlaku.</p>
-                  <p>20. Anda hanya dapat melakukan pemesanan atas obat berdasarkan resep yang dikeluarkan oleh
-                  dokter yang sah atas untuk nama anda probadi dan atau orang-orang yang telah di daftarkan
-                  sebagai anggota keluarga anda yang sah baik dalam bentuk resep obat fisik, maupun resep
-                  obat elektronik kepada apotik-apotik penjual obat yang terdaftar dan menyedialan layanan di
-                  layanan apotik MYCILLIN.</p>
-                  <p>21. Kami tidak bertanggung jawab atas kualitas obat yang disediakan oleh apotik dalam layanan
-                  Pembelian Obat Pribadi.</p>
-                  <p>22. Anda mengakui dan memahami bahwa harga makanan atau barang yang ditampilkan di
-                  layanan Pembelian Obat Pribadi adalah merupakan harga yang di keluarkan oleh Pemberi
-                  Layanan dalam hal ini apotik dan dapat berubah dari waktu ke waktu.</p>
-                  <p>23. Anda setuju dan mengakui bahwa anda akan membayar sesuai dengan tanda terima yang
-                  diterbitkan oleh apotik yang diserahkan oleh Penyedia Layanan kepada Anda dalam
-                  menggunakan layanan Pembelian Obat Pribadi.</p>
-                  <p>24. Kami atau Penyedia Layanan tidak menjamin ketersediaan obat di apotik.</p>
-                  <p>25. Mohon menginformasikan kepada kami jika anda tidak lagi memiliki kontrol atas akun anda,
+                  <p>17. Kami tidak bertanggung jawab atas kualitas layanan yang disediakan oleh penyedia Layanan.</p>
+                  <p>18. Anda mengakui dan memahami bahwa biaya layanan yang ditampilkan dapat berubah dari waktu ke waktu.</p>
+                  <p>19. Anda setuju dan mengakui bahwa anda akan membayar sesuai dengan nilai yang tertera di aplikasi dan atau tanda terima dalam bentu e-reciept yang otomatis dikirimkan ke email anda.</p>
+                  <p>20. Mohon menginformasikan kepada kami jika anda tidak lagi memiliki kontrol atas akun anda,
                   sebagai contoh akun anda dengan cara bagaimanapun diretas (hack) atau telepon anda dicuri,
                   sehingga kami dapat membatalkan akun anda dengan sebagaimana mestinya. Mohon
                   diperhatikan bahwa anda bertanggung jawab atas penggunaan akun anda dan anda mungkin
@@ -219,34 +193,11 @@
                   memberitahu anda tentang biaya atas nama Penyedia Layanan.</p>
                   <p>3. Anda setuju bahwa anda akan membayar Layanan yang diberikan kepada anda oleh Penyedia
                   Layanan secara penuh.</p>
-                  <p>4. Pembayaran dapat dilakukan secara tunai atau dengan menggunakan PAYCILLIN Credit anda.
-                  Semua pembayaran tunai harus dilakukan dalam Rupiah. PAYCILLIN Credit dapat diperoleh
-                  dengan mentransfer jumlah yang anda inginkan ke rekening BCA kami di nomor
-                  xxxxxxxxxxxxx.</p>
-                  <p>5. PAYCILLIN Credit bukan merupakan tabungan dan karena itu tidak termasuk dalam
-                  pengaturan oleh Lembaga Penjamin Simpanan Indonesia (LPS). Karena PAYCILLIN Credit
-                  dapat dikategorikan sebagai e-money berdasarkan peraturan perundang-undangan yang
-                  berlaku, penggunaan PAYCILLIN Credit harus tunduk pada peraturan perundang-undangan
-                  yang berlaku.</p>
+                  <p>4. Pembayaran dapat dilakukan secara tunai atau dibebankan kepada asuransi BPJS sesuai kesepakatan antara anda dengan Penyedia Layanan. Semua pembayaran tunai harus dilakukan dalam Rupiah.</p>
                   <p>6. Jumlah maksimum PAYCILLIN Credit anda adalah Rp5.000.000 (lima juta Rupiah) dan
                   maksimum total nilai transaksi anda dalam sebulan adalah Rp20.000.000 (dua puluh juta
                   Rupiah).</p>
-                  <p>7. PAYCILLIN Credit adalah dana Anda yang hanya dapat digunakan untuk pembayaran:
-                  <br/>a. Layanan homecare;
-                  <br/>b. Layanan atas pemesanan jadwal berobat;
-                  <br/>c. Layanan konsultasi kesehatan;
-                  <br/>d. Layanan Pembelian Obat Pribadi; dan
-                  <p>8. PAYCILLIN Credit tidak dapat digunakan untuk pembayaran:
-                  <br/>a. biaya dari Penyedia Layanan dalam layanan Pengiriman Makanan; dan</p>
-                  <p>9. PAYCILLIN dapat, dari waktu ke waktu, menambah jumlah PAYCILLIN Credit anda di akun
-                  anda sebagai bagian dari promosinya (misalnya, kode rujukan / referral code). Namun
-                  demikian, ini hanya suatu nilai yang setara dengan nilai uang berdasarkan peraturan
-                  perundang-undangan yang berlaku dan tidak dapat diubah menjadi uang elektronik (e-money).
-                  <p>10. Ketika anda meminta untuk menggunakan PAYCILLIN Credit sebagai alat pembayaran atas</p>
-                  Layanan, anda dengan ini mengakui dan setuju untuk memberikan kami kuasa dan
-                  kewenangan penuh untuk memotong PAYCILLIN Credit anda dan mentransfer uang atas
-                  nama anda untuk membayar Layanan yang disediakan oleh Penyedia Layanan.</p>
-                  <p>11. Biaya untuk Layanan mencakup pajak yang berlaku.</p></li>
+                  <p>7. Biaya untuk Layanan mencakup pajak yang berlaku.</p></li>
                   <li class="text-justify">4. JAMINAN
                   <p>1. Kami tidak memberikan pernyataan, jaminan atau garansi untuk dapat diandalkannya,
                   ketepatan waktu, kualitas, kesesuaian, ketersediaan, akurasi atau kelengkapan dari Layanan,
@@ -311,9 +262,8 @@
                   <p>3. Kualitas Layanan yang diperoleh melalui penggunaan Aplikasi ini sepenuhnya menjadi
                   tanggung jawab Penyedia Layanan yang pada akhirnya memberikan Layanan untuk anda.
                   Anda memahami, oleh karena itu, bahwa dengan menggunakan Aplikasi ini, Anda dapat
-                  dihadapkan pada transportasi yang berpotensi berbahaya, ofensif, berbahaya bagi anak di
-                  bawah umur, tidak aman atau tidak pantas, dan bahwa Anda menggunakan layanan atas risiko
-                  anda sendiri.</p>
+                  dihadapkan pemberian jasa layanan yang berpotensi berbahaya, ofensif, tidak aman atau 
+                  tidak pantas, dan bahwa Anda menggunakan layanan atas risiko anda sendiri.</p>
                   <li class="text-justify">7. GANTI RUGI
                   <p>1. Dengan menggunakan Aplikasi ini, anda setuju bahwa anda akan membela, memberikan ganti
                   rugi dan membebaskan kami, pemberi lisensi, afiliasi, dan masing-masing dari petugas,
@@ -445,7 +395,7 @@
               </ul>
 
               <p style="font-size:16px;color:#5C5C5C;">Informasi lebih lanjut dapat menghubungi :</p>
-              <p style="font-size:16px;color:#5C5C5C;">Call Center (021) 1234 567 | <a href="http://www.mycillin.co.id">www.mycillin.co.id</a></p>
+              <p style="font-size:16px;color:#5C5C5C;">Support Center email : support@mycillin.com| <a href="http://www.mycillin.co.id">www.mycillin.co.id</a></p>
               <!-- <br/><p style="font-size:14px;color:#5C5C5C;"><em>PT. Mandiri Utama Finance terdaftar dan diawasi oleh <strong>Otoritas Jasa Keuangan (OJK)</strong></em></p> -->
               <!-- <a href="" class="btn btn-success">Log in</a> -->
               <br/><br/>
