@@ -331,7 +331,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © 2018 All Rights Reserved
+                                                  © '.echo date('Y');.' All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -347,19 +347,43 @@
 
                     $this->email->send();
           
-                    $this->success('activation success');
+                    //$this->success('activation success');
+                    $data['user'] = $user_data->full_name;
+                    $data['status'] = "Congratulation, you're now activated";
+
+                    $this->load->view('aktivasi', $data);
                 } else {
-                    $this->not_auth('activation fail, please try again');
+                    //$this->not_auth('activation fail, please try again');
+                    $data['user'] = $user_data->full_name;
+                    $data['status'] = "Activation failed, please try again";
+
+                    $this->load->view('aktivasi', $data);
                 }
             } else {
-                $this->not_auth('activation expired');
+                //$this->not_auth('activation expired');
+                $data['user'] = $user_data->full_name;
+                $data['status'] = "Activation expired, you can request for new activation link";
+
+                $this->load->view('aktivasi', $data);
             }
         } elseif ($user_data->status_id == '01') {
-            $this->not_auth('user already activated');
+            //$this->not_auth('user already activated');
+            $data['user'] = $user_data->full_name;
+            $data['status'] = "You're already activated";
+
+            $this->load->view('aktivasi', $data);
         } elseif ($user_data->status_id == '02') {
-            $this->not_auth('user inactive');
+            //$this->not_auth('user inactive');
+            $data['user'] = $user_data->full_name;
+            $data['status'] = "I'am sorry, you're inactive";
+
+            $this->load->view('aktivasi', $data);
         } else {
-            $this->not_auth('user deleted');
+            //$this->not_auth('user deleted');
+            $data['user'] = $user_data->full_name;
+            $data['status'] = "Oops, you're deleted";
+
+            $this->load->view('aktivasi', $data);
         }
     }
 
@@ -491,7 +515,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © 2018 All Rights Reserved
+                                                  © '.echo date('Y');.' All Rights Reserved
                                           </td>
                                         </tr>
                                       </table>
@@ -593,7 +617,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © 2018 All Rights Reserved
+                                                  © '.echo date('Y');.' All Rights Reserved
                                                     </td>
                                                   </tr>
                                                 </table>
@@ -976,7 +1000,7 @@
         if ($user_data) {
             if ($get = $this->ma->get_pin_user($data['user_id'])) {
                 if ($get->pin_no == null || $get->pin_no == 0 || $get->pin_no == '') {
-                    $this->success('Set your PIN first');
+                    $this->bad_req('Set your PIN first');
                 } else {
                     $this->ok($get);
                 }
@@ -1113,7 +1137,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © 2018 All Rights Reserved
+                                                  © '.echo date('Y');.' All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>
@@ -1245,7 +1269,7 @@
                                               <tr>
                                                 <td valign="top" class="footer-cell">
                                                   www.mycillin.com<br>
-                                                  © 2018 All Rights Reserved
+                                                  © '.echo date('Y');.' All Rights Reserved
                                                 </td>
                                               </tr>
                                             </table>

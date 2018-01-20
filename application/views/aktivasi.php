@@ -25,14 +25,9 @@
 
                       <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
                         <tr>
-                          <td valign="top" style="padding-bottom:15px; background-color:#ffffff;">
-                            <h1>Welcome to MyCillin</h1>
-                          </td>
-                        </tr>
-                        <tr>
                           <td valign="top" style="padding-bottom:20px; background-color:#ffffff;">
-                            <b>Hi <?php echo $user; ?>,</b><br>
-                            <?php echo $status; ?>
+                            <b><center>Hi <?php echo $user; ?>,</center>
+                            <center><?php echo $status; ?></center></b>
                           </td>
                         </tr>
                         <tr>
@@ -53,7 +48,7 @@
                   <tr>
                     <td valign="top" class="footer-cell">
                       MyCillin<br>
-                      © 2017 All Rights Reserved
+                      © <?php echo date('Y'); ?> All Rights Reserved
                     </td>
                   </tr>
                 </table>
