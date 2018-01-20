@@ -159,7 +159,7 @@ class UserPartner extends Controlpartner
 
     public function change_partner_avatar_post()
     {
-        $this->validate_jwt();
+        /*$this->validate_jwt();*/
         $data = file_get_contents('php://input');
         $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
   
@@ -198,7 +198,7 @@ class UserPartner extends Controlpartner
 
     public function get_partner_avatar_post()
     {
-        $this->validate_jwt();
+        /*$this->validate_jwt();*/
         $data = json_decode(file_get_contents('php://input'), true);
 
         $user_data = $this->ma->is_valid_user_id($data['user_id']);
@@ -217,7 +217,7 @@ class UserPartner extends Controlpartner
 
     public function change_partner_doc_post()
     {
-        $this->validate_jwt();
+        /*$this->validate_jwt();*/
         $data = file_get_contents('php://input');
         $user_data = $this->ma->is_valid_user_id($this->post('user_id'));
   
@@ -258,7 +258,7 @@ class UserPartner extends Controlpartner
 
     public function get_partner_doc_post()
     {
-        $this->validate_jwt();
+        /*$this->validate_jwt();*/
         $data = json_decode(file_get_contents('php://input'), true);
 
         $user_data = $this->ma->is_valid_user_id($data['user_id']);
@@ -1052,7 +1052,7 @@ class UserPartner extends Controlpartner
 
     public function partner_account_inisiation_post() //--untuk backend admin, namun masih kena validasi token
     {
-        $this->validate_jwt();
+        /*$this->validate_jwt();*/
         $data = json_decode(file_get_contents('php://input'), true);
 
         $user_data = $this->ma->is_valid_user_id($data['user_id']);
