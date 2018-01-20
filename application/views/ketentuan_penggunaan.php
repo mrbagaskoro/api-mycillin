@@ -194,10 +194,7 @@
                   <p>3. Anda setuju bahwa anda akan membayar Layanan yang diberikan kepada anda oleh Penyedia
                   Layanan secara penuh.</p>
                   <p>4. Pembayaran dapat dilakukan secara tunai atau dibebankan kepada asuransi BPJS sesuai kesepakatan antara anda dengan Penyedia Layanan. Semua pembayaran tunai harus dilakukan dalam Rupiah.</p>
-                  <p>6. Jumlah maksimum PAYCILLIN Credit anda adalah Rp5.000.000 (lima juta Rupiah) dan
-                  maksimum total nilai transaksi anda dalam sebulan adalah Rp20.000.000 (dua puluh juta
-                  Rupiah).</p>
-                  <p>7. Biaya untuk Layanan mencakup pajak yang berlaku.</p></li>
+                  <p>5. Biaya untuk Layanan mencakup pajak yang berlaku.</p></li>
                   <li class="text-justify">4. JAMINAN
                   <p>1. Kami tidak memberikan pernyataan, jaminan atau garansi untuk dapat diandalkannya,
                   ketepatan waktu, kualitas, kesesuaian, ketersediaan, akurasi atau kelengkapan dari Layanan,
