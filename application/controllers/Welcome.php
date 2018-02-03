@@ -20,6 +20,7 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		header("Location: https://www.mycillin.co.id/");
+		die();
 	}
 }
