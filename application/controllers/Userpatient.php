@@ -1294,4 +1294,41 @@
         }
     }
     
+    public function add_facility_information_post()
+    {
+        $data = file_get_contents('php://input');
+
+            $config['upload_path'] = UPLOAD_PATH_MEDFACILITY;
+            $config['allowed_types'] = 'jpeg|jpg|png';
+            $config['max_size'] = 4096;
+            $config['overwrite'] = true;
+
+            $this->load->library('upload', $config);
+            if (!empty($_FILES['facility_pict']['name'])) {
+                $config['file_name'] = 'img_'.$this->post('facility_name');
+                $this->upload->initialize($config);
+                if (!$this->upload->do_upload('facility_pict')) {
+                    $err = array("result" => $this->upload->display_errors());
+                    $this->bad_req($err);
+                }
+
+                $up = $this->upload->data();
+                $data['facility_name'] = $this->post('facility_name');
+                $data['address'] = $this->post('address');
+                $data['phone_no'] = $this->post('phone_no');
+                $data['latitude'] = $this->post('latitude');
+                $data['longitude'] = $this->post('longitude');
+
+                $data['facility_picture'] = $up['file_name'];
+
+                if ($this->ma->add_facility_information($data)) {
+                    $this->success('Medical facility added successfully');
+                } else {
+                    $this->bad_req('An error was occured');
+                }
+            } else {
+                $this->bad_req('File can not empty');
+            }
+    }
+    
   }

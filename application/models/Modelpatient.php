@@ -943,4 +943,19 @@ class ModelPatient extends CI_Model {
       $query = $this->db->query("select cs.partner_id, md.day_desc, mt.time_desc, cs.note from clinic_schedule cs left join mst_day md on cs.day_id=md.day_id left join mst_time mt on cs.time_id=mt.time_id where partner_id='$partner_id'");
       return $query->result();
   }
+  
+  public function add_facility_information($data) {
+    $date = date('Y-m-d H:i:s');
+    $insert['facility_name'] = $data['facility_name'];
+    $insert['address'] = $data['address'];
+    $insert['phone_no'] = $data['phone_no'];
+    $insert['latitude'] = $data['latitude'];
+    $insert['longitude'] = $data['longitude'];
+    $insert['created_date'] = $date;
+    $insert['is_active'] = 'Y';
+    $insert['facility_picture'] = $data['facility_picture'];
+
+    $query = $this->db->insert('mst_healthcenter_data', $insert);
+    return $query?TRUE:FALSE;
+  }
 }
